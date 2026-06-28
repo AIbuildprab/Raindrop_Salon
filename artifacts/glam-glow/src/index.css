@@ -324,8 +324,6 @@ h1, h2, h3, h4 {
   max-width: 820px;
 }
 .hero-eyebrow-wrap {
-  opacity: 0;
-  transform: translateY(20px);
 }
 .hero-headline {
   font-family: var(--font-serif);
@@ -340,12 +338,10 @@ h1, h2, h3, h4 {
   color: var(--gold-bright);
 }
 .line-mask {
-  overflow: hidden;
   display: block;
 }
 .line-inner {
   display: block;
-  transform: translateY(115%);
 }
 .hero-sub {
   font-size: 1.05rem;
@@ -354,16 +350,12 @@ h1, h2, h3, h4 {
   max-width: 540px;
   margin-bottom: 2.5rem;
   font-weight: 300;
-  opacity: 0;
-  transform: translateY(20px);
 }
 .hero-ctas {
   display: flex;
   gap: 1.25rem;
   flex-wrap: wrap;
   align-items: center;
-  opacity: 0;
-  transform: translateY(20px);
 }
 .hero-badge {
   position: absolute;
@@ -373,7 +365,6 @@ h1, h2, h3, h4 {
   backdrop-filter: blur(12px);
   padding: 1rem 1.5rem;
   text-align: center;
-  opacity: 0;
 }
 .hero-badge-stars {
   color: var(--gold);

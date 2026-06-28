@@ -2,16 +2,7 @@ import { useEffect } from 'react'
 
 export default function SiteAnimations() {
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll<HTMLElement>('.line-inner').forEach(el => {
-        el.style.transform = 'translateY(0)'
-      })
-      document.querySelectorAll<HTMLElement>('.hero-sub, .hero-ctas, .hero-badge, .hero-eyebrow-wrap').forEach(el => {
-        el.style.opacity = '1'
-        el.style.transform = 'translateY(0)'
-      })
-      return
-    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const load = async () => {
       const { default: gsap } = await import('gsap')
@@ -28,28 +19,28 @@ export default function SiteAnimations() {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
       if (heroDiamond) {
-        tl.to(heroDiamond, { opacity: 0.09, scale: 1, rotate: 0, duration: 1.4 }, 0)
+        tl.from(heroDiamond, { opacity: 0, scale: 0.92, duration: 1.6 }, 0)
       }
       if (eyebrow) {
-        tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.7 }, 0.3)
+        tl.from(eyebrow, { opacity: 0, y: 16, duration: 0.7 }, 0.15)
       }
       lineInners.forEach((line, i) => {
-        tl.to(line, { yPercent: 0, duration: 0.85 }, 0.5 + i * 0.12)
+        tl.from(line, { opacity: 0, y: 20, duration: 0.75 }, 0.3 + i * 0.12)
       })
       if (heroSub) {
-        tl.to(heroSub, { opacity: 1, y: 0, duration: 0.7 }, 0.95)
+        tl.from(heroSub, { opacity: 0, y: 16, duration: 0.7 }, 0.7)
       }
       if (heroCtas) {
-        tl.to(heroCtas, { opacity: 1, y: 0, duration: 0.7 }, 1.1)
+        tl.from(heroCtas, { opacity: 0, y: 16, duration: 0.7 }, 0.85)
       }
       if (heroBadge) {
-        tl.to(heroBadge, { opacity: 1, duration: 0.7 }, 1.3)
+        tl.from(heroBadge, { opacity: 0, duration: 0.6 }, 1.0)
       }
 
       document.querySelectorAll<HTMLElement>('[data-reveal]').forEach(el => {
-        gsap.to(el, {
-          opacity: 1,
-          y: 0,
+        gsap.from(el, {
+          opacity: 0,
+          y: 32,
           duration: 0.85,
           ease: 'power3.out',
           scrollTrigger: {
@@ -62,10 +53,10 @@ export default function SiteAnimations() {
 
       document.querySelectorAll<HTMLElement>('[data-stagger]').forEach(container => {
         const children = Array.from(container.children) as HTMLElement[]
-        gsap.to(children, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
+        gsap.from(children, {
+          opacity: 0,
+          y: 24,
+          scale: 0.97,
           duration: 0.75,
           stagger: 0.12,
           ease: 'power3.out',
@@ -78,8 +69,8 @@ export default function SiteAnimations() {
       })
 
       document.querySelectorAll<HTMLElement>('.gold-divider').forEach(el => {
-        gsap.to(el, {
-          width: 120,
+        gsap.from(el, {
+          width: 0,
           duration: 0.9,
           ease: 'power3.out',
           scrollTrigger: {
