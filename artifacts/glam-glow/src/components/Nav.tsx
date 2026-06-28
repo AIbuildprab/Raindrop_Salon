@@ -1,4 +1,19 @@
+import { useState, useEffect } from 'react'
+
+const NAV_ITEMS = ['About', 'Services', 'Gallery', 'Reviews', 'FAQ', 'Contact']
+
 export default function Nav() {
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!open) return
+    const close = () => setOpen(false)
+    document.addEventListener('click', close, { once: true })
+    return () => document.removeEventListener('click', close)
+  }, [open])
+
+  const handleLinkClick = () => setOpen(false)
+
   return (
     <nav id="main-nav" role="navigation" aria-label="Main navigation">
       <a href="#hero" className="nav-logo" aria-label="Glam and Glow by Kiran — home">
@@ -12,13 +27,39 @@ export default function Nav() {
           <span className="byline">by Kiran</span>
         </span>
       </a>
+
+      {/* Desktop links */}
       <ul className="nav-links">
-        {['About', 'Services', 'Gallery', 'Reviews', 'FAQ', 'Contact'].map(item => (
+        {NAV_ITEMS.map(item => (
           <li key={item}>
             <a href={`#${item.toLowerCase()}`}>{item}</a>
           </li>
         ))}
       </ul>
+
+      {/* Burger button — mobile only */}
+      <button
+        className={`nav-burger${open ? ' is-open' : ''}`}
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        onClick={e => { e.stopPropagation(); setOpen(v => !v) }}
+      >
+        <span /><span /><span />
+      </button>
+
+      {/* Mobile dropdown */}
+      <div className={`nav-mobile-menu${open ? ' is-open' : ''}`} onClick={e => e.stopPropagation()}>
+        <ul>
+          {NAV_ITEMS.map(item => (
+            <li key={item}>
+              <a href={`#${item.toLowerCase()}`} onClick={handleLinkClick}>{item}</a>
+            </li>
+          ))}
+        </ul>
+        <a href="#contact" className="btn-gold nav-mobile-cta" onClick={handleLinkClick}>
+          Book Now
+        </a>
+      </div>
     </nav>
   )
 }
