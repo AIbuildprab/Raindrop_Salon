@@ -10,10 +10,10 @@ export default function Hero() {
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <polygon points="200,0 400,200 200,400 0,200" stroke="#B5A04D" strokeWidth="0.8" strokeOpacity="0.7" fill="none" />
-        <polygon points="200,40 360,200 200,360 40,200" stroke="#B5A04D" strokeWidth="0.6" strokeOpacity="0.5" fill="none" />
-        <polygon points="200,80 320,200 200,320 80,200" stroke="#B5A04D" strokeWidth="0.4" strokeOpacity="0.3" fill="none" />
-        <polygon points="200,120 280,200 200,280 120,200" stroke="#B5A04D" strokeWidth="0.3" strokeOpacity="0.2" fill="none" />
+        <polygon points="200,0 400,200 200,400 0,200" stroke="#B8942E" strokeWidth="0.8" strokeOpacity="0.7" fill="none" />
+        <polygon points="200,40 360,200 200,360 40,200" stroke="#B8942E" strokeWidth="0.6" strokeOpacity="0.5" fill="none" />
+        <polygon points="200,80 320,200 200,320 80,200" stroke="#B8942E" strokeWidth="0.4" strokeOpacity="0.3" fill="none" />
+        <polygon points="200,120 280,200 200,280 120,200" stroke="#B8942E" strokeWidth="0.3" strokeOpacity="0.2" fill="none" />
       </svg>
 
       <div className="hero-content">

@@ -169,7 +169,7 @@ h1, h2, h3, h4 {
   position: absolute;
   top: 0; left: -100%;
   width: 60%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.28), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
   animation: shimmer 2.8s ease-in-out infinite;
 }
 @keyframes shimmer {
@@ -201,7 +201,7 @@ h1, h2, h3, h4 {
   white-space: nowrap;
 }
 .btn-glass:hover {
-  background: rgba(184,148,46,0.12);
+  background: rgba(181,160,77,0.12);
   border-color: var(--gold);
   transform: translateY(-2px);
 }
@@ -323,9 +323,9 @@ h1, h2, h3, h4 {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 65% at 85% 15%, rgba(184,148,46,0.11) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 50% at 15% 80%, rgba(224,154,165,0.09) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(184,148,46,0.04) 0%, transparent 70%);
+    radial-gradient(ellipse 55% 65% at 85% 15%, rgba(181,160,77,0.11) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 50% at 15% 80%, rgba(230,168,179,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(181,160,77,0.04) 0%, transparent 70%);
 }
 .hero-diamond-bg {
   position: absolute;
@@ -470,13 +470,13 @@ h1, h2, h3, h4 {
   display: block;
   transition: box-shadow 0.4s ease;
 }
-.about-portrait:hover { box-shadow: 0 0 48px rgba(184,148,46,0.2); }
+.about-portrait:hover { box-shadow: 0 0 48px rgba(181,160,77,0.2); }
 
 /* placeholder portrait */
 .about-portrait-placeholder {
   width: 100%;
   aspect-ratio: 3/4;
-  background: linear-gradient(135deg, var(--ivory-deep) 0%, var(--blush-light) 50%, var(--ivory-deep) 100%);
+  background: linear-gradient(135deg, var(--dark-mid) 0%, var(--dark-card) 50%, var(--dark-mid) 100%);
   border: 1px solid var(--gold-rule);
   display: flex;
   flex-direction: column;
@@ -485,7 +485,7 @@ h1, h2, h3, h4 {
   gap: 1rem;
   transition: box-shadow 0.4s ease;
 }
-.about-portrait-placeholder:hover { box-shadow: 0 0 48px rgba(184,148,46,0.2); }
+.about-portrait-placeholder:hover { box-shadow: 0 0 48px rgba(181,160,77,0.2); }
 .about-portrait-placeholder svg { opacity: 0.35; }
 .about-portrait-placeholder span {
   font-family: var(--font-serif);
@@ -550,7 +550,7 @@ h1, h2, h3, h4 {
 }
 .pkg-card {
   background: white;
-  border: 1px solid rgba(184,148,46,0.12);
+  border: 1px solid rgba(181,160,77,0.12);
   padding: 1.75rem;
 }
 .pkg-name {
@@ -641,7 +641,7 @@ h1, h2, h3, h4 {
 }
 .ig-cell-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(184,148,46,0.55), rgba(45,31,26,0.35));
+  background: linear-gradient(135deg, rgba(181,160,77,0.55), rgba(26,20,16,0.6));
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -650,7 +650,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--ivory-deep), var(--blush-light));
+  background: linear-gradient(135deg, var(--dark-mid), var(--dark-card));
 }
 .ig-cell-placeholder svg { opacity: 0.3; }
 .ig-cell:hover .ig-cell-overlay { opacity: 1; }
@@ -714,7 +714,7 @@ h1, h2, h3, h4 {
   margin-top: 3.5rem;
   padding: 2rem 2.5rem;
   border-left: 3px solid var(--gold);
-  background: linear-gradient(90deg, rgba(184,148,46,0.1), transparent);
+  background: linear-gradient(90deg, rgba(181,160,77,0.1), transparent);
   display: flex;
   align-items: center;
   gap: 2.5rem;
@@ -750,7 +750,7 @@ h1, h2, h3, h4 {
 .contact-row {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(184,148,46,0.15);
+  border-bottom: 1px solid rgba(181,160,77,0.15);
 }
 .contact-row:last-child { border-bottom: none; }
 .contact-label {
