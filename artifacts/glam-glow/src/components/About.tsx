@@ -35,8 +35,8 @@ export default function About() {
           <div data-reveal>
             <div className="about-portrait-placeholder">
               <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="32" cy="22" r="14" stroke="#B5A04D" strokeWidth="1.5" fill="none" />
-                <path d="M8 58c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#B5A04D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                <circle cx="32" cy="22" r="14" stroke="#B8942E" strokeWidth="1.5" fill="none" />
+                <path d="M8 58c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#B8942E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
               </svg>
               <span>Portrait of Kirandeep</span>
             </div>
