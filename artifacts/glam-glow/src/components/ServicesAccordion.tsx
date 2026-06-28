@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, MouseEvent } from 'react'
 
 interface Step { label: string }
 interface Package {
@@ -123,6 +123,81 @@ const SERVICES: Service[] = [
   },
 ]
 
+function TiltCard({ pkg, index }: { pkg: Package; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const glowRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current
+    const glow = glowRef.current
+    if (!card || !glow) return
+
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const cx = rect.width / 2
+    const cy = rect.height / 2
+
+    const rotateX = ((y - cy) / cy) * -10
+    const rotateY = ((x - cx) / cx) * 10
+
+    card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`
+    glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(184,148,46,0.18) 0%, transparent 65%)`
+    glow.style.opacity = '1'
+  }
+
+  const handleMouseLeave = () => {
+    const card = cardRef.current
+    const glow = glowRef.current
+    if (!card || !glow) return
+    card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0px)'
+    glow.style.opacity = '0'
+  }
+
+  const isPremium = pkg.badge === 'Premium' || pkg.badge === 'Multi-Event' || pkg.badge === '2 Sessions'
+
+  return (
+    <div
+      ref={cardRef}
+      className={`pkg-card${isPremium ? ' pkg-card--featured' : ''}`}
+      style={{ '--card-index': index } as React.CSSProperties}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div ref={glowRef} className="pkg-card-glow" aria-hidden="true" />
+
+      <div className="pkg-card-top">
+        <div className="pkg-card-number" aria-hidden="true">0{index + 1}</div>
+        {isPremium && <span className="pkg-card-featured-tag">Popular</span>}
+      </div>
+
+      <div className="pkg-name">{pkg.name}</div>
+
+      <div className="pkg-badges">
+        <span className="pkg-badge">{pkg.badge}</span>
+        <span className="pkg-duration">⏱ {pkg.duration}</span>
+      </div>
+
+      <div className="pkg-divider" aria-hidden="true" />
+
+      <div className="pkg-section-label">What&apos;s Included</div>
+      <p className="pkg-body-text">{pkg.included}</p>
+
+      <div className="pkg-section-label">Process</div>
+      {pkg.steps.map((step, i) => (
+        <div key={step.label} className="pkg-step">
+          <span className="pkg-step-num" aria-hidden="true">{i + 1}</span>
+          <span>{step.label}</span>
+        </div>
+      ))}
+
+      <a href="tel:7788910082" className="pkg-cta">
+        Inquire to Book <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  )
+}
+
 export default function ServicesAccordion() {
   const [openId, setOpenId] = useState<string>('pre-wedding')
 
@@ -152,26 +227,8 @@ export default function ServicesAccordion() {
 
                 <div id={`service-body-${service.id}`} className="service-body" role="region">
                   <div className="packages-grid">
-                    {service.packages.map(pkg => (
-                      <div key={pkg.name} className="pkg-card">
-                        <div className="pkg-name">{pkg.name}</div>
-                        <div className="pkg-badges">
-                          <span className="pkg-badge">{pkg.badge}</span>
-                          <span className="pkg-duration">{pkg.duration}</span>
-                        </div>
-                        <div className="pkg-section-label">What&apos;s Included</div>
-                        <p className="pkg-body-text">{pkg.included}</p>
-                        <div className="pkg-section-label">Process</div>
-                        {pkg.steps.map(step => (
-                          <div key={step.label} className="pkg-step">
-                            <span className="pkg-step-dot" aria-hidden="true" />
-                            <span>{step.label}</span>
-                          </div>
-                        ))}
-                        <a href="tel:7788910082" className="pkg-cta">
-                          Inquire to Book →
-                        </a>
-                      </div>
+                    {service.packages.map((pkg, i) => (
+                      <TiltCard key={pkg.name} pkg={pkg} index={i} />
                     ))}
                   </div>
                 </div>
