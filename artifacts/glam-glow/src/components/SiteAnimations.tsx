@@ -43,6 +43,7 @@ export default function SiteAnimations() {
           y: 32,
           duration: 0.85,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: el,
             start: 'top 88%',
@@ -60,6 +61,7 @@ export default function SiteAnimations() {
           duration: 0.75,
           stagger: 0.12,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: container,
             start: 'top 88%',
@@ -73,6 +75,7 @@ export default function SiteAnimations() {
           width: 0,
           duration: 0.9,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: el,
             start: 'top 88%',
