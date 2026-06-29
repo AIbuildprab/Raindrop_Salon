@@ -12,7 +12,7 @@ import WhatsAppFloat from './components/WhatsAppFloat'
 import Particles from './components/Particles'
 import SiteAnimations from './components/SiteAnimations'
 
-export default function App() {
+export default function Home() {
   return (
     <>
       <Particles />
