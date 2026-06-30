@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
-const siteUrl = 'https://glamandglowbykiran.com'
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+
 const title = 'Glam & Glow by Kiran'
 const description =
   'Glam & Glow by Kiran — Hair & Makeup Artist in Delta, BC. Full glam for Mehndi nights, bridal events, birthdays, and South Asian weddings.'
