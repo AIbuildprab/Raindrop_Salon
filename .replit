@@ -11,9 +11,5 @@ env = { "CI" = "true" }
 [workflows]
 
 [agent]
-stack = "PNPM_WORKSPACE"
+stack = "NEXTJS"
 expertMode = true
-
-[postMerge]
-path = "scripts/post-merge.sh"
-timeoutMs = 20000
