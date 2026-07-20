@@ -6,6 +6,14 @@ const NAV_ITEMS = ['About', 'Services', 'Gallery', 'Reviews', 'FAQ', 'Contact']
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -16,8 +24,15 @@ export default function Nav() {
 
   const handleLinkClick = () => setOpen(false)
 
+  const navClass = [
+    scrolled || open ? 'scrolled' : 'nav-over-hero',
+    open ? 'is-menu-open' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
-    <nav id="main-nav" role="navigation" aria-label="Main navigation">
+    <nav id="main-nav" className={navClass} role="navigation" aria-label="Main navigation">
       <a href="#hero" className="nav-logo" aria-label="Glam and Glow by Kiran — home">
         <svg width="38" height="38" viewBox="0 0 38 38" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
           <polygon points="19,2 36,19 19,36 2,19" stroke="#B8942E" strokeWidth="1.2" fill="none" />
@@ -30,16 +45,17 @@ export default function Nav() {
         </span>
       </a>
 
-      {/* Desktop links */}
       <ul className="nav-links">
         {NAV_ITEMS.map(item => (
           <li key={item}>
             <a href={`#${item.toLowerCase()}`}>{item}</a>
           </li>
         ))}
+        <li>
+          <a href="#contact" className="nav-book-cta">Book Now</a>
+        </li>
       </ul>
 
-      {/* Burger button — mobile only */}
       <button
         className={`nav-burger${open ? ' is-open' : ''}`}
         aria-label={open ? 'Close menu' : 'Open menu'}
@@ -49,7 +65,6 @@ export default function Nav() {
         <span /><span /><span />
       </button>
 
-      {/* Mobile dropdown */}
       <div className={`nav-mobile-menu${open ? ' is-open' : ''}`} onClick={e => e.stopPropagation()}>
         <ul>
           {NAV_ITEMS.map(item => (

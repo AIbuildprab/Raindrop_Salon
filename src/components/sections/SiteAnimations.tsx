@@ -11,32 +11,28 @@ export default function SiteAnimations() {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
       gsap.registerPlugin(ScrollTrigger)
 
-      const heroDiamond = document.querySelector<HTMLElement>('.hero-diamond-bg')
-      const eyebrow     = document.querySelector<HTMLElement>('.hero-eyebrow-wrap')
-      const lineInners  = document.querySelectorAll<HTMLElement>('.line-inner')
-      const heroSub     = document.querySelector<HTMLElement>('.hero-sub')
-      const heroCtas    = document.querySelector<HTMLElement>('.hero-ctas')
-      const heroBadge   = document.querySelector<HTMLElement>('.hero-badge')
+      const eyebrow    = document.querySelector<HTMLElement>('.hero-eyebrow-wrap')
+      const lineInners = document.querySelectorAll<HTMLElement>('.line-inner')
+      const heroSub    = document.querySelector<HTMLElement>('.hero-sub')
+      const heroCtas   = document.querySelector<HTMLElement>('.hero-ctas')
+      const heroMedia  = document.querySelector<HTMLElement>('.hero-media-image')
 
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-      if (heroDiamond) {
-        tl.from(heroDiamond, { opacity: 0, scale: 0.92, duration: 1.6 }, 0)
+      if (heroMedia) {
+        tl.from(heroMedia, { scale: 1.08, opacity: 0.6, duration: 1.8 }, 0)
       }
       if (eyebrow) {
-        tl.from(eyebrow, { opacity: 0, y: 16, duration: 0.7 }, 0.15)
+        tl.from(eyebrow, { opacity: 0, y: 16, duration: 0.7 }, 0.2)
       }
       lineInners.forEach((line, i) => {
-        tl.from(line, { opacity: 0, y: 20, duration: 0.75 }, 0.3 + i * 0.12)
+        tl.from(line, { opacity: 0, y: 20, duration: 0.75 }, 0.35 + i * 0.12)
       })
       if (heroSub) {
-        tl.from(heroSub, { opacity: 0, y: 16, duration: 0.7 }, 0.7)
+        tl.from(heroSub, { opacity: 0, y: 16, duration: 0.7 }, 0.75)
       }
       if (heroCtas) {
-        tl.from(heroCtas, { opacity: 0, y: 16, duration: 0.7 }, 0.85)
-      }
-      if (heroBadge) {
-        tl.from(heroBadge, { opacity: 0, duration: 0.6 }, 1.0)
+        tl.from(heroCtas, { opacity: 0, y: 16, duration: 0.7 }, 0.9)
       }
 
       document.querySelectorAll<HTMLElement>('[data-reveal]').forEach(el => {
@@ -103,15 +99,6 @@ export default function SiteAnimations() {
           gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.5, ease: 'power3.out' })
         })
       })
-
-      const nav = document.querySelector('#main-nav')
-      if (nav) {
-        ScrollTrigger.create({
-          start: 60,
-          onEnter:     () => nav.classList.add('scrolled'),
-          onLeaveBack: () => nav.classList.remove('scrolled'),
-        })
-      }
     }
 
     load()

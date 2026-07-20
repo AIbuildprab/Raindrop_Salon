@@ -1,7 +1,28 @@
+"use client"
+
+import { useState } from 'react'
 import Image from 'next/image'
-import { GALLERY_IMAGES } from '@/data/gallery-images'
+import {
+  GALLERY_FILTERS,
+  GALLERY_IMAGES,
+  type GalleryFilter,
+} from '@/data/gallery-images'
+
+const FILTER_LABELS: Record<GalleryFilter, string> = {
+  all: 'All Work',
+  bridal: 'Bridal',
+  party: 'Party',
+  makeup: 'Makeup',
+}
 
 export default function GalleryGrid() {
+  const [filter, setFilter] = useState<GalleryFilter>('all')
+
+  const images =
+    filter === 'all'
+      ? GALLERY_IMAGES
+      : GALLERY_IMAGES.filter(img => img.category === filter)
+
   return (
     <section id="gallery" className="section-light">
       <div className="section-inner">
@@ -11,22 +32,34 @@ export default function GalleryGrid() {
         </h2>
         <div className="gold-divider" />
 
+        <div className="gallery-filters" data-reveal role="tablist" aria-label="Filter gallery">
+          {GALLERY_FILTERS.map(key => (
+            <button
+              key={key}
+              type="button"
+              role="tab"
+              aria-selected={filter === key}
+              className={`gallery-filter${filter === key ? ' is-active' : ''}`}
+              onClick={() => setFilter(key)}
+            >
+              {FILTER_LABELS[key]}
+            </button>
+          ))}
+        </div>
+
         <div className="ig-grid" data-stagger aria-label="Gallery of makeup looks">
-          {GALLERY_IMAGES.map((filename, i) => {
-            const alt = `Glam & Glow by Kiran — makeup look ${i + 1}`
-            return (
-              <div key={filename} className="ig-cell">
-                <Image
-                  src={`/images/${filename}`}
-                  alt={alt}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="ig-cell-image"
-                />
-                <div className="ig-cell-overlay" aria-hidden="true" />
-              </div>
-            )
-          })}
+          {images.map(image => (
+            <div key={image.src} className="ig-cell">
+              <Image
+                src={`/images/${image.src}`}
+                alt={`Glam & Glow by Kiran — ${image.alt}`}
+                fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="ig-cell-image"
+              />
+              <div className="ig-cell-overlay" aria-hidden="true" />
+            </div>
+          ))}
         </div>
 
         <div className="ig-cta-wrap" data-reveal>

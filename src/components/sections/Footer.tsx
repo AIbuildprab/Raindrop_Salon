@@ -3,15 +3,18 @@ import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
 export default function Footer() {
   return (
     <>
-      <div className="footer-glass-band">
+      <div className="footer-glass-band footer-cta-dark">
         <div className="footer-glass-band-inner">
           <div className="footer-glass-band-copy">
             <div className="footer-glass-band-eyebrow">Ready to Glow?</div>
             <h2 className="footer-glass-band-headline">
               Book Your <em>Perfect Look</em> Today
             </h2>
+            <p className="footer-cta-sub">
+              Experience personal, polished glam for every celebration that matters.
+            </p>
           </div>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div className="footer-cta-actions">
             <a href={PHONE_TEL} className="btn-gold">
               Call — {PHONE_DISPLAY}
             </a>
@@ -19,7 +22,7 @@ export default function Footer() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-glass"
+              className="btn-glass btn-glass-on-dark"
             >
               WhatsApp Kiran
             </a>

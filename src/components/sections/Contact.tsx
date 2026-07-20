@@ -11,45 +11,50 @@ export default function Contact() {
         <div className="gold-divider" />
 
         <div className="contact-grid">
-          <div data-stagger>
-            <div className="contact-row">
+          <div className="contact-cards" data-stagger>
+            <a href={PHONE_TEL} className="contact-card">
               <div className="contact-label">Call or Text</div>
-              <a href={PHONE_TEL} className="contact-value">
-                {PHONE_DISPLAY}
-              </a>
-            </div>
+              <div className="contact-value">{PHONE_DISPLAY}</div>
+              <div className="contact-note">Call to book your appointment</div>
+            </a>
 
-            <div className="contact-row">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-card"
+            >
               <div className="contact-label">WhatsApp</div>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-value"
-              >
-                Message Kiran
-              </a>
+              <div className="contact-value">Message Kiran</div>
               <div className="contact-note">Tap to open WhatsApp</div>
-            </div>
+            </a>
 
-            <div className="contact-row">
+            <div className="contact-card">
               <div className="contact-label">Studio</div>
-              <span className="contact-value">118a 74 Ave, Delta, BC</span>
-              <div className="contact-note">On-location available across the Lower Mainland</div>
+              <div className="contact-value">118a 74 Ave, Delta, BC</div>
+              <div className="contact-note">On-location across the Lower Mainland</div>
             </div>
 
-            <div className="contact-row">
-              <div className="contact-label">Instagram</div>
-              <a
-                href="https://www.instagram.com/glamandglow_bykiran/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-value"
-                style={{ color: 'var(--gold)', fontSize: '1.1rem' }}
-              >
-                @glamandglow_bykiran
-              </a>
+            <div className="contact-card">
+              <div className="contact-label">Hours</div>
+              <div className="contact-value contact-hours">
+                <span>Mon–Fri: 10:00 AM – 7:00 PM</span>
+                <span>Sat: 9:00 AM – 6:00 PM</span>
+                <span>Sun: By appointment</span>
+              </div>
             </div>
+
+            <a
+              href="https://www.instagram.com/glamandglow_bykiran/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-card"
+            >
+              <div className="contact-label">Instagram</div>
+              <div className="contact-value" style={{ color: 'var(--gold)', fontSize: '1.15rem' }}>
+                @glamandglow_bykiran
+              </div>
+            </a>
           </div>
 
           <div data-reveal>
