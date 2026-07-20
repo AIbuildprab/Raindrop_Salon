@@ -5,16 +5,16 @@ Hair & makeup artist website for Glam & Glow by Kiran in Delta, BC.
 ## Run locally
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
-Open http://localhost:5173
+Open http://localhost:3000
 
 ## Build
 
 ```bash
-pnpm build
+npm run build
 ```
 
 Static export is written to the `out/` folder.
