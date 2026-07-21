@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
 
 export default function Footer() {
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="footer-glass-band footer-cta-dark">
         <div className="footer-glass-band-inner">
           <div className="footer-glass-band-copy">
-            <div className="footer-glass-band-eyebrow">Ready to Glow?</div>
+            <div className="footer-glass-band-eyebrow">Ready to Shine?</div>
             <h2 className="footer-glass-band-headline">
               Book Your <em>Perfect Look</em> Today
             </h2>
@@ -24,7 +25,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="btn-glass btn-glass-on-dark"
             >
-              WhatsApp Kiran
+              WhatsApp Jass
             </a>
           </div>
         </div>
@@ -33,14 +34,13 @@ export default function Footer() {
       <footer>
         <div className="footer-inner">
           <a href="#hero" className="footer-logo" aria-label="Back to top">
-            <svg width="30" height="30" viewBox="0 0 38 38" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="19,2 36,19 19,36 2,19" stroke="#B8942E" strokeWidth="1.2" fill="none" />
-              <polygon points="19,8 30,19 19,30 8,19" stroke="#B8942E" strokeWidth="0.7" strokeOpacity="0.5" fill="none" />
-              <text x="19" y="23" textAnchor="middle" fontFamily="Cormorant Garamond, serif" fontSize="9" fontStyle="italic" fill="#B8942E">GG</text>
-            </svg>
-            <span className="footer-wordmark">
-              Glam <span className="amp">&amp;</span> Glow by Kiran
-            </span>
+            <Image
+              src="/images/raindrop-logo.png"
+              alt="Raindrop Beauty Salon"
+              width={72}
+              height={72}
+              className="footer-logo-img"
+            />
           </a>
 
           <a href={PHONE_TEL} className="footer-ig">
@@ -48,16 +48,16 @@ export default function Footer() {
           </a>
 
           <a
-            href="https://www.instagram.com/glamandglow_bykiran/"
+            href="https://www.instagram.com/raindrops_beauty_salon/"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-ig"
           >
-            @glamandglow_bykiran
+            @raindrops_beauty_salon
           </a>
 
           <p className="footer-copy">
-            &copy; 2026 Glam &amp; Glow by Kiran. Delta, BC.
+            &copy; 2026 Raindrop Beauty Salon. Abbotsford, BC.
           </p>
         </div>
       </footer>

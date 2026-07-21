@@ -28,18 +28,18 @@ export default function Hero() {
 
         <h1 className="hero-headline">
           <span className="line-mask">
-            <span className="line-inner">Glam &amp; Glow</span>
+            <span className="line-inner">Raindrop</span>
           </span>
           <span className="line-mask">
             <span className="line-inner">
-              by <em>Kiran</em>
+              <em>Beauty Salon</em>
             </span>
           </span>
         </h1>
 
         <p className="hero-sub">
-          Full glam hair &amp; makeup for Mehndi nights, birthdays, bridal events, and every
-          celebration that matters. Personal, polished, and made for you.
+          Certified esthetician with 18+ years making brides shine. Full glam hair &amp; makeup for
+          weddings, Mehndi nights, and every celebration that matters — personal, polished, and made for you.
         </p>
 
         <div className="hero-ctas">
@@ -52,7 +52,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="btn-glass btn-glass-on-dark"
           >
-            WhatsApp Kiran
+            WhatsApp Jass
           </a>
         </div>
       </div>

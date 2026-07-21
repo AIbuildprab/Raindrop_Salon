@@ -1,7 +1,7 @@
 const STATS = [
+  { value: '18+', label: 'Years Experience' },
+  { value: 'Abbotsford, BC', label: 'Studio Based' },
   { value: '5.0', label: 'Google Rated' },
-  { value: 'Delta, BC', label: 'Studio Based' },
-  { value: 'Travel', label: 'Lower Mainland' },
   { value: 'Full Glam', label: 'Hair & Makeup' },
 ]
 

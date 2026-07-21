@@ -9,11 +9,11 @@ const REVIEWS = [
   },
   {
     author: 'Gurpreet Dhaliwal',
-    quote: 'My makeup looked so flawless and beautiful — my look turned out so pretty and I got many compliments all day. Credit goes to Kiran.',
+    quote: 'My makeup looked so flawless and beautiful — my look turned out so pretty and I got many compliments all day. Credit goes to Jass.',
   },
   {
     author: 'Harmeet Kaur Sandhar',
-    quote: 'My makeup and hair was stunning! Everyone said I looked gorgeous. Kiran was very sweet and listened to what I want.',
+    quote: 'My makeup and hair was stunning! Everyone said I looked gorgeous. Jass was very sweet and listened to what I want.',
   },
   {
     author: 'Rav Bajwa',

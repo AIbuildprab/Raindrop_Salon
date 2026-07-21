@@ -1,6 +1,6 @@
-# Glam & Glow by Kiran
+# Raindrop Beauty Salon
 
-Hair & makeup artist website for Glam & Glow by Kiran in Delta, BC.
+Website for Raindrop Beauty Salon — certified esthetician and hair & makeup artist in Abbotsford, BC.
 
 ## Run locally
 

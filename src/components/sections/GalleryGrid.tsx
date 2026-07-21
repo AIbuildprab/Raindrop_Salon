@@ -52,7 +52,7 @@ export default function GalleryGrid() {
             <div key={image.src} className="ig-cell">
               <Image
                 src={`/images/${image.src}`}
-                alt={`Glam & Glow by Kiran — ${image.alt}`}
+                alt={`Raindrop Beauty Salon — ${image.alt}`}
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className="ig-cell-image"
@@ -64,12 +64,12 @@ export default function GalleryGrid() {
 
         <div className="ig-cta-wrap" data-reveal>
           <a
-            href="https://www.instagram.com/glamandglow_bykiran/"
+            href="https://www.instagram.com/raindrops_beauty_salon/"
             target="_blank"
             rel="noopener noreferrer"
             className="ig-cta"
           >
-            Follow @glamandglow_bykiran on Instagram →
+            Follow @raindrops_beauty_salon on Instagram →
           </a>
         </div>
       </div>

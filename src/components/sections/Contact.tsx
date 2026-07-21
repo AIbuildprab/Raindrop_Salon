@@ -25,14 +25,14 @@ export default function Contact() {
               className="contact-card"
             >
               <div className="contact-label">WhatsApp</div>
-              <div className="contact-value">Message Kiran</div>
+              <div className="contact-value">Message Jass</div>
               <div className="contact-note">Tap to open WhatsApp</div>
             </a>
 
             <div className="contact-card">
               <div className="contact-label">Studio</div>
-              <div className="contact-value">118a 74 Ave, Delta, BC</div>
-              <div className="contact-note">On-location across the Lower Mainland</div>
+              <div className="contact-value">3526 Thurston Place, Abbotsford, BC</div>
+              <div className="contact-note">On-location across the Fraser Valley & Lower Mainland</div>
             </div>
 
             <div className="contact-card">
@@ -45,14 +45,14 @@ export default function Contact() {
             </div>
 
             <a
-              href="https://www.instagram.com/glamandglow_bykiran/"
+              href="https://www.instagram.com/raindrops_beauty_salon/"
               target="_blank"
               rel="noopener noreferrer"
               className="contact-card"
             >
               <div className="contact-label">Instagram</div>
               <div className="contact-value" style={{ color: 'var(--gold)', fontSize: '1.15rem' }}>
-                @glamandglow_bykiran
+                @raindrops_beauty_salon
               </div>
             </a>
           </div>
@@ -60,8 +60,8 @@ export default function Contact() {
           <div data-reveal>
             <div className="map-wrap">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2609.5!2d-122.89!3d49.10!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sGlam%20%26%20Glow%20by%20Kiran!5e0!3m2!1sen!2sca!4v1"
-                title="Glam & Glow by Kiran — 118a 74 Ave, Delta, BC"
+                src="https://www.google.com/maps?q=3526+Thurston+Place,+Abbotsford,+BC+V2T+6Y1&output=embed"
+                title="Raindrop Beauty Salon — 3526 Thurston Place, Abbotsford, BC"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen

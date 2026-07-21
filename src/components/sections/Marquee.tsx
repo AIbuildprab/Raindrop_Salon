@@ -1,7 +1,7 @@
 const ITEMS = [
   'Hair Styling', 'Full Glam Makeup', 'Bridal Packages',
   'Mehndi Night Glam', 'Jaggo Events', 'Birthday Glam',
-  'South Asian Weddings', 'On-Location Services', 'Delta BC',
+  'South Asian Weddings', 'On-Location Services', 'Abbotsford BC',
 ]
 
 const repeated = [...ITEMS, ...ITEMS]

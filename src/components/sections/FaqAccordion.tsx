@@ -11,7 +11,7 @@ const FAQS = [
         Call or text{' '}
         <a href={PHONE_TEL}>{PHONE_DISPLAY}</a> or{' '}
         <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-          WhatsApp Kiran
+          WhatsApp Jass
         </a>
         . Share your date, location, and the look you have in mind.
       </>
@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: 'Do you travel, or is it studio-only?',
-    a: 'Studio is based in Delta, BC. On-location services are available across the Lower Mainland. Travel further afield available on request.',
+    a: 'Studio is based in Abbotsford, BC. On-location services are available across the Fraser Valley and Lower Mainland. Travel further afield available on request.',
   },
   {
     q: 'How far in advance should I book?',

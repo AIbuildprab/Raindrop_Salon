@@ -1,8 +1,8 @@
 const DETAILS = [
-  'Studio-based in Delta, BC',
-  'On-location across the Lower Mainland',
-  'Available for travel',
-  'Hair & makeup — one complete glam package',
+  'Studio-based in Abbotsford, BC',
+  'On-location across the Fraser Valley & Lower Mainland',
+  '18+ years of bridal experience',
+  'Certified esthetician — hair, makeup & skin in one place',
 ]
 
 export default function About() {
@@ -14,13 +14,14 @@ export default function About() {
             <span className="eyebrow" data-reveal>About</span>
             <h2 className="section-title" data-reveal>
               Meet<br />
-              <em>Kirandeep</em>
+              <em>Jass</em>
             </h2>
             <div className="gold-divider" />
             <p className="about-body" data-reveal>
-              Kirandeep Sandhar is a Delta-based hair and makeup artist known for making every
-              client feel truly seen. Specializing in full glam for South Asian events, bridal,
-              and celebrations of all kinds, she brings warmth and artistry to every look.
+              Jass is an Abbotsford-based certified esthetician and hair &amp; makeup artist with
+              over 18 years of experience making brides shine. Specializing in full glam for South
+              Asian weddings, bridal, and celebrations of all kinds, she brings warmth and artistry
+              to every look.
             </p>
             <div data-stagger>
               {DETAILS.map(detail => (
@@ -38,7 +39,7 @@ export default function About() {
                 <circle cx="32" cy="22" r="14" stroke="#B8942E" strokeWidth="1.5" fill="none" />
                 <path d="M8 58c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#B8942E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
               </svg>
-              <span>Portrait of Kirandeep</span>
+              <span>Portrait of Jass</span>
             </div>
           </div>
         </div>

@@ -126,6 +126,154 @@ const SERVICES: Service[] = [
   },
 ]
 
+interface MenuItem { name: string; price: string }
+interface MenuCategory { title: string; note?: string; items: MenuItem[] }
+
+const MENU: MenuCategory[] = [
+  {
+    title: 'Laser Hair Removal',
+    note: 'YAG painless treatment',
+    items: [
+      { name: 'Full Face', price: '$75' },
+      { name: 'Sideburns', price: '$30' },
+      { name: 'Uni Brow', price: '$25' },
+      { name: 'Upper Lip', price: '$30' },
+      { name: 'Under Arms', price: '$40' },
+      { name: 'Half Arms', price: '$150' },
+      { name: 'Full Arms', price: '$200' },
+      { name: 'Half Legs', price: '$150' },
+      { name: 'Full Legs', price: '$250' },
+      { name: 'Bikini Lines', price: '$100' },
+      { name: 'Brazilian', price: '$200' },
+      { name: 'Belly', price: '$180' },
+      { name: 'Full Back', price: '$200' },
+      { name: 'Full Body (back, chest, abdomen)', price: '$450' },
+    ],
+  },
+  {
+    title: 'Laser — Gentlemen',
+    items: [
+      { name: 'Beard', price: '$70' },
+      { name: 'Chest', price: '$120' },
+      { name: 'Arms', price: '$230' },
+      { name: 'Chest + Abdomen', price: '$280' },
+      { name: 'Back', price: '$280' },
+      { name: 'Legs', price: '$350' },
+    ],
+  },
+  {
+    title: 'Hair & Makeup',
+    items: [
+      { name: 'Makeup', price: '$135+' },
+      { name: 'Hair Style', price: '$45+' },
+      { name: 'Prandi Style', price: '$50+' },
+      { name: 'Full Hair & Makeup', price: '$175' },
+      { name: 'Party Makeup', price: '$200' },
+      { name: 'Bridal Makeup (Full Package)', price: '$1500' },
+    ],
+  },
+  {
+    title: 'Microneedling',
+    items: [
+      { name: 'Microneedling', price: '$250' },
+      { name: 'Dermaplaning Facial', price: '$120' },
+    ],
+  },
+  {
+    title: 'Skin Care Facials',
+    items: [
+      { name: 'Hydra Facial', price: '$165' },
+      { name: 'Anti-Ageing Facial', price: '$130' },
+      { name: 'Brightening Facial', price: '$140' },
+      { name: 'Deep Cleansing', price: '$55' },
+      { name: 'Deep Cleansing Facial', price: '$75' },
+      { name: 'European Facial', price: '$95' },
+      { name: 'Relaxing Facial', price: '$110' },
+    ],
+  },
+  {
+    title: 'Oxygeneo Facials',
+    items: [
+      { name: 'Oxygeneo (3-in-1 Super Facial)', price: '$130' },
+      { name: 'Oxygeneo Gold', price: '$150' },
+      { name: 'Oxygeneo Anti-Ageing', price: '$180' },
+    ],
+  },
+  {
+    title: 'Acne Treatment',
+    note: 'Hydrofrequency for acne skin',
+    items: [
+      { name: 'Acne Treatment', price: '$150' },
+    ],
+  },
+  {
+    title: 'Threading',
+    items: [
+      { name: 'Eyebrow Threading', price: '$5' },
+      { name: 'Eyebrow Tint', price: '$15' },
+      { name: 'Full Face Threading', price: '$20' },
+      { name: 'Upper Lip', price: '$5' },
+      { name: 'Chin', price: '$5' },
+      { name: 'Forehead', price: '$5' },
+    ],
+  },
+  {
+    title: 'Waxing',
+    items: [
+      { name: 'Eyebrow Waxing', price: '$10' },
+      { name: 'Full Face', price: '$20' },
+      { name: 'Under Arms', price: '$15' },
+      { name: 'Full Arms', price: '$35' },
+      { name: 'Full Legs', price: '$40' },
+      { name: 'Half Legs', price: '$25' },
+      { name: 'Full Arms + Legs (Combo)', price: '$65+' },
+      { name: 'Full Stomach', price: '$40' },
+      { name: 'Full Back', price: '$40' },
+      { name: 'Bikini Lines', price: '$15' },
+      { name: 'Brazilian Wax', price: '$55' },
+      { name: 'Full Body', price: '$150' },
+    ],
+  },
+  {
+    title: 'Hair Color',
+    items: [
+      { name: 'Roots Touch Up', price: '$50+' },
+      { name: 'Full Length Color', price: '$150+' },
+      { name: 'Balayage Highlight', price: '$250+' },
+      { name: 'Money Pieces', price: '$250+' },
+      { name: 'Global Highlight', price: '$300+' },
+    ],
+  },
+  {
+    title: 'Hair Treatments',
+    items: [
+      { name: 'Hair Spa', price: '$75+' },
+      { name: 'Deep Conditioning', price: '$120+' },
+      { name: 'Keratin Treatment', price: '$250+' },
+      { name: 'Hair Botox Treatment', price: '$275+' },
+      { name: 'Smoothening Treatment', price: '$300+' },
+    ],
+  },
+  {
+    title: 'Hair Cut',
+    items: [
+      { name: 'Hair Cut', price: '$25+' },
+      { name: 'Layer Cut', price: 'Ask' },
+      { name: 'Wash, Cut & Style', price: '$65+' },
+      { name: 'Wash & Blow Dry', price: 'Ask' },
+    ],
+  },
+  {
+    title: 'Massage',
+    items: [
+      { name: 'Head Massage', price: '$30' },
+      { name: 'Hot Oil Head Massage', price: '$35' },
+      { name: 'Back Massage', price: '$40' },
+      { name: 'Full Body Massage', price: '$120' },
+    ],
+  },
+]
+
 function TiltCard({ pkg, index }: { pkg: Package; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const glowRef = useRef<HTMLDivElement>(null)
@@ -209,7 +357,7 @@ export default function ServicesAccordion() {
       <div className="section-inner">
         <span className="eyebrow" data-reveal>Services</span>
         <h2 className="section-title" data-reveal>
-          What Kiran <em>Offers</em>
+          What Jass <em>Offers</em>
         </h2>
         <div className="gold-divider" />
 
@@ -253,6 +401,40 @@ export default function ServicesAccordion() {
             Call to inquire — {PHONE_DISPLAY}
           </a>
         </div>
+
+        <div className="menu-header" data-reveal>
+          <span className="eyebrow">Price List</span>
+          <h3 className="menu-title">Full Service <em>Menu</em></h3>
+          <p className="menu-subtitle">
+            Laser, facials, microneedling, hair, threading, waxing &amp; more — all under one roof.
+          </p>
+        </div>
+
+        <div className="menu-grid" data-stagger>
+          {MENU.map(category => (
+            <div key={category.title} className="menu-cat">
+              <div className="menu-cat-head">
+                <h4 className="menu-cat-title">{category.title}</h4>
+                {category.note && <span className="menu-cat-note">{category.note}</span>}
+              </div>
+              <ul className="menu-list">
+                {category.items.map(item => (
+                  <li key={item.name} className="menu-row">
+                    <span className="menu-row-name">{item.name}</span>
+                    <span className="menu-row-dots" aria-hidden="true" />
+                    <span className="menu-price">{item.price}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <p className="menu-disclaimer" data-reveal>
+          Prices are a starting guide and may vary by hair length, area, and treatment plan.
+          Call {' '}
+          <a href={PHONE_TEL}>{PHONE_DISPLAY}</a> to confirm and book.
+        </p>
       </div>
     </section>
   )
