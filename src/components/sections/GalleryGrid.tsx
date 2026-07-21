@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from 'react'
-import Image from 'next/image'
 import {
   GALLERY_FILTERS,
-  GALLERY_IMAGES,
+  GALLERY_VIDEOS,
   type GalleryFilter,
-} from '@/data/gallery-images'
+  type GalleryVideo,
+} from '@/data/gallery-videos'
 
 const FILTER_LABELS: Record<GalleryFilter, string> = {
   all: 'All Work',
@@ -15,13 +15,48 @@ const FILTER_LABELS: Record<GalleryFilter, string> = {
   makeup: 'Makeup',
 }
 
+function VideoCell({ video }: { video: GalleryVideo }) {
+  if (video.type === 'vimeo') {
+    const src =
+      `https://player.vimeo.com/video/${video.vimeoId}` +
+      `?background=1&autoplay=1&loop=1&muted=1&autopause=0` +
+      `&title=0&byline=0&portrait=0&badge=0`
+    return (
+      <div className="ig-cell-video">
+        <iframe
+          src={src}
+          title={video.alt}
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+
+  return (
+    <video
+      className="ig-cell-image"
+      src={`/videos/${video.src}`}
+      poster={video.poster ? `/images/${video.poster}` : undefined}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label={video.alt}
+    />
+  )
+}
+
 export default function GalleryGrid() {
   const [filter, setFilter] = useState<GalleryFilter>('all')
 
-  const images =
+  const videos =
     filter === 'all'
-      ? GALLERY_IMAGES
-      : GALLERY_IMAGES.filter(img => img.category === filter)
+      ? GALLERY_VIDEOS
+      : GALLERY_VIDEOS.filter(v => v.category === filter)
 
   return (
     <section id="gallery" className="section-light">
@@ -47,20 +82,20 @@ export default function GalleryGrid() {
           ))}
         </div>
 
-        <div className="ig-grid" data-stagger aria-label="Gallery of makeup looks">
-          {images.map(image => (
-            <div key={image.src} className="ig-cell">
-              <Image
-                src={`/images/${image.src}`}
-                alt={`Raindrop Beauty Salon — ${image.alt}`}
-                fill
-                sizes="(max-width: 768px) 50vw, 25vw"
-                className="ig-cell-image"
-              />
-              <div className="ig-cell-overlay" aria-hidden="true" />
-            </div>
-          ))}
-        </div>
+        {videos.length > 0 ? (
+          <div className="ig-grid" data-stagger aria-label="Gallery of reels">
+            {videos.map((video, i) => (
+              <div key={`${video.type}-${i}`} className="ig-cell">
+                <VideoCell video={video} />
+                <div className="ig-cell-overlay" aria-hidden="true" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="gallery-empty" data-reveal>
+            New reels coming soon — follow along on Instagram for the latest looks.
+          </p>
+        )}
 
         <div className="ig-cta-wrap" data-reveal>
           <a

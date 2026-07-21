@@ -35,10 +35,10 @@ export default function Footer() {
         <div className="footer-inner">
           <a href="#hero" className="footer-logo" aria-label="Back to top">
             <Image
-              src="/images/raindrop-logo.png"
+              src="/images/raindrop-logo-wide.png"
               alt="Raindrop Beauty Salon"
-              width={72}
-              height={72}
+              width={320}
+              height={80}
               className="footer-logo-img"
             />
           </a>

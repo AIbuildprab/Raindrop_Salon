@@ -247,7 +247,7 @@ h1, h2, h3, h4 {
 #main-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 72px;
+  height: 88px;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -279,9 +279,14 @@ h1, h2, h3, h4 {
   flex-shrink: 0;
 }
 .nav-logo-img {
-  height: 52px;
+  height: 60px;
   width: auto;
   display: block;
+  transition: filter 0.4s ease;
+}
+/* Over the dark hero the nav is transparent, so show the logo in white for legibility */
+#main-nav.nav-over-hero .nav-logo-img {
+  filter: brightness(0) invert(1);
 }
 .nav-wordmark {
   font-family: var(--font-serif);
@@ -308,6 +313,9 @@ h1, h2, h3, h4 {
 }
 #main-nav.scrolled .nav-wordmark .byline { color: var(--cream-dim); }
 .nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   list-style: none;
   gap: 2.25rem;
@@ -336,23 +344,26 @@ h1, h2, h3, h4 {
 .nav-links a:hover               { color: var(--gold-bright); }
 .nav-links a:hover::after        { width: 100%; }
 .nav-book-cta {
-  padding: 0.55rem 1.15rem !important;
-  border: 1px solid rgba(201,168,76,0.55);
-  color: var(--gold-bright) !important;
-  letter-spacing: 0.14em !important;
+  flex-shrink: 0;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--blush);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(224,154,165,0.35);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
-.nav-book-cta::after { display: none !important; }
 .nav-book-cta:hover {
-  background: rgba(201,168,76,0.15);
-  color: #fff !important;
-}
-#main-nav.scrolled .nav-book-cta {
-  border-color: var(--gold);
-  color: var(--gold) !important;
-}
-#main-nav.scrolled .nav-book-cta:hover {
-  background: var(--gold-pale);
-  color: var(--gold) !important;
+  background: #d3818d;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(224,154,165,0.45);
 }
 
 /* ─── Hero ───────────────────────────────────────────────────────── */
@@ -981,9 +992,35 @@ h1, h2, h3, h4 {
   transition: transform 0.4s ease;
   display: block;
 }
+video.ig-cell-image {
+  object-position: center;
+  background: var(--dark-card);
+}
 .ig-cell:hover .ig-cell-image,
 .ig-cell:hover img {
   transform: scale(1.05);
+}
+/* Vimeo background player scaled to cover the square cell (crops 9:16 reels top/bottom) */
+.ig-cell-video {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--dark-card);
+}
+.ig-cell-video iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 177.78%;
+  border: 0;
+  pointer-events: none;
+}
+.gallery-empty {
+  margin: 3rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 .ig-cell-overlay {
   position: absolute; inset: 0;
@@ -1357,7 +1394,7 @@ footer::before {
   text-decoration: none;
 }
 .footer-logo-img {
-  height: 72px;
+  height: 64px;
   width: auto;
   display: block;
 }
@@ -1457,7 +1494,7 @@ footer::before {
 
 .nav-mobile-menu {
   position: absolute;
-  top: 72px; left: 0; right: 0;
+  top: 88px; left: 0; right: 0;
   background: rgba(255,252,248,0.88);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
@@ -1524,6 +1561,7 @@ footer::before {
   .ig-grid                 { grid-template-columns: repeat(2, 1fr); }
   #main-nav                { padding: 0 24px; }
   .nav-links               { display: none; }
+  .nav-book-cta            { display: none; }
   .nav-burger              { display: flex; }
   .nav-mobile-menu         { display: flex; }
   .section-light,
@@ -1539,7 +1577,7 @@ footer::before {
   /* Hero section — aggressive sizing */
   #hero {
     min-height: 100svh;
-    padding-top: 64px;
+    padding-top: 72px;
   }
   .hero-content            { padding: 0 16px; }
   .hero-headline {
@@ -1575,15 +1613,15 @@ footer::before {
 
   /* Nav — compact */
   #main-nav {
-    height: 64px;
+    height: 72px;
     padding: 0 16px;
   }
   .nav-logo                { gap: 0.6rem; }
-  .nav-logo-img            { height: 42px; }
+  .nav-logo-img            { height: 48px; }
   .nav-wordmark            { font-size: 1rem; }
   .nav-wordmark .byline    { font-size: 0.5rem; margin-top: 0.1rem; }
   .nav-mobile-menu {
-    top: 64px;
+    top: 72px;
     padding: 1.5rem 16px;
   }
   .nav-mobile-cta          { width: 100%; text-align: center; }

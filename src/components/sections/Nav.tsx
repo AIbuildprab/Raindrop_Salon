@@ -7,6 +7,14 @@ const NAV_ITEMS = ['About', 'Services', 'Gallery', 'Reviews', 'FAQ', 'Contact']
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -17,7 +25,10 @@ export default function Nav() {
 
   const handleLinkClick = () => setOpen(false)
 
-  const navClass = ['scrolled', open ? 'is-menu-open' : '']
+  const navClass = [
+    scrolled || open ? 'scrolled' : 'nav-over-hero',
+    open ? 'is-menu-open' : '',
+  ]
     .filter(Boolean)
     .join(' ')
 
@@ -25,10 +36,10 @@ export default function Nav() {
     <nav id="main-nav" className={navClass} role="navigation" aria-label="Main navigation">
       <a href="#hero" className="nav-logo" aria-label="Raindrop Beauty Salon — home">
         <Image
-          src="/images/raindrop-logo.png"
+          src="/images/raindrop-logo-wide.png"
           alt="Raindrop Beauty Salon"
-          width={52}
-          height={52}
+          width={320}
+          height={80}
           priority
           className="nav-logo-img"
         />
@@ -40,10 +51,9 @@ export default function Nav() {
             <a href={`#${item.toLowerCase()}`}>{item}</a>
           </li>
         ))}
-        <li>
-          <a href="#contact" className="nav-book-cta">Book Now</a>
-        </li>
       </ul>
+
+      <a href="#contact" className="nav-book-cta">Book Now</a>
 
       <button
         className={`nav-burger${open ? ' is-open' : ''}`}
