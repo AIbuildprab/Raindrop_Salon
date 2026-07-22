@@ -41,10 +41,11 @@ export default function Nav() {
     <nav id="main-nav" className={navClass} role="navigation" aria-label="Main navigation">
       <a href="#hero" className="nav-wordmark" aria-label="Raindrop Beauty Salon — home">
         <Image
-          src="/images/nav-wordmark.png"
+          src="/images/nav-wordmark.webp"
           alt="Raindrop Beauty Salon"
-          width={857}
-          height={379}
+          width={480}
+          height={212}
+          sizes="(max-width: 600px) 180px, 220px"
           priority
           className="nav-wordmark-img"
         />

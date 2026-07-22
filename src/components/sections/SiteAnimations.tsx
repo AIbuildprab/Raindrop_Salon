@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 export default function SiteAnimations() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (window.matchMedia('(max-width: 900px)').matches) return
 
     const load = async () => {
       const { default: gsap } = await import('gsap')

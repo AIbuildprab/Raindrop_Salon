@@ -1,3 +1,5 @@
+import AboutPortrait from '@/components/sections/AboutPortrait'
+
 const DETAILS = [
   'On-location across the Fraser Valley & Lower Mainland',
   'Certified esthetician — hair, makeup & skin in one place',
@@ -35,18 +37,7 @@ export default function About() {
           </div>
 
           <div data-reveal>
-            <div className="about-portrait-frame">
-              <video
-                className="about-portrait-video"
-                src="/videos/reception.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Raindrop Beauty Salon studio reception"
-              />
-            </div>
+            <AboutPortrait />
             <p className="about-media-caption">The studio · Abbotsford</p>
           </div>
         </div>
