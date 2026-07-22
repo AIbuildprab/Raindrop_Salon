@@ -1123,25 +1123,8 @@ video.ig-cell-image {
   border: 0;
   pointer-events: none;
 }
-.ig-cell-play,
-.about-portrait-play {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  background: rgba(26, 18, 11, 0.28);
-  cursor: pointer;
-}
-.ig-cell-play::after,
-.about-portrait-play::after {
-  content: '';
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(226, 212, 194, 0.92);
-  box-shadow: 0 4px 20px rgba(26, 18, 11, 0.25);
-  clip-path: polygon(38% 28%, 38% 72%, 72% 50%);
+.ig-cell-video:has(iframe) .ig-cell-poster {
+  opacity: 0;
 }
 .gallery-empty {
   margin: 3rem 0;
