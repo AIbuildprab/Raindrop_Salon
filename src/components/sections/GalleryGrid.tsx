@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import {
   GALLERY_FILTERS,
   GALLERY_VIDEOS,
@@ -8,13 +8,14 @@ import {
   type GalleryVideo,
 } from '@/data/gallery-videos'
 import InstagramIcon from '@/components/ui/InstagramIcon'
+import { useCoarsePointer } from '@/hooks/use-coarse-pointer'
 import {
-  clearEmbedInterest,
   galleryPosterPath,
   getActiveEmbedCount,
   hasEmbedSlot,
+  releaseEmbedSlot,
+  requestEmbedSlot,
   subscribeEmbedSlots,
-  updateEmbedInterest,
 } from '@/lib/gallery-embeds'
 
 const FILTER_LABELS: Record<GalleryFilter, string> = {
@@ -26,7 +27,7 @@ const FILTER_LABELS: Record<GalleryFilter, string> = {
 
 function useInViewPlay(rootMargin = '80px') {
   const ref = useRef<HTMLDivElement>(null)
-  const [state, setState] = useState({ inView: false, ratio: 0 })
+  const [inView, setInView] = useState(false)
 
   useEffect(() => {
     const el = ref.current
@@ -37,52 +38,75 @@ function useInViewPlay(rootMargin = '80px') {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const ratio = entry.intersectionRatio
-        const inView = entry.isIntersecting && ratio >= 0.35
-        setState({ inView, ratio: inView ? ratio : 0 })
+        setInView(entry.isIntersecting && entry.intersectionRatio >= 0.35)
       },
-      { rootMargin, threshold: [0, 0.35, 0.5, 0.75, 1] },
+      { rootMargin, threshold: [0, 0.35, 0.6] },
     )
 
     observer.observe(el)
     return () => observer.disconnect()
   }, [rootMargin])
 
-  return { ref, ...state }
+  return { ref, inView }
 }
 
-function useEmbedSlot(id: string, inView: boolean, ratio: number) {
-  useSyncExternalStore(subscribeEmbedSlots, getActiveEmbedCount, () => 0)
+function useEmbedSlot(id: string, wantsSlot: boolean) {
+  const slotVersion = useSyncExternalStore(
+    subscribeEmbedSlots,
+    getActiveEmbedCount,
+    () => 0,
+  )
 
   useEffect(() => {
-    if (inView && ratio > 0) {
-      updateEmbedInterest(id, ratio)
-    } else {
-      clearEmbedInterest(id)
+    if (!wantsSlot) {
+      releaseEmbedSlot(id)
+      return
     }
-    return () => clearEmbedInterest(id)
-  }, [id, inView, ratio])
+    requestEmbedSlot(id)
+    return () => releaseEmbedSlot(id)
+  }, [id, wantsSlot, slotVersion])
 
-  return inView && hasEmbedSlot(id)
+  return wantsSlot && hasEmbedSlot(id)
 }
 
 function Mp4Cell({ video, cellId }: { video: Extract<GalleryVideo, { type: 'mp4' }>; cellId: string }) {
-  const { ref, inView, ratio } = useInViewPlay()
+  const isMobile = useCoarsePointer()
+  const { ref, inView } = useInViewPlay()
+  const [tapped, setTapped] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const hasSlot = useEmbedSlot(cellId, inView, ratio)
+  const wantsPlay = inView && (!isMobile || tapped)
+  const hasSlot = useEmbedSlot(cellId, wantsPlay)
 
   useEffect(() => {
     const node = videoRef.current
     if (!node) return
-    if (hasSlot) {
+    if (hasSlot && wantsPlay) {
       void node.play().catch(() => {})
     } else {
       node.pause()
     }
-  }, [hasSlot])
+  }, [hasSlot, wantsPlay])
+
+  const showPlay = isMobile && inView && !tapped
 
   return (
-    <div className="ig-cell-video" ref={ref}>
+    <div
+      className="ig-cell-video"
+      ref={ref}
+      onClick={showPlay ? () => setTapped(true) : undefined}
+      role={showPlay ? 'button' : undefined}
+      tabIndex={showPlay ? 0 : undefined}
+      onKeyDown={
+        showPlay
+          ? e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                setTapped(true)
+              }
+            }
+          : undefined
+      }
+    >
       <video
         ref={videoRef}
         className="ig-cell-image"
@@ -91,16 +115,21 @@ function Mp4Cell({ video, cellId }: { video: Extract<GalleryVideo, { type: 'mp4'
         muted
         loop
         playsInline
-        preload={inView ? 'metadata' : 'none'}
+        preload={wantsPlay ? 'metadata' : 'none'}
         aria-label={video.alt}
       />
+      {showPlay ? <span className="ig-cell-play" aria-hidden="true" /> : null}
     </div>
   )
 }
 
 function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> }) {
-  const { ref, inView, ratio } = useInViewPlay()
-  const hasSlot = useEmbedSlot(video.vimeoId, inView, ratio)
+  const isMobile = useCoarsePointer()
+  const { ref, inView } = useInViewPlay()
+  const [tapped, setTapped] = useState(false)
+  const wantsEmbed = inView && (!isMobile || tapped)
+  const hasSlot = useEmbedSlot(video.vimeoId, wantsEmbed)
+  const showEmbed = wantsEmbed && hasSlot
 
   const poster = galleryPosterPath(video.vimeoId)
   const src =
@@ -108,8 +137,27 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
     `?background=1&autoplay=1&loop=1&muted=1&autopause=1` +
     `&title=0&byline=0&portrait=0&badge=0&dnt=1`
 
+  const handleActivate = useCallback(() => setTapped(true), [])
+  const showPlay = isMobile && inView && !tapped
+
   return (
-    <div className="ig-cell-video" ref={ref}>
+    <div
+      className="ig-cell-video"
+      ref={ref}
+      onClick={showPlay ? handleActivate : undefined}
+      role={showPlay ? 'button' : undefined}
+      tabIndex={showPlay ? 0 : undefined}
+      onKeyDown={
+        showPlay
+          ? e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleActivate()
+              }
+            }
+          : undefined
+      }
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="ig-cell-poster"
@@ -122,7 +170,7 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
           e.currentTarget.src = `https://vumbnail.com/${video.vimeoId}.jpg`
         }}
       />
-      {hasSlot ? (
+      {showEmbed ? (
         <iframe
           src={src}
           title={video.alt}
@@ -131,6 +179,7 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
           allowFullScreen
         />
       ) : null}
+      {showPlay ? <span className="ig-cell-play" aria-hidden="true" /> : null}
     </div>
   )
 }

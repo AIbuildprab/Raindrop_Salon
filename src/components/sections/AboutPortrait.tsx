@@ -1,11 +1,14 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useCoarsePointer } from '@/hooks/use-coarse-pointer'
 
 export default function AboutPortrait() {
+  const isMobile = useCoarsePointer()
   const frameRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [inView, setInView] = useState(false)
+  const [tapped, setTapped] = useState(false)
 
   useEffect(() => {
     const el = frameRef.current
@@ -25,18 +28,38 @@ export default function AboutPortrait() {
     return () => observer.disconnect()
   }, [])
 
+  const shouldPlay = inView && (!isMobile || tapped)
+
   useEffect(() => {
     const node = videoRef.current
     if (!node) return
-    if (inView) {
+    if (shouldPlay) {
       void node.play().catch(() => {})
     } else {
       node.pause()
     }
-  }, [inView])
+  }, [shouldPlay])
+
+  const showPlay = isMobile && inView && !tapped
 
   return (
-    <div ref={frameRef} className="about-portrait-frame">
+    <div
+      ref={frameRef}
+      className="about-portrait-frame"
+      onClick={showPlay ? () => setTapped(true) : undefined}
+      role={showPlay ? 'button' : undefined}
+      tabIndex={showPlay ? 0 : undefined}
+      onKeyDown={
+        showPlay
+          ? e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                setTapped(true)
+              }
+            }
+          : undefined
+      }
+    >
       <video
         ref={videoRef}
         className="about-portrait-video"
@@ -44,9 +67,10 @@ export default function AboutPortrait() {
         muted
         loop
         playsInline
-        preload={inView ? 'metadata' : 'none'}
+        preload={shouldPlay ? 'metadata' : 'none'}
         aria-label="Raindrop Beauty Salon studio reception"
       />
+      {showPlay ? <span className="about-portrait-play" aria-hidden="true" /> : null}
     </div>
   )
 }
