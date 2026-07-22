@@ -18,9 +18,14 @@ export default function Nav() {
 
   useEffect(() => {
     if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     const close = () => setOpen(false)
     document.addEventListener('click', close, { once: true })
-    return () => document.removeEventListener('click', close)
+    return () => {
+      document.body.style.overflow = prev
+      document.removeEventListener('click', close)
+    }
   }, [open])
 
   const handleLinkClick = () => setOpen(false)
@@ -34,14 +39,14 @@ export default function Nav() {
 
   return (
     <nav id="main-nav" className={navClass} role="navigation" aria-label="Main navigation">
-      <a href="#hero" className="nav-logo" aria-label="Raindrop Beauty Salon — home">
+      <a href="#hero" className="nav-wordmark" aria-label="Raindrop Beauty Salon — home">
         <Image
-          src="/images/raindrop-logo-wide.png"
+          src="/images/nav-wordmark.png"
           alt="Raindrop Beauty Salon"
-          width={320}
-          height={80}
+          width={857}
+          height={379}
           priority
-          className="nav-logo-img"
+          className="nav-wordmark-img"
         />
       </a>
 

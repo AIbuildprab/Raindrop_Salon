@@ -1,4 +1,5 @@
 import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
+import InstagramIcon from '@/components/ui/InstagramIcon'
 
 export default function Contact() {
   return (
@@ -50,7 +51,10 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="contact-card"
             >
-              <div className="contact-label">Instagram</div>
+              <div className="contact-label contact-label-ig">
+                <InstagramIcon size={14} gradientId="ig-grad-contact" />
+                Instagram
+              </div>
               <div className="contact-value" style={{ color: 'var(--gold)', fontSize: '1.15rem' }}>
                 @raindrops_beauty_salon
               </div>

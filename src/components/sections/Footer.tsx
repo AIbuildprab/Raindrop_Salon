@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
+import InstagramIcon from '@/components/ui/InstagramIcon'
 
 export default function Footer() {
   return (
@@ -16,8 +17,9 @@ export default function Footer() {
             </p>
           </div>
           <div className="footer-cta-actions">
-            <a href={PHONE_TEL} className="btn-gold">
-              Call — {PHONE_DISPLAY}
+            <a href={PHONE_TEL} className="btn-gold" aria-label={`Call — ${PHONE_DISPLAY}`}>
+              <span className="btn-label-full">Call — {PHONE_DISPLAY}</span>
+              <span className="btn-label-short">Call to Book</span>
             </a>
             <a
               href={WHATSAPP_URL}
@@ -35,10 +37,10 @@ export default function Footer() {
         <div className="footer-inner">
           <a href="#hero" className="footer-logo" aria-label="Back to top">
             <Image
-              src="/images/raindrop-logo-wide.png"
+              src="/images/raindrop-logo.png"
               alt="Raindrop Beauty Salon"
-              width={320}
-              height={80}
+              width={120}
+              height={120}
               className="footer-logo-img"
             />
           </a>
@@ -53,6 +55,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="footer-ig"
           >
+            <InstagramIcon size={14} gradientId="ig-grad-footer" />
             @raindrops_beauty_salon
           </a>
 

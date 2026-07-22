@@ -1,3 +1,13 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="180" height="180" rx="36" fill="#FF3C00"/>
+  <rect width="180" height="180" rx="36" fill="#FDF7F0"/>
+  <ellipse cx="90" cy="118" rx="28" ry="10" stroke="#C5A059" stroke-width="3" fill="none" opacity="0.55"/>
+  <ellipse cx="90" cy="118" rx="18" ry="6" stroke="#8B6F38" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M90 42C90 42 68 78 68 98C68 110.15 77.85 120 90 120C102.15 120 112 110.15 112 98C112 78 90 42 90 42Z" fill="url(#drop)"/>
+  <defs>
+    <linearGradient id="drop" x1="68" y1="42" x2="112" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D4AF37"/>
+      <stop offset="0.5" stop-color="#C5A059"/>
+      <stop offset="1" stop-color="#8B6F38"/>
+    </linearGradient>
+  </defs>
 </svg>

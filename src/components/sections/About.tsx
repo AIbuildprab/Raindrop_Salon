@@ -1,8 +1,7 @@
 const DETAILS = [
-  'Studio-based in Abbotsford, BC',
   'On-location across the Fraser Valley & Lower Mainland',
-  '18+ years of bridal experience',
   'Certified esthetician — hair, makeup & skin in one place',
+  'Full glam for South Asian weddings, Mehndi & celebrations',
 ]
 
 export default function About() {
@@ -18,10 +17,9 @@ export default function About() {
             </h2>
             <div className="gold-divider" />
             <p className="about-body" data-reveal>
-              Jass is an Abbotsford-based certified esthetician and hair &amp; makeup artist with
-              over 18 years of experience making brides shine. Specializing in full glam for South
-              Asian weddings, bridal, and celebrations of all kinds, she brings warmth and artistry
-              to every look.
+              Jass is the artist behind Raindrop — known for warm, polished bridal looks that feel
+              personal. From South Asian weddings to Mehndi nights and every celebration in between,
+              she brings artistry and care to every appointment.
             </p>
             <div data-stagger>
               {DETAILS.map(detail => (
@@ -31,16 +29,25 @@ export default function About() {
                 </div>
               ))}
             </div>
+            <a href="#contact" className="about-cta" data-reveal>
+              Book with Jass
+            </a>
           </div>
 
           <div data-reveal>
-            <div className="about-portrait-placeholder">
-              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="32" cy="22" r="14" stroke="#B8942E" strokeWidth="1.5" fill="none" />
-                <path d="M8 58c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#B8942E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              </svg>
-              <span>Portrait of Jass</span>
+            <div className="about-portrait-frame">
+              <video
+                className="about-portrait-video"
+                src="/videos/reception.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Raindrop Beauty Salon studio reception"
+              />
             </div>
+            <p className="about-media-caption">The studio · Abbotsford</p>
           </div>
         </div>
       </div>

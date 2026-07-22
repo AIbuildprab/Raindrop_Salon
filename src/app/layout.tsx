@@ -10,7 +10,7 @@ const description =
   'Raindrop Beauty Salon — Certified Esthetician & Hair/Makeup Artist in Abbotsford, BC. 18+ years making brides shine, with full glam for weddings, Mehndi nights, and every celebration.'
 
 export const viewport: Viewport = {
-  themeColor: '#c8a97e',
+  themeColor: '#C5A059',
   width: 'device-width',
   initialScale: 1,
 }

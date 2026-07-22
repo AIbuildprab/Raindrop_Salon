@@ -11,7 +11,6 @@ export default function SiteAnimations() {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
       gsap.registerPlugin(ScrollTrigger)
 
-      const eyebrow    = document.querySelector<HTMLElement>('.hero-eyebrow-wrap')
       const lineInners = document.querySelectorAll<HTMLElement>('.line-inner')
       const heroSub    = document.querySelector<HTMLElement>('.hero-sub')
       const heroCtas   = document.querySelector<HTMLElement>('.hero-ctas')
@@ -20,19 +19,16 @@ export default function SiteAnimations() {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
       if (heroMedia) {
-        tl.from(heroMedia, { scale: 1.08, opacity: 0.6, duration: 1.8 }, 0)
-      }
-      if (eyebrow) {
-        tl.from(eyebrow, { opacity: 0, y: 16, duration: 0.7 }, 0.2)
+        tl.from(heroMedia, { scale: 1.06, opacity: 0.7, duration: 1.8 }, 0)
       }
       lineInners.forEach((line, i) => {
-        tl.from(line, { opacity: 0, y: 20, duration: 0.75 }, 0.35 + i * 0.12)
+        tl.from(line, { opacity: 0, y: 20, duration: 0.75 }, 0.25 + i * 0.12)
       })
       if (heroSub) {
-        tl.from(heroSub, { opacity: 0, y: 16, duration: 0.7 }, 0.75)
+        tl.from(heroSub, { opacity: 0, y: 16, duration: 0.7 }, 0.6)
       }
       if (heroCtas) {
-        tl.from(heroCtas, { opacity: 0, y: 16, duration: 0.7 }, 0.9)
+        tl.from(heroCtas, { opacity: 0, y: 16, duration: 0.7 }, 0.75)
       }
 
       document.querySelectorAll<HTMLElement>('[data-reveal]').forEach(el => {
