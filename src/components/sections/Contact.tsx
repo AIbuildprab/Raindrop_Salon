@@ -1,4 +1,4 @@
-import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
+import { MAPS_URL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
 import InstagramIcon from '@/components/ui/InstagramIcon'
 
 export default function Contact() {
@@ -14,7 +14,10 @@ export default function Contact() {
         <div className="contact-grid">
           <div className="contact-cards" data-stagger>
             <a href={PHONE_TEL} className="contact-card">
-              <div className="contact-label">Call or Text</div>
+              <div className="contact-label contact-label-emoji">
+                <span aria-hidden="true">📞</span>
+                Call or Text
+              </div>
               <div className="contact-value">{PHONE_DISPLAY}</div>
               <div className="contact-note">Call to book your appointment</div>
             </a>
@@ -25,19 +28,34 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="contact-card"
             >
-              <div className="contact-label">WhatsApp</div>
+              <div className="contact-label contact-label-emoji">
+                <span aria-hidden="true">💬</span>
+                WhatsApp
+              </div>
               <div className="contact-value">Message Jass</div>
               <div className="contact-note">Tap to open WhatsApp</div>
             </a>
 
-            <div className="contact-card">
-              <div className="contact-label">Studio</div>
-              <div className="contact-value">3526 Thurston Place, Abbotsford, BC</div>
-              <div className="contact-note">On-location across the Fraser Valley & Lower Mainland</div>
-            </div>
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-card"
+            >
+              <div className="contact-label contact-label-emoji">
+                <span aria-hidden="true">📍</span>
+                Studio
+              </div>
+              <div className="contact-value">Raindrops beauty salon ltd</div>
+              <div className="contact-note">3526 Thurston Place, Abbotsford, BC</div>
+              <div className="contact-note">Tap to open in Maps</div>
+            </a>
 
             <div className="contact-card">
-              <div className="contact-label">Hours</div>
+              <div className="contact-label contact-label-emoji">
+                <span aria-hidden="true">🕐</span>
+                Hours
+              </div>
               <div className="contact-value contact-hours">
                 <span>Mon–Fri: 10:00 AM – 7:00 PM</span>
                 <span>Sat: 9:00 AM – 6:00 PM</span>
@@ -64,10 +82,10 @@ export default function Contact() {
           <div data-reveal>
             <div className="map-wrap">
               <iframe
-                src="https://www.google.com/maps?q=3526+Thurston+Place,+Abbotsford,+BC+V2T+6Y1&output=embed"
-                title="Raindrop Beauty Salon — 3526 Thurston Place, Abbotsford, BC"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2614.0523136829183!2d-122.34935902360463!3d49.06664027136113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548435ed04d45315%3A0xebf8c6a160ae3ef0!2sRaindrops%20beauty%20salon%20ltd!5e0!3m2!1sen!2suk!4v1784840570558!5m2!1sen!2suk"
+                title="Raindrops beauty salon ltd — 3526 Thurston Place, Abbotsford, BC"
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
               />
             </div>

@@ -1,9 +1,9 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import { MAPS_URL } from '@/lib/contact'
 
-const GOOGLE_REVIEWS_URL =
-  'https://www.google.com/maps/search/?api=1&query=Raindrop+Beauty+Salon+3526+Thurston+Place+Abbotsford+BC'
+const GOOGLE_REVIEWS_URL = MAPS_URL
 
 const REVIEWS = [
   {
