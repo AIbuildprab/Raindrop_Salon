@@ -1076,12 +1076,11 @@ h1, h2, h3, h4 {
 .ig-cell-image {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center var(--gallery-focus-y, 24%);
   transition: transform 0.4s ease;
   display: block;
 }
 video.ig-cell-image {
-  object-position: center;
   background: var(--dark-card);
 }
 .ig-cell:hover .ig-cell-image,
@@ -1094,6 +1093,8 @@ video.ig-cell-image {
   inset: 0;
   overflow: hidden;
   background: var(--dark-card);
+  /* Focal Y inside the reel — lower % = more hair / top of head */
+  --gallery-focus-y: 24%;
 }
 .ig-cell-poster {
   position: absolute;
@@ -1101,7 +1102,7 @@ video.ig-cell-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center var(--gallery-focus-y);
   display: block;
   transition: transform 0.4s ease;
 }
@@ -1110,12 +1111,23 @@ video.ig-cell-image {
 }
 .ig-cell-video iframe {
   position: absolute;
-  top: 50%; left: 50%;
+  /* Shift down so the upper (hair) region fills the square instead of the face mid-frame */
+  top: calc(50% + (50% - var(--gallery-focus-y)) * 0.55);
+  left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
   height: 177.78%;
   border: 0;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.ig-cell-video.is-playing iframe {
+  opacity: 1;
+}
+.ig-cell-video.is-playing .ig-cell-poster {
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.4s ease;
 }
 .gallery-empty {
   margin: 3rem 0;

@@ -1,3 +1,7 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+
 const DETAILS = [
   'On-location across the Fraser Valley & Lower Mainland',
   'Certified esthetician — hair, makeup & skin in one place',
@@ -5,6 +9,35 @@ const DETAILS = [
 ]
 
 export default function About() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const el = videoRef.current
+    if (!el) return
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting && entry.intersectionRatio >= 0.25),
+      { rootMargin: '120px 0px', threshold: [0, 0.25, 0.5] },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const node = videoRef.current
+    if (!node) return
+    if (inView) {
+      void node.play().catch(() => {})
+    } else {
+      node.pause()
+    }
+  }, [inView])
+
   return (
     <section id="about" className="section-light">
       <div className="section-inner">
@@ -37,13 +70,13 @@ export default function About() {
           <div data-reveal>
             <div className="about-portrait-frame">
               <video
+                ref={videoRef}
                 className="about-portrait-video"
                 src="/videos/reception.mp4"
-                autoPlay
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload={inView ? 'auto' : 'none'}
                 aria-label="Raindrop Beauty Salon studio reception"
               />
             </div>
