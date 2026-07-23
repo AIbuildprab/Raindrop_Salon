@@ -9,6 +9,11 @@ import {
 } from '@/data/gallery-videos'
 import InstagramIcon from '@/components/ui/InstagramIcon'
 import {
+  getInViewRootMargin,
+  getInViewThreshold,
+  useMobileLayout,
+} from '@/hooks/use-mobile-layout'
+import {
   clearEmbedInterest,
   galleryPosterPath,
   getActiveEmbedCount,
@@ -16,6 +21,7 @@ import {
   subscribeEmbedSlots,
   updateEmbedInterest,
 } from '@/lib/gallery-embeds'
+import { playWhenReady, vimeoEmbedSrc } from '@/lib/video-playback'
 
 const FILTER_LABELS: Record<GalleryFilter, string> = {
   all: 'All Work',
@@ -24,9 +30,12 @@ const FILTER_LABELS: Record<GalleryFilter, string> = {
   makeup: 'Makeup',
 }
 
-function useInViewPlay(rootMargin = '80px') {
+function useInViewPlay() {
+  const isMobileLayout = useMobileLayout()
   const ref = useRef<HTMLDivElement>(null)
   const [state, setState] = useState({ inView: false, ratio: 0 })
+  const minRatio = getInViewThreshold(isMobileLayout)
+  const rootMargin = getInViewRootMargin(isMobileLayout)
 
   useEffect(() => {
     const el = ref.current
@@ -38,15 +47,18 @@ function useInViewPlay(rootMargin = '80px') {
     const observer = new IntersectionObserver(
       ([entry]) => {
         const ratio = entry.intersectionRatio
-        const inView = entry.isIntersecting && ratio >= 0.35
-        setState({ inView, ratio: inView ? ratio : 0 })
+        const inView = entry.isIntersecting && ratio >= minRatio
+        setState({
+          inView,
+          ratio: entry.isIntersecting ? ratio : 0,
+        })
       },
-      { rootMargin, threshold: [0, 0.35, 0.5, 0.75, 1] },
+      { rootMargin, threshold: [0, 0.15, 0.25, 0.35, 0.5, 0.75, 1] },
     )
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [rootMargin])
+  }, [minRatio, rootMargin])
 
   return { ref, ...state }
 }
@@ -74,15 +86,15 @@ function Mp4Cell({ video, cellId }: { video: Extract<GalleryVideo, { type: 'mp4'
   useEffect(() => {
     const node = videoRef.current
     if (!node) return
-    if (hasSlot) {
-      void node.play().catch(() => {})
-    } else {
+    if (!hasSlot) {
       node.pause()
+      return
     }
+    return playWhenReady(node)
   }, [hasSlot])
 
   return (
-    <div className="ig-cell-video" ref={ref}>
+    <div className={`ig-cell-video${hasSlot ? ' is-playing' : ''}`} ref={ref}>
       <video
         ref={videoRef}
         className="ig-cell-image"
@@ -91,6 +103,7 @@ function Mp4Cell({ video, cellId }: { video: Extract<GalleryVideo, { type: 'mp4'
         muted
         loop
         playsInline
+        autoPlay={hasSlot}
         preload={inView ? 'metadata' : 'none'}
         aria-label={video.alt}
       />
@@ -99,17 +112,48 @@ function Mp4Cell({ video, cellId }: { video: Extract<GalleryVideo, { type: 'mp4'
 }
 
 function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> }) {
+  const isMobileLayout = useMobileLayout()
   const { ref, inView, ratio } = useInViewPlay()
   const hasSlot = useEmbedSlot(video.vimeoId, inView, ratio)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const playTimerRef = useRef<number | null>(null)
 
   const poster = galleryPosterPath(video.vimeoId)
-  const src =
-    `https://player.vimeo.com/video/${video.vimeoId}` +
-    `?background=1&autoplay=1&loop=1&muted=1&autopause=1` +
-    `&title=0&byline=0&portrait=0&badge=0&dnt=1`
+  const src = vimeoEmbedSrc(video.vimeoId, isMobileLayout)
+
+  useEffect(() => {
+    if (!hasSlot) {
+      setIsPlaying(false)
+      if (playTimerRef.current !== null) {
+        window.clearTimeout(playTimerRef.current)
+        playTimerRef.current = null
+      }
+    }
+  }, [hasSlot])
+
+  useEffect(() => {
+    return () => {
+      if (playTimerRef.current !== null) {
+        window.clearTimeout(playTimerRef.current)
+      }
+    }
+  }, [])
+
+  const handleIframeLoad = () => {
+    if (playTimerRef.current !== null) {
+      window.clearTimeout(playTimerRef.current)
+    }
+    playTimerRef.current = window.setTimeout(() => {
+      setIsPlaying(true)
+      playTimerRef.current = null
+    }, isMobileLayout ? 900 : 500)
+  }
 
   return (
-    <div className="ig-cell-video" ref={ref}>
+    <div
+      className={`ig-cell-video${isPlaying ? ' is-playing' : ''}${isMobileLayout ? ' ig-cell-video--inline' : ''}`}
+      ref={ref}
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="ig-cell-poster"
@@ -126,9 +170,11 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
         <iframe
           src={src}
           title={video.alt}
+          className="ig-vimeo-frame"
           allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
+          onLoad={handleIframeLoad}
         />
       ) : null}
     </div>
