@@ -305,13 +305,13 @@ h1, h2, h3, h4 {
   opacity: 0.88;
 }
 .nav-wordmark-img {
-  height: 52px;
+  height: 64px;
   width: auto;
   display: block;
   transition: height 0.35s ease;
 }
 #main-nav.scrolled .nav-wordmark-img {
-  height: 44px;
+  height: 54px;
 }
 .nav-links {
   position: absolute;
@@ -1929,10 +1929,10 @@ footer::before {
     height: 60px;
   }
   .nav-wordmark-img {
-    height: 42px;
+    height: 50px;
   }
   #main-nav.scrolled .nav-wordmark-img {
-    height: 38px;
+    height: 44px;
   }
   .nav-mobile-menu {
     top: 68px;

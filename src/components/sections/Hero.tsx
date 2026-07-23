@@ -33,7 +33,7 @@ export default function Hero() {
       <div className="hero-content">
         <h1 className="hero-headline">
           <span className="line-mask">
-            <span className="line-inner">Raindrop</span>
+            <span className="line-inner">Raindrops</span>
           </span>
           <span className="line-mask">
             <span className="line-inner">
