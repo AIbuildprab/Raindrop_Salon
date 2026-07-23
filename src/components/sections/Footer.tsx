@@ -37,11 +37,10 @@ export default function Footer() {
         <div className="footer-inner">
           <a href="#hero" className="footer-logo" aria-label="Back to top">
             <Image
-              src="/images/raindrop-logo-128.webp"
+              src="/images/raindrop-logo.png"
               alt="Raindrop Beauty Salon"
-              width={128}
-              height={128}
-              sizes="128px"
+              width={120}
+              height={120}
               className="footer-logo-img"
             />
           </a>
@@ -61,7 +60,7 @@ export default function Footer() {
           </a>
 
           <p className="footer-copy">
-            &copy; 2026 Raindrop Beauty Salon Ltd. Abbotsford, BC.
+            &copy; 2026 Raindrops Beauty Salon Ltd. Abbotsford, BC.
           </p>
         </div>
       </footer>
