@@ -2,9 +2,32 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+const POSTER = '/images/about-reception-poster.webp'
+
+function playWhenReady(video: HTMLVideoElement) {
+  if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+    void video.play().catch(() => {})
+    return () => {}
+  }
+
+  const onReady = () => {
+    void video.play().catch(() => {})
+  }
+
+  video.addEventListener('loadeddata', onReady, { once: true })
+  video.addEventListener('canplay', onReady, { once: true })
+  video.load()
+
+  return () => {
+    video.removeEventListener('loadeddata', onReady)
+    video.removeEventListener('canplay', onReady)
+  }
+}
+
 export default function AboutPortrait() {
   const frameRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [nearView, setNearView] = useState(false)
   const [inView, setInView] = useState(false)
 
   useEffect(() => {
@@ -16,9 +39,11 @@ export default function AboutPortrait() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setInView(entry.isIntersecting && entry.intersectionRatio >= 0.25)
+        const ratio = entry.intersectionRatio
+        setNearView(entry.isIntersecting || ratio > 0)
+        setInView(entry.isIntersecting && ratio >= 0.25)
       },
-      { threshold: [0, 0.25, 0.5] },
+      { rootMargin: '120px', threshold: [0, 0.25, 0.5] },
     )
 
     observer.observe(el)
@@ -28,11 +53,13 @@ export default function AboutPortrait() {
   useEffect(() => {
     const node = videoRef.current
     if (!node) return
-    if (inView) {
-      void node.play().catch(() => {})
-    } else {
+
+    if (!inView) {
       node.pause()
+      return
     }
+
+    return playWhenReady(node)
   }, [inView])
 
   return (
@@ -41,10 +68,11 @@ export default function AboutPortrait() {
         ref={videoRef}
         className="about-portrait-video"
         src="/videos/reception.mp4"
+        poster={POSTER}
         muted
         loop
         playsInline
-        preload={inView ? 'metadata' : 'none'}
+        preload={nearView ? 'metadata' : 'none'}
         aria-label="Raindrop Beauty Salon studio reception"
       />
     </div>

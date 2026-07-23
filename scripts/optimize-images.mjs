@@ -4,7 +4,12 @@
  */
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
+import ffmpegPath from 'ffmpeg-static'
 import sharp from 'sharp'
+
+const execFileAsync = promisify(execFile)
 
 const ROOT = path.resolve(import.meta.dirname, '..')
 const IMAGES = path.join(ROOT, 'public', 'images')
@@ -52,13 +57,26 @@ async function optimizeSiteImages() {
     .toFile(path.join(IMAGES, 'raindrop-logo-128.webp'))
 
   const aboutVideo = path.join(ROOT, 'public', 'videos', 'reception.mp4')
+  const aboutPoster = path.join(IMAGES, 'about-reception-poster.webp')
+  const aboutPosterTmp = path.join(IMAGES, 'about-reception-poster.tmp.webp')
   try {
-    await sharp(aboutVideo, { pages: 1 })
+    if (!ffmpegPath) throw new Error('ffmpeg binary not found')
+    await execFileAsync(ffmpegPath, [
+      '-y',
+      '-i', aboutVideo,
+      '-frames:v', '1',
+      '-q:v', '2',
+      aboutPosterTmp,
+    ])
+    await sharp(aboutPosterTmp)
       .resize(720, null, { withoutEnlargement: true })
       .webp({ quality: 75 })
-      .toFile(path.join(IMAGES, 'about-reception-poster.webp'))
+      .toFile(aboutPoster)
+    await fs.unlink(aboutPosterTmp).catch(() => {})
+    console.log('About video poster saved.')
   } catch {
-    console.warn('Could not extract about video poster — skipping')
+    await fs.unlink(aboutPosterTmp).catch(() => {})
+    console.warn('Could not extract about video poster — add about-reception-poster.webp manually')
   }
 
   console.log('Site images optimized.')
