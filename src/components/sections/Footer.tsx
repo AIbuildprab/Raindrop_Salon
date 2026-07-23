@@ -60,7 +60,7 @@ export default function Footer() {
           </a>
 
           <p className="footer-copy">
-            &copy; 2026 Raindrop Beauty Salon. Abbotsford, BC.
+            &copy; 2026 Raindrops Beauty Salon Ltd. Abbotsford, BC.
           </p>
         </div>
       </footer>
