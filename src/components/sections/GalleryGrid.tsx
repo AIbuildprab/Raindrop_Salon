@@ -146,8 +146,20 @@ function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
       <video
         ref={videoRef}
         className="ig-cell-image"
-        src={near || wantsPlay ? `/videos/${video.src}` : undefined}
-        poster={video.poster ? `/images/${video.poster}` : undefined}
+        src={
+          near || wantsPlay
+            ? video.src.includes('/')
+              ? `/${video.src}`
+              : `/videos/${video.src}`
+            : undefined
+        }
+        poster={
+          video.poster
+            ? video.poster.startsWith('http')
+              ? video.poster
+              : `/images/${video.poster}`
+            : undefined
+        }
         muted
         loop
         playsInline
