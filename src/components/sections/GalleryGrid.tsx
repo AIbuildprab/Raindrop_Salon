@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react'
 import {
   GALLERY_FILTERS,
   GALLERY_VIDEOS,
@@ -118,7 +118,7 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
   const [isPlaying, setIsPlaying] = useState(false)
   const playTimerRef = useRef<number | null>(null)
 
-  const poster = galleryPosterPath(video.vimeoId)
+  const poster = video.poster ?? galleryPosterPath(video.vimeoId)
   const src = vimeoEmbedSrc(video.vimeoId, isMobileLayout)
 
   useEffect(() => {
@@ -153,6 +153,11 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
     <div
       className={`ig-cell-video${isPlaying ? ' is-playing' : ''}${isMobileLayout ? ' ig-cell-video--inline' : ''}`}
       ref={ref}
+      style={
+        video.focusY != null
+          ? ({ '--gallery-focus-y': `${video.focusY}%` } as CSSProperties)
+          : undefined
+      }
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img

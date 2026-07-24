@@ -2,23 +2,20 @@ import Image from 'next/image'
 import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
 
 const HERO_BG = '/images/hero-bg.png'
-const LOGO = '/images/raindrop-logo-512.webp'
+const LOGO = '/images/raindrop-logo.png'
 
 export default function Hero() {
   return (
     <section id="hero" className="hero-brand">
       <div className="hero-media" aria-hidden="true">
-        <picture>
-          <source media="(max-width: 768px)" srcSet="/images/hero-bg-mobile.webp" type="image/webp" />
-          <source srcSet="/images/hero-bg.webp" type="image/webp" />
-          <img
-            src={HERO_BG}
-            alt=""
-            className="hero-media-image"
-            fetchPriority="high"
-            decoding="async"
-          />
-        </picture>
+        <Image
+          src={HERO_BG}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="hero-media-image"
+        />
         <div className="hero-media-overlay" />
       </div>
 
@@ -26,10 +23,9 @@ export default function Hero() {
         <Image
           src={LOGO}
           alt=""
-          width={512}
-          height={512}
-          sizes="(max-width: 600px) 88vw, (max-width: 900px) 78vw, 680px"
-          loading="lazy"
+          width={900}
+          height={900}
+          priority
           className="hero-logo-mark-img"
         />
       </div>
