@@ -1,6 +1,13 @@
-"use client"
+'use client'
 
-import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+} from 'react'
 import {
   GALLERY_FILTERS,
   GALLERY_VIDEOS,
@@ -8,20 +15,6 @@ import {
   type GalleryVideo,
 } from '@/data/gallery-videos'
 import InstagramIcon from '@/components/ui/InstagramIcon'
-import {
-  getInViewRootMargin,
-  getInViewThreshold,
-  useMobileLayout,
-} from '@/hooks/use-mobile-layout'
-import {
-  clearEmbedInterest,
-  galleryPosterPath,
-  getActiveEmbedCount,
-  hasEmbedSlot,
-  subscribeEmbedSlots,
-  updateEmbedInterest,
-} from '@/lib/gallery-embeds'
-import { playWhenReady, vimeoEmbedSrc } from '@/lib/video-playback'
 
 const FILTER_LABELS: Record<GalleryFilter, string> = {
   all: 'All Work',
@@ -30,12 +23,17 @@ const FILTER_LABELS: Record<GalleryFilter, string> = {
   makeup: 'Makeup',
 }
 
-function useInViewPlay() {
-  const isMobileLayout = useMobileLayout()
+/** Keep a player mounted briefly after leaving view to avoid remount thrash. */
+const UNLOAD_DELAY_MS = 600
+
+/**
+ * near  — approaching viewport (warm posters / early load)
+ * inView — enough of the cell is visible to autoplay
+ */
+function useInViewStages() {
   const ref = useRef<HTMLDivElement>(null)
-  const [state, setState] = useState({ inView: false, ratio: 0 })
-  const minRatio = getInViewThreshold(isMobileLayout)
-  const rootMargin = getInViewRootMargin(isMobileLayout)
+  const [near, setNear] = useState(false)
+  const [inView, setInView] = useState(false)
 
   useEffect(() => {
     const el = ref.current
@@ -44,67 +42,116 @@ function useInViewPlay() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) return
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const ratio = entry.intersectionRatio
-        const inView = entry.isIntersecting && ratio >= minRatio
-        setState({
-          inView,
-          ratio: entry.isIntersecting ? ratio : 0,
-        })
-      },
-      { rootMargin, threshold: [0, 0.15, 0.25, 0.35, 0.5, 0.75, 1] },
+    const nearObserver = new IntersectionObserver(
+      ([entry]) => setNear(entry.isIntersecting),
+      { rootMargin: '320px 0px', threshold: 0 },
     )
 
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [minRatio, rootMargin])
+    const viewObserver = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting && entry.intersectionRatio >= 0.4)
+      },
+      { rootMargin: '40px 0px', threshold: [0, 0.4, 0.65] },
+    )
 
-  return { ref, ...state }
+    nearObserver.observe(el)
+    viewObserver.observe(el)
+    return () => {
+      nearObserver.disconnect()
+      viewObserver.disconnect()
+    }
+  }, [])
+
+  return { ref, near, inView }
 }
 
-function useEmbedSlot(id: string, inView: boolean, ratio: number) {
-  useSyncExternalStore(subscribeEmbedSlots, getActiveEmbedCount, () => 0)
+function useFinePointer() {
+  return useSyncExternalStore(
+    onChange => {
+      const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
+      mq.addEventListener('change', onChange)
+      return () => mq.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia('(hover: hover) and (pointer: fine)').matches,
+    () => false,
+  )
+}
+
+function useMountedPlayer(shouldMount: boolean) {
+  const [mounted, setMounted] = useState(false)
+  const [ready, setReady] = useState(false)
+  const mountedRef = useRef(false)
+  /** True only after iframe onLoad — used so grace-period return doesn't fake-ready. */
+  const loadedRef = useRef(false)
+  const shouldMountRef = useRef(shouldMount)
+  shouldMountRef.current = shouldMount
 
   useEffect(() => {
-    if (inView && ratio > 0) {
-      updateEmbedInterest(id, ratio)
-    } else {
-      clearEmbedInterest(id)
+    if (shouldMount) {
+      setMounted(true)
+      // Returning during unload grace: only reveal if this iframe already loaded.
+      if (mountedRef.current && loadedRef.current) setReady(true)
+      mountedRef.current = true
+      return
     }
-    return () => clearEmbedInterest(id)
-  }, [id, inView, ratio])
+    // Show thumbnail immediately — don't wait for unload or blank Vimeo frames show through.
+    setReady(false)
+    const timer = window.setTimeout(() => {
+      setMounted(false)
+      mountedRef.current = false
+      loadedRef.current = false
+    }, UNLOAD_DELAY_MS)
+    return () => window.clearTimeout(timer)
+  }, [shouldMount])
 
-  return inView && hasEmbedSlot(id)
+  const onReady = useCallback(() => {
+    loadedRef.current = true
+    // Ignore late onLoad while scrolled/hovered away — thumbnail stays until remount wants play.
+    if (shouldMountRef.current) setReady(true)
+  }, [])
+
+  return { mounted, ready, onReady }
 }
 
-function Mp4Cell({ video, cellId }: { video: Extract<GalleryVideo, { type: 'mp4' }>; cellId: string }) {
-  const { ref, inView, ratio } = useInViewPlay()
+function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
+  const { ref, near, inView } = useInViewStages()
   const videoRef = useRef<HTMLVideoElement>(null)
-  const hasSlot = useEmbedSlot(cellId, inView, ratio)
+  const [hovered, setHovered] = useState(false)
+  const finePointer = useFinePointer()
+
+  const wantsPlay = hovered || inView
 
   useEffect(() => {
     const node = videoRef.current
     if (!node) return
-    if (!hasSlot) {
+    if (wantsPlay) {
+      void node.play().catch(() => {})
+    } else {
       node.pause()
-      return
     }
-    return playWhenReady(node)
-  }, [hasSlot])
+  }, [wantsPlay])
 
   return (
-    <div className={`ig-cell-video${hasSlot ? ' is-playing' : ''}`} ref={ref}>
+    <div
+      className="ig-cell-video"
+      ref={ref}
+      style={
+        video.focusY != null
+          ? ({ '--gallery-focus-y': `${video.focusY}%` } as CSSProperties)
+          : undefined
+      }
+      onMouseEnter={() => finePointer && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <video
         ref={videoRef}
         className="ig-cell-image"
-        src={`/videos/${video.src}`}
+        src={near || wantsPlay ? `/videos/${video.src}` : undefined}
         poster={video.poster ? `/images/${video.poster}` : undefined}
         muted
         loop
         playsInline
-        autoPlay={hasSlot}
-        preload={inView ? 'metadata' : 'none'}
+        preload={wantsPlay ? 'auto' : near ? 'metadata' : 'none'}
         aria-label={video.alt}
       />
     </div>
@@ -112,83 +159,60 @@ function Mp4Cell({ video, cellId }: { video: Extract<GalleryVideo, { type: 'mp4'
 }
 
 function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> }) {
-  const isMobileLayout = useMobileLayout()
-  const { ref, inView, ratio } = useInViewPlay()
-  const hasSlot = useEmbedSlot(video.vimeoId, inView, ratio)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const playTimerRef = useRef<number | null>(null)
+  const { ref, near, inView } = useInViewStages()
+  const [hovered, setHovered] = useState(false)
+  const finePointer = useFinePointer()
 
-  const poster = video.poster ?? galleryPosterPath(video.vimeoId)
-  const src = vimeoEmbedSrc(video.vimeoId, isMobileLayout)
+  // Desktop: hover or in-view; touch: in-view only.
+  const wantsPlay = finePointer ? hovered || inView : inView
+  const { mounted, ready, onReady } = useMountedPlayer(wantsPlay)
 
-  useEffect(() => {
-    if (!hasSlot) {
-      setIsPlaying(false)
-      if (playTimerRef.current !== null) {
-        window.clearTimeout(playTimerRef.current)
-        playTimerRef.current = null
-      }
-    }
-  }, [hasSlot])
-
-  useEffect(() => {
-    return () => {
-      if (playTimerRef.current !== null) {
-        window.clearTimeout(playTimerRef.current)
-      }
-    }
-  }, [])
-
-  const handleIframeLoad = () => {
-    if (playTimerRef.current !== null) {
-      window.clearTimeout(playTimerRef.current)
-    }
-    playTimerRef.current = window.setTimeout(() => {
-      setIsPlaying(true)
-      playTimerRef.current = null
-    }, isMobileLayout ? 900 : 500)
-  }
+  const poster =
+    video.poster ?? `https://vumbnail.com/${video.vimeoId}.jpg`
+  const src =
+    `https://player.vimeo.com/video/${video.vimeoId}` +
+    `?background=1&autoplay=1&loop=1&muted=1&autopause=1` +
+    `&title=0&byline=0&portrait=0&badge=0&dnt=1&quality=auto`
 
   return (
     <div
-      className={`ig-cell-video${isPlaying ? ' is-playing' : ''}${isMobileLayout ? ' ig-cell-video--inline' : ''}`}
+      className={`ig-cell-video${ready ? ' is-playing' : ''}`}
       ref={ref}
       style={
         video.focusY != null
           ? ({ '--gallery-focus-y': `${video.focusY}%` } as CSSProperties)
           : undefined
       }
+      onMouseEnter={() => finePointer && setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="ig-cell-poster"
         src={poster}
         alt=""
-        loading="lazy"
+        loading={near ? 'eager' : 'lazy'}
         decoding="async"
+        fetchPriority={near ? 'low' : undefined}
         aria-hidden="true"
-        onError={e => {
-          e.currentTarget.src = `https://vumbnail.com/${video.vimeoId}.jpg`
-        }}
       />
-      {hasSlot ? (
+      {mounted ? (
         <iframe
           src={src}
           title={video.alt}
-          className="ig-vimeo-frame"
           allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
           referrerPolicy="strict-origin-when-cross-origin"
+          onLoad={onReady}
           allowFullScreen
-          onLoad={handleIframeLoad}
         />
       ) : null}
     </div>
   )
 }
 
-function VideoCell({ video, cellId }: { video: GalleryVideo; cellId: string }) {
+function VideoCell({ video }: { video: GalleryVideo }) {
   if (video.type === 'mp4') {
-    return <Mp4Cell video={video} cellId={cellId} />
+    return <Mp4Cell video={video} />
   }
   return <VimeoCell video={video} />
 }
@@ -227,18 +251,16 @@ export default function GalleryGrid() {
 
         {videos.length > 0 ? (
           <div className="ig-grid" data-stagger aria-label="Gallery of reels">
-            {videos.map((video, i) => (
-              <div
-                key={video.type === 'vimeo' ? video.vimeoId : `${video.src}-${i}`}
-                className="ig-cell"
-              >
-                <VideoCell
-                  video={video}
-                  cellId={video.type === 'vimeo' ? video.vimeoId : `${video.src}-${i}`}
-                />
-                <div className="ig-cell-overlay" aria-hidden="true" />
-              </div>
-            ))}
+            {videos.map((video, i) => {
+              const cellId =
+                video.type === 'vimeo' ? `vimeo-${video.vimeoId}` : `mp4-${video.src}-${i}`
+              return (
+                <div key={cellId} className="ig-cell">
+                  <VideoCell video={video} />
+                  <div className="ig-cell-overlay" aria-hidden="true" />
+                </div>
+              )
+            })}
           </div>
         ) : (
           <p className="gallery-empty" data-reveal>

@@ -1,7 +1,9 @@
-/* Brand tokens — Raindrop logo palette */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+/* ─── Brand tokens — Raindrop logo palette ───────────────────────── */
 :root {
-  --font-serif: var(--font-cormorant), 'Cormorant Garamond', serif;
-  --font-sans:  var(--font-jost), 'Jost', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans:  'Jost', sans-serif;
 
   /* Backgrounds — warm cream (lightened a bit) */
   --ivory:        #E2D4C2;
@@ -303,13 +305,13 @@ h1, h2, h3, h4 {
   opacity: 0.88;
 }
 .nav-wordmark-img {
-  height: 52px;
+  height: 64px;
   width: auto;
   display: block;
   transition: height 0.35s ease;
 }
 #main-nav.scrolled .nav-wordmark-img {
-  height: 44px;
+  height: 54px;
 }
 .nav-links {
   position: absolute;
@@ -380,14 +382,7 @@ h1, h2, h3, h4 {
   inset: 0;
   z-index: 0;
 }
-.hero-media picture {
-  position: absolute;
-  inset: 0;
-  display: block;
-}
 .hero-media-image {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
   object-position: center center;
 }
@@ -654,7 +649,6 @@ h1, h2, h3, h4 {
 
 /* About studio video — logo cream + double gold ring */
 .about-portrait-frame {
-  position: relative;
   width: 100%;
   max-width: 420px;
   margin-inline: auto;
@@ -675,7 +669,6 @@ h1, h2, h3, h4 {
   height: 100%;
   object-fit: cover;
   display: block;
-  background: var(--ivory-deep);
 }
 .about-media-caption {
   max-width: 420px;
@@ -1100,6 +1093,7 @@ video.ig-cell-image {
   inset: 0;
   overflow: hidden;
   background: var(--dark-card);
+  /* Focal Y inside the reel — lower % = more hair / top of head */
   --gallery-focus-y: 24%;
 }
 .ig-cell-poster {
@@ -1110,15 +1104,15 @@ video.ig-cell-image {
   object-fit: cover;
   object-position: center var(--gallery-focus-y);
   display: block;
-  transition: opacity 0.35s ease, transform 0.4s ease;
   z-index: 1;
+  transition: transform 0.4s ease;
 }
 .ig-cell:hover .ig-cell-poster {
   transform: scale(1.05);
 }
-.ig-cell-video iframe,
-.ig-cell-video .ig-vimeo-frame {
+.ig-cell-video iframe {
   position: absolute;
+  /* Shift down so the upper (hair) region fills the square instead of the face mid-frame */
   top: calc(50% + (50% - var(--gallery-focus-y)) * 0.55);
   left: 50%;
   transform: translate(-50%, -50%);
@@ -1127,17 +1121,15 @@ video.ig-cell-image {
   border: 0;
   pointer-events: none;
   z-index: 2;
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
-.ig-cell-video--inline iframe,
-.ig-cell-video--inline .ig-vimeo-frame {
-  top: 0;
-  left: 0;
-  transform: none;
-  width: 100%;
-  height: 100%;
+.ig-cell-video.is-playing iframe {
+  opacity: 1;
 }
 .ig-cell-video.is-playing .ig-cell-poster {
   opacity: 0;
+  transition: opacity 0.35s ease, transform 0.4s ease;
 }
 .gallery-empty {
   margin: 3rem 0;
@@ -1829,20 +1821,13 @@ footer::before {
     align-items: stretch;
     gap: 0.85rem;
     width: 100%;
-    max-width: none;
+    max-width: 420px;
   }
   .hero-ctas a {
     width: 100%;
     justify-content: center;
     text-align: center;
     white-space: normal;
-    min-height: 48px;
-  }
-  .btn-gold, .btn-glass {
-    width: 100%;
-    justify-content: center;
-    white-space: normal;
-    min-height: 48px;
   }
   .btn-label-full          { display: none; }
   .btn-label-short         { display: inline; }
@@ -1875,11 +1860,7 @@ footer::before {
     min-height: 44px;
     padding: 0.75rem 1.4rem;
     justify-content: center;
-    width: 100%;
   }
-
-  .service-header-btn { min-height: 52px; }
-  .faq-q-btn { min-height: 52px; }
 
   #main-nav                { padding: 0 24px; }
   .nav-links               { display: none; }
@@ -1901,7 +1882,7 @@ footer::before {
     white-space: normal;
   }
   .footer-logo-img         { height: 72px; }
-  footer                   { padding: 2rem 24px calc(2rem + 64px); }
+  footer                   { padding: 2rem 24px; }
   .wa-float {
     bottom: max(1rem, env(safe-area-inset-bottom, 0px));
     right: max(1rem, env(safe-area-inset-right, 0px));
@@ -1962,10 +1943,10 @@ footer::before {
     height: 60px;
   }
   .nav-wordmark-img {
-    height: 42px;
+    height: 50px;
   }
   #main-nav.scrolled .nav-wordmark-img {
-    height: 38px;
+    height: 44px;
   }
   .nav-mobile-menu {
     top: 68px;
