@@ -1104,6 +1104,7 @@ video.ig-cell-image {
   object-fit: cover;
   object-position: center var(--gallery-focus-y);
   display: block;
+  z-index: 1;
   transition: transform 0.4s ease;
 }
 .ig-cell:hover .ig-cell-poster {
@@ -1119,16 +1120,14 @@ video.ig-cell-image {
   height: 177.78%;
   border: 0;
   pointer-events: none;
+  z-index: 2;
   opacity: 0;
   transition: opacity 0.35s ease;
 }
 .ig-cell-video.is-playing iframe {
   opacity: 1;
 }
-.ig-cell-video.is-playing .ig-cell-poster {
-  opacity: 0;
-  transition: opacity 0.35s ease, transform 0.4s ease;
-}
+/* Poster stays under the iframe as a safety net during load / scroll remounts */
 .gallery-empty {
   margin: 3rem 0;
   text-align: center;

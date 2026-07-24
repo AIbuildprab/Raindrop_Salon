@@ -1,16 +1,12 @@
 'use client'
 
 import {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
   useSyncExternalStore,
   type CSSProperties,
-  type ReactNode,
 } from 'react'
 import {
   GALLERY_FILTERS,
@@ -27,93 +23,11 @@ const FILTER_LABELS: Record<GalleryFilter, string> = {
   makeup: 'Makeup',
 }
 
-/** Cap concurrent Vimeo iframes — each player is heavy on production networks. */
-const MAX_CONCURRENT_PLAYERS = 4
 /** Keep a player mounted briefly after leaving view to avoid remount thrash. */
-const UNLOAD_DELAY_MS = 450
-
-type PlaybackRequest = { id: string; priority: number }
-
-type PlaybackApi = {
-  request: (id: string, priority: number) => void
-  release: (id: string) => void
-  isAllowed: (id: string) => boolean
-  subscribe: (onStoreChange: () => void) => () => void
-}
-
-function createPlaybackStore(): PlaybackApi {
-  const requests = new Map<string, number>()
-  const allowed = new Set<string>()
-  const listeners = new Set<() => void>()
-
-  const emit = () => {
-    for (const listener of listeners) listener()
-  }
-
-  const recompute = () => {
-    const ranked = [...requests.entries()]
-      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-      .slice(0, MAX_CONCURRENT_PLAYERS)
-      .map(([id]) => id)
-
-    const next = new Set(ranked)
-    if (next.size === allowed.size && [...next].every(id => allowed.has(id))) return
-
-    allowed.clear()
-    for (const id of next) allowed.add(id)
-    emit()
-  }
-
-  return {
-    request(id, priority) {
-      if (requests.get(id) === priority) return
-      requests.set(id, priority)
-      recompute()
-    },
-    release(id) {
-      if (!requests.has(id)) return
-      requests.delete(id)
-      recompute()
-    },
-    isAllowed(id) {
-      return allowed.has(id)
-    },
-    subscribe(onStoreChange) {
-      listeners.add(onStoreChange)
-      return () => listeners.delete(onStoreChange)
-    },
-  }
-}
-
-const PlaybackContext = createContext<PlaybackApi | null>(null)
-
-function PlaybackProvider({ children }: { children: ReactNode }) {
-  const store = useMemo(() => createPlaybackStore(), [])
-  return <PlaybackContext.Provider value={store}>{children}</PlaybackContext.Provider>
-}
-
-function usePlaybackAllowed(id: string, wantsPlay: boolean, priority: number) {
-  const store = useContext(PlaybackContext)
-  if (!store) throw new Error('usePlaybackAllowed requires PlaybackProvider')
-
-  useEffect(() => {
-    if (!wantsPlay) {
-      store.release(id)
-      return
-    }
-    store.request(id, priority)
-    return () => store.release(id)
-  }, [id, wantsPlay, priority, store])
-
-  return useSyncExternalStore(
-    store.subscribe,
-    () => store.isAllowed(id),
-    () => false,
-  )
-}
+const UNLOAD_DELAY_MS = 600
 
 /**
- * near  — approaching viewport (warm posters / early claim)
+ * near  — approaching viewport (warm posters / early load)
  * inView — enough of the cell is visible to autoplay
  */
 function useInViewStages() {
@@ -166,15 +80,21 @@ function useFinePointer() {
 function useMountedPlayer(shouldMount: boolean) {
   const [mounted, setMounted] = useState(false)
   const [ready, setReady] = useState(false)
+  const mountedRef = useRef(false)
 
   useEffect(() => {
     if (shouldMount) {
       setMounted(true)
+      // Returning during unload grace — same iframe is still in the DOM.
+      if (mountedRef.current) setReady(true)
+      mountedRef.current = true
       return
     }
+    // Show poster immediately — don't wait for unload or blank Vimeo frames show through.
+    setReady(false)
     const timer = window.setTimeout(() => {
       setMounted(false)
-      setReady(false)
+      mountedRef.current = false
     }, UNLOAD_DELAY_MS)
     return () => window.clearTimeout(timer)
   }, [shouldMount])
@@ -184,31 +104,23 @@ function useMountedPlayer(shouldMount: boolean) {
   return { mounted, ready, onReady }
 }
 
-function Mp4Cell({
-  video,
-  cellId,
-}: {
-  video: Extract<GalleryVideo, { type: 'mp4' }>
-  cellId: string
-}) {
+function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
   const { ref, near, inView } = useInViewStages()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hovered, setHovered] = useState(false)
   const finePointer = useFinePointer()
 
   const wantsPlay = hovered || inView
-  const priority = hovered ? 100 : inView ? 50 : near ? 10 : 0
-  const allowed = usePlaybackAllowed(cellId, wantsPlay, priority)
 
   useEffect(() => {
     const node = videoRef.current
     if (!node) return
-    if (allowed) {
+    if (wantsPlay) {
       void node.play().catch(() => {})
     } else {
       node.pause()
     }
-  }, [allowed])
+  }, [wantsPlay])
 
   return (
     <div
@@ -225,35 +137,26 @@ function Mp4Cell({
       <video
         ref={videoRef}
         className="ig-cell-image"
-        src={near || allowed ? `/videos/${video.src}` : undefined}
+        src={near || wantsPlay ? `/videos/${video.src}` : undefined}
         poster={video.poster ? `/images/${video.poster}` : undefined}
         muted
         loop
         playsInline
-        preload={allowed ? 'auto' : near ? 'metadata' : 'none'}
+        preload={wantsPlay ? 'auto' : near ? 'metadata' : 'none'}
         aria-label={video.alt}
       />
     </div>
   )
 }
 
-function VimeoCell({
-  video,
-  cellId,
-}: {
-  video: Extract<GalleryVideo, { type: 'vimeo' }>
-  cellId: string
-}) {
-  const { ref, near, inView } = useInViewStages()
+function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> }) {
+  const { ref, inView } = useInViewStages()
   const [hovered, setHovered] = useState(false)
   const finePointer = useFinePointer()
 
-  // Desktop: prefer hover; still autoplay a capped set while scrolling.
-  // Touch: in-view only (no hover).
+  // Desktop: hover or in-view; touch: in-view only.
   const wantsPlay = finePointer ? hovered || inView : inView
-  const priority = hovered ? 100 : inView ? 50 : near ? 10 : 0
-  const allowed = usePlaybackAllowed(cellId, wantsPlay, priority)
-  const { mounted, ready, onReady } = useMountedPlayer(allowed)
+  const { mounted, ready, onReady } = useMountedPlayer(wantsPlay)
 
   const poster =
     video.poster ?? `https://vumbnail.com/${video.vimeoId}.jpg`
@@ -279,9 +182,8 @@ function VimeoCell({
         className="ig-cell-poster"
         src={poster}
         alt=""
-        loading={near ? 'eager' : 'lazy'}
+        loading="eager"
         decoding="async"
-        fetchPriority={near ? 'low' : undefined}
         aria-hidden="true"
       />
       {mounted ? (
@@ -290,7 +192,6 @@ function VimeoCell({
           title={video.alt}
           allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
           referrerPolicy="strict-origin-when-cross-origin"
-          loading="lazy"
           onLoad={onReady}
           allowFullScreen
         />
@@ -299,11 +200,11 @@ function VimeoCell({
   )
 }
 
-function VideoCell({ video, cellId }: { video: GalleryVideo; cellId: string }) {
+function VideoCell({ video }: { video: GalleryVideo }) {
   if (video.type === 'mp4') {
-    return <Mp4Cell video={video} cellId={cellId} />
+    return <Mp4Cell video={video} />
   }
-  return <VimeoCell video={video} cellId={cellId} />
+  return <VimeoCell video={video} />
 }
 
 export default function GalleryGrid() {
@@ -339,20 +240,18 @@ export default function GalleryGrid() {
         </div>
 
         {videos.length > 0 ? (
-          <PlaybackProvider>
-            <div className="ig-grid" data-stagger aria-label="Gallery of reels">
-              {videos.map((video, i) => {
-                const cellId =
-                  video.type === 'vimeo' ? `vimeo-${video.vimeoId}` : `mp4-${video.src}-${i}`
-                return (
-                  <div key={cellId} className="ig-cell">
-                    <VideoCell video={video} cellId={cellId} />
-                    <div className="ig-cell-overlay" aria-hidden="true" />
-                  </div>
-                )
-              })}
-            </div>
-          </PlaybackProvider>
+          <div className="ig-grid" data-stagger aria-label="Gallery of reels">
+            {videos.map((video, i) => {
+              const cellId =
+                video.type === 'vimeo' ? `vimeo-${video.vimeoId}` : `mp4-${video.src}-${i}`
+              return (
+                <div key={cellId} className="ig-cell">
+                  <VideoCell video={video} />
+                  <div className="ig-cell-overlay" aria-hidden="true" />
+                </div>
+              )
+            })}
+          </div>
         ) : (
           <p className="gallery-empty" data-reveal>
             New reels coming soon — follow along on Instagram for the latest looks.
