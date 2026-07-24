@@ -1127,7 +1127,10 @@ video.ig-cell-image {
 .ig-cell-video.is-playing iframe {
   opacity: 1;
 }
-/* Poster stays under the iframe as a safety net during load / scroll remounts */
+.ig-cell-video.is-playing .ig-cell-poster {
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.4s ease;
+}
 .gallery-empty {
   margin: 3rem 0;
   text-align: center;

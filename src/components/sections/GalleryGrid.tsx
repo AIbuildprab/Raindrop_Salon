@@ -81,25 +81,34 @@ function useMountedPlayer(shouldMount: boolean) {
   const [mounted, setMounted] = useState(false)
   const [ready, setReady] = useState(false)
   const mountedRef = useRef(false)
+  /** True only after iframe onLoad — used so grace-period return doesn't fake-ready. */
+  const loadedRef = useRef(false)
+  const shouldMountRef = useRef(shouldMount)
+  shouldMountRef.current = shouldMount
 
   useEffect(() => {
     if (shouldMount) {
       setMounted(true)
-      // Returning during unload grace — same iframe is still in the DOM.
-      if (mountedRef.current) setReady(true)
+      // Returning during unload grace: only reveal if this iframe already loaded.
+      if (mountedRef.current && loadedRef.current) setReady(true)
       mountedRef.current = true
       return
     }
-    // Show poster immediately — don't wait for unload or blank Vimeo frames show through.
+    // Show thumbnail immediately — don't wait for unload or blank Vimeo frames show through.
     setReady(false)
     const timer = window.setTimeout(() => {
       setMounted(false)
       mountedRef.current = false
+      loadedRef.current = false
     }, UNLOAD_DELAY_MS)
     return () => window.clearTimeout(timer)
   }, [shouldMount])
 
-  const onReady = useCallback(() => setReady(true), [])
+  const onReady = useCallback(() => {
+    loadedRef.current = true
+    // Ignore late onLoad while scrolled/hovered away — thumbnail stays until remount wants play.
+    if (shouldMountRef.current) setReady(true)
+  }, [])
 
   return { mounted, ready, onReady }
 }
@@ -150,7 +159,7 @@ function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
 }
 
 function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> }) {
-  const { ref, inView } = useInViewStages()
+  const { ref, near, inView } = useInViewStages()
   const [hovered, setHovered] = useState(false)
   const finePointer = useFinePointer()
 
@@ -182,8 +191,9 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
         className="ig-cell-poster"
         src={poster}
         alt=""
-        loading="eager"
+        loading={near ? 'eager' : 'lazy'}
         decoding="async"
+        fetchPriority={near ? 'low' : undefined}
         aria-hidden="true"
       />
       {mounted ? (
