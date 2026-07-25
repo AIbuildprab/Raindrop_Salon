@@ -42,20 +42,19 @@ function useInViewStages() {
     const el = ref.current
     if (!el) return
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion) return
-
+    // Still observe when reduce-motion is on — muted gallery loops are fine;
+    // we only skip decorative scroll animations elsewhere.
     const nearObserver = new IntersectionObserver(
       ([entry]) => setNear(entry.isIntersecting),
       { rootMargin: '280px 0px', threshold: 0 },
     )
 
-    // Lower ratio so 2-col mobile cells start sooner while partially visible.
+    // Low threshold so 2-col mobile cells start as soon as they peek in.
     const viewObserver = new IntersectionObserver(
       ([entry]) => {
-        setInView(entry.isIntersecting && entry.intersectionRatio >= 0.25)
+        setInView(entry.isIntersecting && entry.intersectionRatio >= 0.15)
       },
-      { rootMargin: '48px 0px', threshold: [0, 0.25, 0.5, 0.75] },
+      { rootMargin: '80px 0px', threshold: [0, 0.15, 0.35, 0.6] },
     )
 
     nearObserver.observe(el)
@@ -147,10 +146,10 @@ function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
   const { ref, near, inView } = useInViewStages()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hovered, setHovered] = useState(false)
-  const [tapped, setTapped] = useState(false)
   const finePointer = useFinePointer()
 
-  const wantsPlay = finePointer ? hovered || inView : inView || tapped
+  // Visible or hovered — never hover-only (mobile has no hover).
+  const wantsPlay = inView || hovered
 
   useEffect(() => {
     const node = videoRef.current
@@ -173,8 +172,10 @@ function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
       }
       onMouseEnter={() => finePointer && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => {
-        if (!finePointer) setTapped(v => !v)
+      onPointerUp={e => {
+        if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+          void videoRef.current?.play().catch(() => {})
+        }
       }}
     >
       <video
@@ -207,14 +208,15 @@ function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
 function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> }) {
   const { ref, near, inView } = useInViewStages()
   const [hovered, setHovered] = useState(false)
-  const [tapped, setTapped] = useState(false)
+  const [playNonce, setPlayNonce] = useState(0)
   const finePointer = useFinePointer()
 
-  // Desktop: hover or in-view. Touch: in-view, or tap (Low Power Mode / autoplay blocks).
-  const wantsPlay = finePointer ? hovered || inView : inView || tapped
+  // Visible or hovered — mobile uses in-view autoplay, not hover.
+  const wantsPlay = inView || hovered
   const { mounted, ready, onReady } = useMountedPlayer(wantsPlay)
 
-  const poster =
+  const poster = `/images/gallery-posters/${video.vimeoId}.webp`
+  const posterFallback =
     video.poster ?? `https://vumbnail.com/${video.vimeoId}.jpg`
 
   return (
@@ -228,8 +230,10 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
       }
       onMouseEnter={() => finePointer && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => {
-        if (!finePointer) setTapped(v => !v)
+      onPointerUp={e => {
+        if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return
+        // Remount after a user gesture so iOS / Low Power Mode can start autoplay.
+        setPlayNonce(n => n + 1)
       }}
       role={finePointer ? undefined : 'button'}
       tabIndex={finePointer ? undefined : 0}
@@ -240,7 +244,7 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
           : e => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
-                setTapped(v => !v)
+                setPlayNonce(n => n + 1)
               }
             }
       }
@@ -255,10 +259,14 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
         fetchPriority={near ? 'low' : undefined}
         aria-hidden="true"
         draggable={false}
+        onError={e => {
+          e.currentTarget.onerror = null
+          e.currentTarget.src = posterFallback
+        }}
       />
       {mounted ? (
         <iframe
-          key={video.vimeoId}
+          key={`${video.vimeoId}-${playNonce}`}
           src={vimeoEmbedSrc(video.vimeoId)}
           title={video.alt}
           allow="autoplay; fullscreen; picture-in-picture; encrypted-media"

@@ -73,6 +73,7 @@ export default function About() {
                 ref={videoRef}
                 className="about-portrait-video"
                 src="/videos/reception.mp4"
+                poster="/images/about-reception-poster.webp"
                 muted
                 loop
                 playsInline
