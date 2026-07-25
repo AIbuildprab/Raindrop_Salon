@@ -73,7 +73,7 @@ export default function Contact() {
                 <InstagramIcon size={14} gradientId="ig-grad-contact" />
                 Instagram
               </div>
-              <div className="contact-value" style={{ color: 'var(--gold)', fontSize: '1.15rem' }}>
+              <div className="contact-value contact-value-ig">
                 @raindrops_beauty_salon
               </div>
             </a>

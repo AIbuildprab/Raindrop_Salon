@@ -33,7 +33,7 @@ export type GalleryVideo = BaseVideo &
  * TEMP: set USE_LOCAL_WORK_VIDEOS to false to restore Vimeo embeds.
  */
 /** Temporary — play local files from public/Work-videos instead of Vimeo. */
-export const USE_LOCAL_WORK_VIDEOS = true
+export const USE_LOCAL_WORK_VIDEOS = false
 
 /** File names in public/Work-videos (skip empty / missing numbers). */
 const LOCAL_WORK_VIDEO_FILES = [

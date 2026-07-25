@@ -1,29 +1,12 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Jost } from 'next/font/google'
 import './globals.css'
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://raindropsalon.vercel.app'
 
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-  variable: '--font-cormorant',
-})
-
-const jost = Jost({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  display: 'swap',
-  variable: '--font-jost',
-})
-
-const title = 'Raindrop Beauty Salon'
+const title = 'Raindrops Beauty Salon'
 const description =
-  'Raindrop Beauty Salon — Certified Esthetician & Hair/Makeup Artist in Abbotsford, BC. 18+ years making brides shine, with full glam for weddings, Mehndi nights, and every celebration.'
+  'Raindrops Beauty Salon — Certified Esthetician & Hair/Makeup Artist in Abbotsford, BC. 18+ years making brides shine, with full glam for weddings, Mehndi nights, and every celebration.'
 
 export const viewport: Viewport = {
   themeColor: '#C5A059',
@@ -42,7 +25,7 @@ export const metadata: Metadata = {
     'South Asian bridal makeup',
     'Mehndi night glam',
     'bridal makeup Abbotsford',
-    'Raindrop Beauty Salon',
+    'Raindrops Beauty Salon',
   ],
   robots: { index: true, follow: true },
   alternates: { canonical: siteUrl },
@@ -72,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://player.vimeo.com" />
         <link rel="preconnect" href="https://i.vimeocdn.com" />
