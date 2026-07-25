@@ -43,8 +43,8 @@ export default function Hero() {
         </h1>
 
         <p className="hero-sub">
-          Certified esthetician with 18+ years making brides shine. Full glam hair &amp; makeup for
-          weddings, Mehndi nights, and every celebration that matters — personal, polished, and made for you.
+          Certified esthetician with 18+ years of bridal experience. Full glam hair &amp; makeup for
+          weddings, Mehndi nights, and special occasions.
         </p>
 
         <div className="hero-ctas">
