@@ -668,7 +668,9 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
+  background: var(--ivory-deep);
 }
 .about-media-caption {
   max-width: 420px;
@@ -773,9 +775,9 @@ h1, h2, h3, h4 {
 .pkg-card-number {
   font-family: var(--font-serif);
   font-size: 2.2rem;
-  font-weight: 300;
-  color: var(--gold-ink);
-  opacity: 0.55;
+  font-weight: 400;
+  /* Decorative index — use body ink so AA contrast holds on ivory cards */
+  color: var(--text-secondary);
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -1084,11 +1086,7 @@ h1, h2, h3, h4 {
 video.ig-cell-image {
   background: var(--dark-card);
 }
-.ig-cell:hover .ig-cell-image,
-.ig-cell:hover img {
-  transform: scale(1.05);
-}
-/* Vimeo background player scaled to cover the square cell (crops 9:16 reels top/bottom) */
+/* Vimeo / video player scaled to cover the square cell (crops 9:16 reels top/bottom) */
 .ig-cell-video {
   position: absolute;
   inset: 0;
@@ -1096,6 +1094,9 @@ video.ig-cell-image {
   background: var(--dark-card);
   /* Focal Y inside the reel — lower % = more hair / top of head */
   --gallery-focus-y: 24%;
+  /* Tap target for mobile play / Low Power Mode fallback */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .ig-cell-poster {
   position: absolute;
@@ -1106,10 +1107,8 @@ video.ig-cell-image {
   object-position: center var(--gallery-focus-y);
   display: block;
   z-index: 1;
-  transition: transform 0.4s ease;
-}
-.ig-cell:hover .ig-cell-poster {
-  transform: scale(1.05);
+  transition: opacity 0.35s ease, transform 0.4s ease;
+  pointer-events: none;
 }
 .ig-cell-video iframe {
   position: absolute;
@@ -1130,7 +1129,6 @@ video.ig-cell-image {
 }
 .ig-cell-video.is-playing .ig-cell-poster {
   opacity: 0;
-  transition: opacity 0.35s ease, transform 0.4s ease;
 }
 .gallery-empty {
   margin: 3rem 0;
@@ -1143,6 +1141,9 @@ video.ig-cell-image {
   background: linear-gradient(135deg, rgba(197,160,89,0.55), rgba(26,18,11,0.35));
   opacity: 0;
   transition: opacity 0.3s ease;
+  /* Must not block tap-to-play on the video cell underneath */
+  pointer-events: none;
+  z-index: 3;
 }
 .ig-cell-placeholder {
   width: 100%; height: 100%;
@@ -1152,8 +1153,18 @@ video.ig-cell-image {
   background: linear-gradient(135deg, var(--ivory-deep), var(--blush-light));
 }
 .ig-cell-placeholder svg { opacity: 0.3; }
-.ig-cell:hover .ig-cell-overlay { opacity: 1; }
-.ig-cell:hover                { box-shadow: 0 0 0 1px var(--gold); }
+
+@media (hover: hover) and (pointer: fine) {
+  .ig-cell:hover .ig-cell-image,
+  .ig-cell:hover img {
+    transform: scale(1.05);
+  }
+  .ig-cell:hover .ig-cell-poster {
+    transform: scale(1.05);
+  }
+  .ig-cell:hover .ig-cell-overlay { opacity: 1; }
+  .ig-cell:hover { box-shadow: 0 0 0 1px var(--gold); }
+}
 .ig-cta-wrap { text-align: center; margin-top: 0.5rem; }
 .ig-cta {
   display: inline-flex;
@@ -1437,7 +1448,7 @@ a.contact-card:hover {
   transition: color 0.2s;
 }
 .contact-value-ig {
-  color: var(--gold-ink);
+  color: var(--gold);
   font-size: 1.15rem;
 }
 .contact-hours {

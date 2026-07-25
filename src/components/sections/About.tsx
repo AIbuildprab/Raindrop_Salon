@@ -76,7 +76,7 @@ export default function About() {
                 muted
                 loop
                 playsInline
-                preload={inView ? 'auto' : 'none'}
+                preload={inView ? 'auto' : 'metadata'}
                 aria-label="Raindrop Beauty Salon studio reception"
               />
             </div>

@@ -21,39 +21,12 @@ export type GalleryVideo = BaseVideo &
   )
 
 /**
- * Gallery reels.
+ * Gallery reels (Vimeo embeds).
  *
- * Vimeo: use the numeric ID from the URL (e.g. vimeo.com/123456789 -> '123456789').
- *   { type: 'vimeo', vimeoId: '123456789', poster: 'https://i.vimeocdn.com/video/...-d_640', category: 'bridal', alt: 'Bridal reel' }
- *
- * MP4: drop the file in public/videos/ and reference it by name. An optional
- * poster image (in public/images/) shows the first frame before playback.
- *   { type: 'mp4', src: 'reel1.mp4', poster: 'reel1-poster.jpg', category: 'party', alt: 'Party reel' }
- *
- * TEMP: set USE_LOCAL_WORK_VIDEOS to false to restore Vimeo embeds.
+ * Use the numeric ID from the URL (e.g. vimeo.com/123456789 -> '123456789').
+ * Optional poster from i.vimeocdn.com keeps the grid feeling instant on mobile.
  */
-/** Temporary — play local files from public/Work-videos instead of Vimeo. */
-export const USE_LOCAL_WORK_VIDEOS = false
-
-/** File names in public/Work-videos (skip empty / missing numbers). */
-const LOCAL_WORK_VIDEO_FILES = [
-  '1.mp4', '2.mp4', '3.mp4', '4.mp4', '5.mp4', '6.mp4', '7.mp4', '8.mp4', '9.mp4',
-  '10.mp4', '11.mp4', '12.mp4', '13.mp4', '14.mp4', '15.mp4', '16.mp4', '17.mp4',
-  '18.mp4', '19.mp4', '20.mp4', '21.mp4', '22.mp4', '23.mp4', '24.mp4', '25.mp4',
-  '26.mp4', '27.mp4', '28.mp4', '30.mp4', '31.mp4', '33.mp4', '34.mp4', '35.mp4',
-  '36.mp4', '37.mp4', '39.mp4', '40.mp4', '41.mp4', '42.mp4', '43.mp4', '44.mp4',
-  '46.mp4',
-] as const
-
-const LOCAL_WORK_VIDEOS: GalleryVideo[] = LOCAL_WORK_VIDEO_FILES.map((file, i) => ({
-  type: 'mp4' as const,
-  /** Served from public/Work-videos/ */
-  src: `Work-videos/${file}`,
-  category: 'makeup' as const,
-  alt: `Raindrop Beauty Salon work reel ${i + 1}`,
-}))
-
-const VIMEO_GALLERY_VIDEOS: GalleryVideo[] = [
+export const GALLERY_VIDEOS: GalleryVideo[] = [
   {
     type: 'vimeo',
     vimeoId: '1212027721',
@@ -295,7 +268,3 @@ const VIMEO_GALLERY_VIDEOS: GalleryVideo[] = [
     alt: 'Raindrop Beauty Salon reel',
   },
 ]
-
-export const GALLERY_VIDEOS: GalleryVideo[] = USE_LOCAL_WORK_VIDEOS
-  ? LOCAL_WORK_VIDEOS
-  : VIMEO_GALLERY_VIDEOS

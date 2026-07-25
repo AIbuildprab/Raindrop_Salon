@@ -1,8 +1,27 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://raindropsalon.vercel.app'
+/** Stable production origin — used for metadataBase / canonical / OG. */
+const PRODUCTION_SITE_URL = 'https://raindropsalon.vercel.app'
+
+/**
+ * Absolute origin with a scheme. Never falls back to localhost or ephemeral
+ * VERCEL_URL preview hosts — those break canonical/OG tags on static export.
+ */
+function resolveSiteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim()
+  if (raw) {
+    try {
+      const withScheme = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`
+      return new URL(withScheme).origin
+    } catch {
+      // Invalid env value — use production origin below.
+    }
+  }
+  return PRODUCTION_SITE_URL
+}
+
+const siteUrl = resolveSiteUrl()
 
 const title = 'Raindrops Beauty Salon'
 const description =

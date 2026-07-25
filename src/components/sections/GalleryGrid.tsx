@@ -24,7 +24,10 @@ const FILTER_LABELS: Record<GalleryFilter, string> = {
 }
 
 /** Keep a player mounted briefly after leaving view to avoid remount thrash. */
-const UNLOAD_DELAY_MS = 600
+const UNLOAD_DELAY_MS = 800
+
+/** If iframe onLoad is late/missing (common on mobile), still reveal the player. */
+const REVEAL_FALLBACK_MS = 700
 
 /**
  * near  — approaching viewport (warm posters / early load)
@@ -44,14 +47,15 @@ function useInViewStages() {
 
     const nearObserver = new IntersectionObserver(
       ([entry]) => setNear(entry.isIntersecting),
-      { rootMargin: '320px 0px', threshold: 0 },
+      { rootMargin: '280px 0px', threshold: 0 },
     )
 
+    // Lower ratio so 2-col mobile cells start sooner while partially visible.
     const viewObserver = new IntersectionObserver(
       ([entry]) => {
-        setInView(entry.isIntersecting && entry.intersectionRatio >= 0.4)
+        setInView(entry.isIntersecting && entry.intersectionRatio >= 0.25)
       },
-      { rootMargin: '40px 0px', threshold: [0, 0.4, 0.65] },
+      { rootMargin: '48px 0px', threshold: [0, 0.25, 0.5, 0.75] },
     )
 
     nearObserver.observe(el)
@@ -81,7 +85,6 @@ function useMountedPlayer(shouldMount: boolean) {
   const [mounted, setMounted] = useState(false)
   const [ready, setReady] = useState(false)
   const mountedRef = useRef(false)
-  /** True only after iframe onLoad — used so grace-period return doesn't fake-ready. */
   const loadedRef = useRef(false)
   const shouldMountRef = useRef(shouldMount)
   shouldMountRef.current = shouldMount
@@ -89,12 +92,19 @@ function useMountedPlayer(shouldMount: boolean) {
   useEffect(() => {
     if (shouldMount) {
       setMounted(true)
-      // Returning during unload grace: only reveal if this iframe already loaded.
       if (mountedRef.current && loadedRef.current) setReady(true)
       mountedRef.current = true
-      return
+
+      // Don't rely only on iframe onLoad — it can be delayed or miss on mobile.
+      const fallback = window.setTimeout(() => {
+        if (!shouldMountRef.current) return
+        loadedRef.current = true
+        setReady(true)
+      }, REVEAL_FALLBACK_MS)
+
+      return () => window.clearTimeout(fallback)
     }
-    // Show thumbnail immediately — don't wait for unload or blank Vimeo frames show through.
+
     setReady(false)
     const timer = window.setTimeout(() => {
       setMounted(false)
@@ -106,20 +116,41 @@ function useMountedPlayer(shouldMount: boolean) {
 
   const onReady = useCallback(() => {
     loadedRef.current = true
-    // Ignore late onLoad while scrolled/hovered away — thumbnail stays until remount wants play.
     if (shouldMountRef.current) setReady(true)
   }, [])
 
   return { mounted, ready, onReady }
 }
 
+function vimeoEmbedSrc(vimeoId: string) {
+  // background=1 → muted + autoplay + loop + no chrome (paid plans).
+  // Explicit autoplay/muted/loop/playsinline keep free-tier + iOS working when
+  // background mode is limited. autopause=0 lets several grid reels play together.
+  const params = new URLSearchParams({
+    background: '1',
+    autoplay: '1',
+    muted: '1',
+    loop: '1',
+    playsinline: '1',
+    autopause: '0',
+    title: '0',
+    byline: '0',
+    portrait: '0',
+    badge: '0',
+    dnt: '1',
+    quality: 'auto',
+  })
+  return `https://player.vimeo.com/video/${vimeoId}?${params.toString()}`
+}
+
 function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
   const { ref, near, inView } = useInViewStages()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hovered, setHovered] = useState(false)
+  const [tapped, setTapped] = useState(false)
   const finePointer = useFinePointer()
 
-  const wantsPlay = hovered || inView
+  const wantsPlay = finePointer ? hovered || inView : inView || tapped
 
   useEffect(() => {
     const node = videoRef.current
@@ -142,6 +173,9 @@ function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
       }
       onMouseEnter={() => finePointer && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => {
+        if (!finePointer) setTapped(v => !v)
+      }}
     >
       <video
         ref={videoRef}
@@ -173,18 +207,15 @@ function Mp4Cell({ video }: { video: Extract<GalleryVideo, { type: 'mp4' }> }) {
 function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> }) {
   const { ref, near, inView } = useInViewStages()
   const [hovered, setHovered] = useState(false)
+  const [tapped, setTapped] = useState(false)
   const finePointer = useFinePointer()
 
-  // Desktop: hover or in-view; touch: in-view only.
-  const wantsPlay = finePointer ? hovered || inView : inView
+  // Desktop: hover or in-view. Touch: in-view, or tap (Low Power Mode / autoplay blocks).
+  const wantsPlay = finePointer ? hovered || inView : inView || tapped
   const { mounted, ready, onReady } = useMountedPlayer(wantsPlay)
 
   const poster =
     video.poster ?? `https://vumbnail.com/${video.vimeoId}.jpg`
-  const src =
-    `https://player.vimeo.com/video/${video.vimeoId}` +
-    `?background=1&autoplay=1&loop=1&muted=1&autopause=1` +
-    `&title=0&byline=0&portrait=0&badge=0&dnt=1&quality=auto`
 
   return (
     <div
@@ -197,6 +228,22 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
       }
       onMouseEnter={() => finePointer && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => {
+        if (!finePointer) setTapped(v => !v)
+      }}
+      role={finePointer ? undefined : 'button'}
+      tabIndex={finePointer ? undefined : 0}
+      aria-label={finePointer ? undefined : `${video.alt} — tap to play`}
+      onKeyDown={
+        finePointer
+          ? undefined
+          : e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                setTapped(v => !v)
+              }
+            }
+      }
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -207,15 +254,18 @@ function VimeoCell({ video }: { video: Extract<GalleryVideo, { type: 'vimeo' }> 
         decoding="async"
         fetchPriority={near ? 'low' : undefined}
         aria-hidden="true"
+        draggable={false}
       />
       {mounted ? (
         <iframe
-          src={src}
+          key={video.vimeoId}
+          src={vimeoEmbedSrc(video.vimeoId)}
           title={video.alt}
           allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
           referrerPolicy="strict-origin-when-cross-origin"
           onLoad={onReady}
           allowFullScreen
+          loading="eager"
         />
       ) : null}
     </div>
