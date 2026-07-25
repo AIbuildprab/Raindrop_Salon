@@ -774,7 +774,8 @@ h1, h2, h3, h4 {
   font-family: var(--font-serif);
   font-size: 2.2rem;
   font-weight: 300;
-  color: var(--gold-rule);
+  color: var(--gold-ink);
+  opacity: 0.55;
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -785,7 +786,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   padding: 0.28rem 0.75rem;
   background: var(--gold);
-  color: #fff;
+  color: #1a140f;
   border-radius: 20px;
 }
 .pkg-name {
@@ -814,7 +815,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   padding: 0.28rem 0.8rem;
   background: var(--gold);
-  color: #fff;
+  color: #1a140f;
   border-radius: 20px;
 }
 .pkg-duration {
@@ -884,7 +885,7 @@ h1, h2, h3, h4 {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #fff;
+  color: #1a140f;
   text-decoration: none;
   background: var(--gold);
   padding: 0.6rem 1.4rem;
@@ -1016,7 +1017,7 @@ h1, h2, h3, h4 {
   min-width: 1rem;
 }
 .menu-price {
-  color: var(--gold);
+  color: var(--gold-ink);
   font-weight: 600;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
@@ -1421,7 +1422,7 @@ a.contact-card:hover {
 .contact-label {
   font-size: 0.68rem; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 0.5rem;
+  color: var(--gold-ink); margin-bottom: 0.5rem;
 }
 .contact-label-ig {
   display: inline-flex;
@@ -1435,6 +1436,10 @@ a.contact-card:hover {
   display: block;
   transition: color 0.2s;
 }
+.contact-value-ig {
+  color: var(--gold-ink);
+  font-size: 1.15rem;
+}
 .contact-hours {
   display: flex;
   flex-direction: column;
@@ -1442,7 +1447,7 @@ a.contact-card:hover {
   font-size: 1.05rem;
   line-height: 1.45;
 }
-a.contact-value:hover { color: var(--gold); }
+a.contact-value:hover { color: var(--gold-ink); }
 .contact-note {
   font-size: 0.8rem; color: var(--text-muted);
   margin-top: 0.4rem; letter-spacing: 0.04em;
@@ -1565,7 +1570,7 @@ a.contact-value:hover { color: var(--gold); }
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin-bottom: 0.6rem;
 }
 .footer-glass-band-headline {
@@ -1646,13 +1651,13 @@ footer::before {
   gap: 0.4rem;
   font-size: 0.78rem;
   letter-spacing: 0.1em;
-  color: var(--gold);
+  color: var(--gold-ink);
   text-decoration: none;
   border-bottom: 1px solid var(--gold-rule);
   padding-bottom: 0.1rem;
   transition: color 0.2s;
 }
-.footer-ig:hover { color: var(--gold-bright); }
+.footer-ig:hover { color: var(--text-primary); }
 .footer-copy {
   font-size: 0.72rem;
   color: var(--text-muted);
