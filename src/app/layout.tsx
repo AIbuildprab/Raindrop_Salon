@@ -8,7 +8,7 @@ const title =
 const socialTitle = 'BEST Beauty Salon Abbotsford | Raindrops Beauty Salon'
 const brandName = BRAND_NAME
 const description =
-  'Raindrops Beauty Salon — Certified Esthetician & Hair/Makeup Artist in Abbotsford, BC. 18+ years making brides shine, with full glam for weddings, Mehndi nights, and every celebration.'
+  'Raindrops Beauty Salon. Certified esthetician and hair/makeup artist in Abbotsford, BC. 18+ years making brides shine, with full glam for weddings, Mehndi nights, and every celebration.'
 
 export const viewport: Viewport = {
   themeColor: '#C5A059',

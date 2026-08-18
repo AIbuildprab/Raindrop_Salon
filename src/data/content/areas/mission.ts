@@ -7,14 +7,14 @@ export const mission: LongformDoc = {
   h1: 'Beauty Services',
   h1Italic: 'Mission',
   lede: [
-    'Mission is the closest city north of the studio — 20–30 minutes over the Mission Bridge. Easy for a laser series, a facial, or on-location glam when you do not want to leave town the morning of.',
+    'Mission is the closest city north of the studio, about 20–30 minutes over the Mission Bridge. Easy for a laser series, a facial, or on-location glam when you do not want to leave town the morning of.',
   ],
   relatedAreaSlugs: ['abbotsford', 'chilliwack', 'langley', 'surrey'],
   relatedServiceSlugs: ['bridal-makeup', 'laser-hair-removal', 'hair-and-makeup'],
   servicesHeading: 'Services we offer here',
   seoTitle: 'Beauty Salon near Mission BC | Raindrops in Abbotsford',
   seoDescription:
-    'Bridal makeup, laser, and full glam for Mission, BC. Raindrops Beauty Salon is 20–30 minutes south in Abbotsford — studio visits or on-location at your home.',
+    'Bridal makeup, laser, and full glam for Mission, BC. Raindrops Beauty Salon is 20–30 minutes south in Abbotsford. Studio visits or on-location at your home.',
   imageAlts: [
     'Drive from Mission Bridge to Raindrops Beauty Salon',
     'Bridal makeup for a Mission, BC wedding',
@@ -44,7 +44,7 @@ export const mission: LongformDoc = {
         { href: '/services/bridal-makeup', label: 'Bridal mornings' },
         ' and ',
         { href: '/services/hair-and-makeup', label: 'party glam' },
-        ' work well in Mission homes — downtown, Hatzic, or closer to the waterfront — especially when family is already gathered and the photographer is not crossing the bridge first. Tell us about stairs, parking, and whether kids will be in the room.',
+        ' work well in Mission homes in downtown, Hatzic, or closer to the waterfront, especially when family is already gathered and the photographer is not crossing the bridge first. Tell us about stairs, parking, and whether kids will be in the room.',
       ],
     },
     {
@@ -54,7 +54,7 @@ export const mission: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Laser never travels. Long colour or keratin appointments are calmer in Abbotsford. Bridal trials are often easier in studio light than in a bedroom with one window. Bridge traffic is usually kinder than Surrey’s Highway 1, but Friday afternoons still swell — leave a buffer.',
+        'Laser never travels. Long colour or keratin appointments are calmer in Abbotsford. Bridal trials are often easier in studio light than in a bedroom with one window. Bridge traffic is usually kinder than Surrey’s Highway 1, but Friday afternoons still swell. Leave a buffer.',
       ],
     },
     {
@@ -64,10 +64,10 @@ export const mission: LongformDoc = {
     {
       type: 'ul',
       items: [
-        'Downtown Mission — short on-location trips, hall events.',
-        'Hatzic — add a few minutes; send the full address.',
-        'Stave / lake photos — mention humidity and outdoor time.',
-        'Waterfront walks after studio glam — popular for engagement shots.',
+        'Downtown Mission: short on-location trips, hall events.',
+        'Hatzic: add a few minutes. Send the full address.',
+        'Stave / lake photos: mention humidity and outdoor time.',
+        'Waterfront walks after studio glam: popular for engagement shots.',
       ],
     },
     {
@@ -77,7 +77,7 @@ export const mission: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'South on Highway 11, then Maps to Raindrops beauty salon ltd. Phone +1 (778) 710-2097. Hours: weekdays 10–7, Saturday 9–6, Sunday by appointment. If the bridge is slow, text — bridal slots cannot slide an hour without hurting the photographer.',
+        'South on Highway 11, then Maps to Raindrops beauty salon ltd. Phone +1 (778) 710-2097. Hours: weekdays 10–7, Saturday 9–6, Sunday by appointment. If the bridge is slow, text. Bridal slots cannot slide an hour without hurting the photographer.',
       ],
     },
     {
@@ -119,7 +119,7 @@ export const mission: LongformDoc = {
     {
       q: 'Do you serve Hatzic?',
       a: [
-        'Yes — send the address so travel time is accurate.',
+        'Yes. Send the address so travel time is accurate.',
       ],
     },
     {
@@ -131,7 +131,7 @@ export const mission: LongformDoc = {
     {
       q: 'Can I book a Sunday bridal in Mission?',
       a: [
-        'Sunday is by appointment. Many weddings land there — inquire with the date as soon as you have it.',
+        'Sunday is by appointment. Many weddings land there. Inquire with the date as soon as you have it.',
       ],
     },
     {

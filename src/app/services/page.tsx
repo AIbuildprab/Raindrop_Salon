@@ -10,7 +10,7 @@ import { resolveSiteUrl } from '@/lib/site-url'
 
 const title = 'Beauty Services Abbotsford | Bridal, Laser & Full Glam'
 const description =
-  'Core services at Raindrops Beauty Salon in Abbotsford: bridal makeup, laser hair removal, and hair & makeup for parties across the Fraser Valley.'
+  'Bridal makeup, laser hair removal, and hair & makeup at Raindrops Beauty Salon in Abbotsford. Book with Jass for studio or on-location appointments.'
 
 export async function generateMetadata(): Promise<Metadata> {
   const url = `${resolveSiteUrl()}/services`
@@ -55,10 +55,9 @@ export default function ServicesHubPage() {
             </h1>
             <div className="gold-divider" />
             <p className="seo-lede" data-reveal>
-              Three core pages for the searches that already sit in our title: bridal makeup,
-              laser hair removal, and hair &amp; makeup. The full price menu still lives on the
-              homepage. These pages exist so you can read how Jass actually works — and so Google
-              can see more than one URL.
+              Bridal mornings, laser series, and full glam for everything in between. Jass has
+              been doing this in Abbotsford for 18 years. The full price list is still on the
+              homepage. These pages are for a closer look at how each booking works.
             </p>
           </div>
         </section>
@@ -77,8 +76,8 @@ export default function ServicesHubPage() {
                 Facials, Oxygeneo, microneedling, acne treatments, threading, waxing, colour,
                 keratin, cuts, and massage are booked from the{' '}
                 <a href="/#services" className="seo-inline-link">homepage price list</a>.
-                Dedicated pages for those can come later. For now, start with the three services
-                above, then pick the city you are coming from.
+                If you are coming from nearby, pick your city below. The studio stays in
+                Abbotsford, and travel is for hair and makeup.
               </p>
               <ul className="seo-related-list">
                 {AREAS.map(area => (

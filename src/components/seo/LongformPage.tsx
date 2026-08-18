@@ -122,8 +122,8 @@ export default function LongformPage({ doc, crumbs, showMap = false }: LongformP
           </section>
 
           <div className="seo-cta-row">
-            <a href={PHONE_TEL} className="btn-gold" aria-label={`Call — ${PHONE_DISPLAY}`}>
-              <span className="btn-label-full">Call — {PHONE_DISPLAY}</span>
+            <a href={PHONE_TEL} className="btn-gold" aria-label={`Call ${PHONE_DISPLAY}`}>
+              <span className="btn-label-full">Call {PHONE_DISPLAY}</span>
               <span className="btn-label-short">Call to Book</span>
             </a>
             <a

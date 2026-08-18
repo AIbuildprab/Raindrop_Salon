@@ -7,14 +7,14 @@ export const langley: LongformDoc = {
   h1: 'Bridal & Glam',
   h1Italic: 'Langley',
   lede: [
-    'Langley is a short, familiar drive west of the Abbotsford studio — Fort Langley photos, Willoughby houses, Walnut Grove halls, and Langley City weeknights that still want a proper makeup chair.',
+    'Langley is a short, familiar drive west of the Abbotsford studio. Fort Langley photos, Willoughby houses, Walnut Grove halls, and Langley City weeknights that still want a proper makeup chair.',
   ],
   relatedAreaSlugs: ['abbotsford', 'surrey', 'mission', 'chilliwack'],
   relatedServiceSlugs: ['bridal-makeup', 'hair-and-makeup', 'laser-hair-removal'],
   servicesHeading: 'Services we offer here',
   seoTitle: 'Bridal Makeup Langley | On-Location Glam from Abbotsford',
   seoDescription:
-    'Bridal makeup and party glam for Langley, Willoughby, Walnut Grove, and Fort Langley. Studio in Abbotsford — Jass travels or you drive 25–40 minutes.',
+    'Bridal makeup and party glam for Langley, Willoughby, Walnut Grove, and Fort Langley. Studio in Abbotsford. Jass travels, or you drive 25–40 minutes.',
   imageAlts: [
     'Bridal makeup before Fort Langley wedding photos',
     'Hair and makeup in a Willoughby home',
@@ -54,10 +54,10 @@ export const langley: LongformDoc = {
     {
       type: 'ul',
       items: [
-        'Fort Langley — street and river photos; hair needs a plan for wind.',
-        'Willoughby — new builds, big bridal parties, tight garage lighting (we adapt).',
-        'Walnut Grove — family homes and school-adjacent events.',
-        'Langley City / Brookswood — easier weekday studio drives back to Abby.',
+        'Fort Langley: street and river photos. Hair needs a plan for wind.',
+        'Willoughby: new builds, big bridal parties, tight garage lighting (we adapt).',
+        'Walnut Grove: family homes and school-adjacent events.',
+        'Langley City / Brookswood: easier weekday studio drives back to Abby.',
       ],
     },
     {
@@ -105,7 +105,7 @@ export const langley: LongformDoc = {
     {
       q: 'Do you serve Fort Langley?',
       a: [
-        'Yes. Outdoor photos there are common — mention wind and walking so hair can be set for it.',
+        'Yes. Outdoor photos there are common. Mention wind and walking so hair can be set for it.',
       ],
     },
     {
@@ -141,7 +141,7 @@ export const langley: LongformDoc = {
     {
       q: 'Can you work around a Langley venue start time?',
       a: [
-        'Yes — send the venue and first-look time. The get-ready address is what sets the chair start.',
+        'Yes. Send the venue and first-look time. The get-ready address is what sets the chair start.',
       ],
     },
     {

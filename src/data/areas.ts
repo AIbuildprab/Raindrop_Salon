@@ -25,7 +25,7 @@ export const AREAS: AreaRecord[] = [
     name: 'Abbotsford',
     href: '/areas/abbotsford',
     region: 'Fraser Valley, BC',
-    driveTime: 'The studio is in Abbotsford — most neighbourhoods are a 10–20 minute drive.',
+    driveTime: 'The studio is in Abbotsford. Most neighbourhoods are a 10–20 minute drive.',
     blurb:
       'Home studio on Thurston Place. Bridal, laser, facials, and full glam for clients across Abby, Matsqui, and Clayburn.',
     landmarks: ['Highstreet', 'Mill Lake Park', 'Historic Downtown', 'Matsqui', 'Clayburn Village'],
@@ -60,7 +60,7 @@ export const AREAS: AreaRecord[] = [
     region: 'Fraser Valley, BC',
     driveTime: 'About 25–40 minutes east of Abbotsford via Highway 1.',
     blurb:
-      'Wedding and event glam for Vedder, Promontory, and downtown Chilliwack — studio or on location.',
+      'Wedding and event glam for Vedder, Promontory, and downtown Chilliwack. Studio or on location.',
     landmarks: ['Vedder', 'Promontory', 'Downtown Chilliwack', 'Cultus Lake', 'Sardis'],
     relatedServiceSlugs: ['bridal-makeup', 'hair-and-makeup', 'laser-hair-removal'],
   },
@@ -71,7 +71,7 @@ export const AREAS: AreaRecord[] = [
     region: 'Fraser Valley, BC',
     driveTime: 'About 20–30 minutes north of the Abbotsford studio via Highway 11.',
     blurb:
-      'A short hop over the Mission Bridge for bridal, laser series, and party glam — easy studio visits too.',
+      'A short hop over the Mission Bridge for bridal, laser series, and party glam. Easy studio visits too.',
     landmarks: ['Mission Bridge', 'Downtown Mission', 'Hatzic', 'Stave Lake', 'Waterfront'],
     relatedServiceSlugs: ['bridal-makeup', 'laser-hair-removal', 'hair-and-makeup'],
   },

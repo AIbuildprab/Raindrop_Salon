@@ -7,14 +7,14 @@ export const abbotsford: LongformDoc = {
   h1: 'Beauty Salon',
   h1Italic: 'Abbotsford',
   lede: [
-    'Raindrops is an Abbotsford studio first. Thurston Place is the real address — not a PO box — for bridal mornings, laser series, facials, and the kind of full glam you want before a night at Highstreet or a gurdwara wedding.',
+    'Raindrops is an Abbotsford studio first. Thurston Place is a real street address, not a PO box. Bridal mornings, laser series, facials, and the kind of full glam you want before a night at Highstreet or a gurdwara wedding.',
   ],
   relatedAreaSlugs: ['mission', 'langley', 'chilliwack', 'surrey'],
   relatedServiceSlugs: ['bridal-makeup', 'laser-hair-removal', 'hair-and-makeup'],
   servicesHeading: 'Services we offer here',
   seoTitle: 'Beauty Salon Abbotsford | Raindrops on Thurston Place',
   seoDescription:
-    'Raindrops Beauty Salon in Abbotsford, BC — bridal makeup, laser, and full glam at 3526 Thurston Place. Book with Jass for studio or on-location appointments.',
+    'Raindrops Beauty Salon in Abbotsford, BC. Bridal makeup, laser, and full glam at 3526 Thurston Place. Book with Jass for studio or on-location appointments.',
   imageAlts: [
     'Raindrops Beauty Salon studio on Thurston Place, Abbotsford',
     'Bridal makeup for an Abbotsford wedding near Mill Lake',
@@ -29,18 +29,18 @@ export const abbotsford: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'You do not need a Vancouver commute for a serious bridal or skin appointment. Jass is a certified esthetician with 18+ years in the chair — South Asian weddings, Western ceremonies, and the everyday laser / facial / threading work that keeps the same families coming back.',
+        'You do not need a Vancouver commute for a serious bridal or skin appointment. Jass is a certified esthetician with 18+ years in the chair. South Asian weddings, Western ceremonies, and the everyday laser, facial, and threading work that keeps the same families coming back.',
       ],
     },
     {
       type: 'p',
       parts: [
-        'The studio sits at 3526 Thurston Place, Abbotsford, BC V2T 6Y1. Most of Abby — Matsqui, Clayburn, the Sevenoaks side, south of Highway 1 — is a 10–20 minute drive. Parking is straightforward. You are not circling a mall parkade in a veil.',
+        'The studio sits at 3526 Thurston Place, Abbotsford, BC V2T 6Y1. Most of Abby (Matsqui, Clayburn, the Sevenoaks side, south of Highway 1) is a 10–20 minute drive. Parking is straightforward. You are not circling a mall parkade in a veil.',
       ],
     },
     {
       type: 'h2',
-      text: 'Services Abbotsford locals actually use',
+      text: 'What we book most in Abby',
     },
     {
       type: 'p',
@@ -66,9 +66,9 @@ export const abbotsford: LongformDoc = {
     {
       type: 'ul',
       items: [
-        'Mill Lake and historic downtown — popular photo stops after studio glam.',
-        'Matsqui and Clayburn — short drive; many weekday laser and facial clients.',
-        'South Abbotsford / Highway 1 — easy for people who also work in Langley or Surrey.',
+        'Mill Lake and historic downtown: popular photo stops after studio glam.',
+        'Matsqui and Clayburn: a short drive. Plenty of weekday laser and facial clients.',
+        'South Abbotsford / Highway 1: easy if you also work in Langley or Surrey.',
         'Summer weekends: weddings and outdoor photos. Book bridal earlier than you think.',
       ],
     },
@@ -79,17 +79,17 @@ export const abbotsford: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Hair and makeup can come to your home, hotel, or venue in Abbotsford. Laser cannot — that stays at the studio. If your photographer is already at a hall or a family home, on-location bridal usually saves more stress than it costs in travel.',
+        'Hair and makeup can come to your home, hotel, or venue in Abbotsford. Laser stays at the studio. If your photographer is already at a hall or a family home, on-location bridal usually saves more stress than it costs in travel.',
       ],
     },
     {
       type: 'h2',
-      text: 'Directions and proof of place',
+      text: 'How to find us',
     },
     {
       type: 'p',
       parts: [
-        'Search “Raindrops beauty salon ltd” on Google Maps — the pin is the studio. Phone is +1 (778) 710-2097. Hours: Mon–Fri 10–7, Saturday 9–6, Sunday by appointment. The map below is the same location, not a second shop.',
+        'Search “Raindrops beauty salon ltd” on Google Maps. The pin is the studio. Phone is +1 (778) 710-2097. Hours: Mon–Fri 10–7, Saturday 9–6, Sunday by appointment. The map below is the same location, not a second shop.',
       ],
     },
     {
@@ -109,7 +109,7 @@ export const abbotsford: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Mission is over the bridge, Langley is west, Chilliwack is east, Surrey is a longer but common trip. Those cities have their own pages. The NAP does not change — one studio, honest travel.',
+        'Mission is over the bridge, Langley is west, Chilliwack is east, Surrey is a longer but common trip. Those cities have their own pages. The address stays the same. We travel for hair and makeup. Laser stays here.',
       ],
     },
     {
@@ -139,7 +139,7 @@ export const abbotsford: LongformDoc = {
     {
       q: 'Is there parking?',
       a: [
-        'Yes — you are not fighting downtown street parking. Mention if you need extra time for a dress or mobility needs.',
+        'Yes. You are not fighting downtown street parking. Mention if you need extra time for a dress or mobility needs.',
       ],
     },
     {
@@ -157,7 +157,7 @@ export const abbotsford: LongformDoc = {
     {
       q: 'Do you offer South Asian bridal in Abbotsford?',
       a: [
-        'Yes. It is a core service — not an occasional add-on.',
+        'Yes. It is a core service, not an occasional add-on.',
       ],
     },
     {
