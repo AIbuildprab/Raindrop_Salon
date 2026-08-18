@@ -7,14 +7,14 @@ export const chilliwack: LongformDoc = {
   h1: 'Makeup Artist',
   h1Italic: 'Chilliwack',
   lede: [
-    'Chilliwack is 25–40 minutes east of the Abbotsford studio — close enough for a weekday laser visit, and a normal on-location hop for Vedder, Promontory, Sardis, and downtown wedding mornings.',
+    'Chilliwack is 25–40 minutes east of the Abbotsford studio. Close enough for a weekday laser visit, and a normal on-location hop for Vedder, Promontory, Sardis, and downtown wedding mornings.',
   ],
   relatedAreaSlugs: ['abbotsford', 'mission', 'langley', 'surrey'],
   relatedServiceSlugs: ['bridal-makeup', 'hair-and-makeup', 'laser-hair-removal'],
   servicesHeading: 'Services we offer here',
   seoTitle: 'Bridal Makeup Chilliwack | Fraser Valley Glam from Abbotsford',
   seoDescription:
-    'Bridal and party glam for Chilliwack, Vedder, and Promontory. Raindrops Beauty Salon is in Abbotsford — Jass travels east, or you drive in for laser and facials.',
+    'Bridal and party glam for Chilliwack, Vedder, and Promontory. Raindrops Beauty Salon is in Abbotsford. Jass travels east, or you drive in for laser and facials.',
   imageAlts: [
     'On-location bridal makeup in Vedder, Chilliwack',
     'Hair and makeup before Cultus Lake photos',
@@ -29,7 +29,7 @@ export const chilliwack: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Chilliwack brides and event clients often want someone who already works South Asian and Western looks, without driving to Vancouver. Jass is based in Abbotsford. Highway 1 east is the usual route. We do not list a fake Chilliwack storefront — the legal address stays 3526 Thurston Place.',
+        'Chilliwack brides and event clients often want someone who already works South Asian and Western looks, without driving to Vancouver. Jass is based in Abbotsford. Highway 1 east is the usual route. We do not list a fake Chilliwack storefront. The legal address stays 3526 Thurston Place.',
       ],
     },
     {
@@ -54,10 +54,10 @@ export const chilliwack: LongformDoc = {
     {
       type: 'ul',
       items: [
-        'Vedder and Promontory — newer homes, big bridal parties, mountain-view photos.',
-        'Sardis — practical mid-city get-readies.',
-        'Downtown Chilliwack — halls and family events.',
-        'Cultus Lake — outdoor photos; hair needs humidity and wind in the brief.',
+        'Vedder and Promontory: newer homes, big bridal parties, mountain-view photos.',
+        'Sardis: practical mid-city get-readies.',
+        'Downtown Chilliwack: halls and family events.',
+        'Cultus Lake: outdoor photos. Hair needs humidity and wind in the brief.',
       ],
     },
     {
@@ -67,7 +67,7 @@ export const chilliwack: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Weekday mid-morning is kinder than Friday at 5. For a 10 a.m. first look in Vedder, we start earlier than an Abbotsford house would. If Highway 1 slows, Yale Road is the backup — still tell us if you are the one driving to the studio and running late.',
+        'Weekday mid-morning is kinder than Friday at 5. For a 10 a.m. first look in Vedder, we start earlier than an Abbotsford house would. If Highway 1 slows, Yale Road is the backup. Still tell us if you are the one driving to the studio and running late.',
       ],
     },
     {
@@ -87,7 +87,7 @@ export const chilliwack: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Send the date, neighbourhood, and whether you want travel or Thurston Place. Phone +1 (778) 710-2097 or WhatsApp Jass. Peak summer Saturdays go first — Cultus and backyard weddings included.',
+        'Send the date, neighbourhood, and whether you want travel or Thurston Place. Phone +1 (778) 710-2097 or WhatsApp Jass. Peak summer Saturdays go first, including Cultus and backyard weddings.',
       ],
     },
   ],
@@ -113,13 +113,13 @@ export const chilliwack: LongformDoc = {
     {
       q: 'Do you do Cultus Lake wedding mornings?',
       a: [
-        'Yes — mention outdoor heat, wind, and walking so the look is built for it.',
+        'Yes. Mention outdoor heat, wind, and walking so the look is built for it.',
       ],
     },
     {
       q: 'Is there a second Raindrops location in Chilliwack?',
       a: [
-        'No. One studio, honest travel. The Google listing is Raindrops beauty salon ltd in Abbotsford.',
+        'No. The studio is in Abbotsford. The Google listing is Raindrops beauty salon ltd.',
       ],
     },
     {

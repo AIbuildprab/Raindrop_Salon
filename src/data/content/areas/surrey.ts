@@ -7,7 +7,7 @@ export const surrey: LongformDoc = {
   h1: 'Hair & Makeup',
   h1Italic: 'Surrey',
   lede: [
-    'Surrey clients book Raindrops for bridal mornings, Mehndi glam, and studio laser — then either drive to Abbotsford or have Jass come to Fleetwood, Newton, Cloverdale, or South Surrey.',
+    'Surrey clients book Raindrops for bridal mornings, Mehndi glam, and studio laser. Then they either drive to Abbotsford or have Jass come to Fleetwood, Newton, Cloverdale, or South Surrey.',
   ],
   relatedAreaSlugs: ['langley', 'abbotsford', 'mission', 'chilliwack'],
   relatedServiceSlugs: ['bridal-makeup', 'hair-and-makeup', 'laser-hair-removal'],
@@ -24,12 +24,12 @@ export const surrey: LongformDoc = {
   blocks: [
     {
       type: 'h2',
-      text: 'What Surrey searchers usually want',
+      text: 'Why Surrey clients book Jass',
     },
     {
       type: 'p',
       parts: [
-        'A makeup artist who already understands South Asian and Western wedding weeks, who will show up on time in a city that punishes late bridges, and who will not treat Surrey as “too far to care.” Jass is based in Abbotsford — about 35–50 minutes depending on neighbourhood and Highway 1. That is a real drive, planned into the call time.',
+        'You want someone who already knows South Asian and Western wedding weeks, shows up on time, and does not treat Surrey as too far. Jass is based in Abbotsford, about 35–50 minutes depending on neighbourhood and Highway 1. That drive is built into the call time.',
       ],
     },
     {
@@ -44,7 +44,7 @@ export const surrey: LongformDoc = {
         { href: '/services/hair-and-makeup', label: 'event glam' },
         ' travel. Getting ready in a Fleetwood basement suite, a Newton family home, or a South Surrey hotel is normal. ',
         { href: '/services/laser-hair-removal', label: 'Laser' },
-        ' does not travel — those appointments stay at 3526 Thurston Place. Many Surrey laser clients pick a consistent weekday and treat it like a standing commute.',
+        ' does not travel. Those appointments stay at 3526 Thurston Place. Many Surrey laser clients pick a consistent weekday and treat it like a standing commute.',
       ],
     },
     {
@@ -54,10 +54,10 @@ export const surrey: LongformDoc = {
     {
       type: 'ul',
       items: [
-        'Fleetwood and Guildford — common for multi-event wedding weeks.',
-        'Newton — house get-readies with large families.',
-        'Cloverdale — halls, fairs, and weekend photos.',
-        'South Surrey / the border side — longer drive; we build extra buffer.',
+        'Fleetwood and Guildford: common for multi-event wedding weeks.',
+        'Newton: house get-readies with large families.',
+        'Cloverdale: halls, fairs, and weekend photos.',
+        'South Surrey / the border side: a longer drive. We build extra buffer.',
       ],
     },
     {
@@ -87,7 +87,7 @@ export const surrey: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Highway 1 east toward Abbotsford, then Maps to Raindrops beauty salon ltd. Fraser Highway is the slower backup. Phone +1 (778) 710-2097 if you are running late — do not ghost a bridal slot.',
+        'Highway 1 east toward Abbotsford, then Maps to Raindrops beauty salon ltd. Fraser Highway is the slower backup. Phone +1 (778) 710-2097 if you are running late. Please do not ghost a bridal slot.',
       ],
     },
     {
@@ -107,7 +107,7 @@ export const surrey: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'WhatsApp the date, neighbourhood, and service. If the wedding is in Langley and the house is in Surrey, send both addresses — the call time depends on the first stop, not the last Instagram caption.',
+        'WhatsApp the date, neighbourhood, and service. If the wedding is in Langley and the house is in Surrey, send both addresses. The call time depends on the first stop, not the last Instagram caption.',
       ],
     },
   ],
@@ -139,7 +139,7 @@ export const surrey: LongformDoc = {
     {
       q: 'Which Surrey areas do you serve?',
       a: [
-        'Fleetwood, Newton, Cloverdale, Guildford, South Surrey, and nearby pockets. If you are farther west, ask — further travel is possible on request.',
+        'Fleetwood, Newton, Cloverdale, Guildford, South Surrey, and nearby pockets. If you are farther west, ask. Further travel is possible on request.',
       ],
     },
     {

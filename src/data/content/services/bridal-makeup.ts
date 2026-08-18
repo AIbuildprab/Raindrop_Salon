@@ -3,18 +3,18 @@ import type { LongformDoc } from '../types'
 export const bridalMakeup: LongformDoc = {
   slug: 'bridal-makeup',
   kind: 'service',
-  eyebrow: 'Core service',
+  eyebrow: 'Bridal',
   h1: 'Bridal Makeup',
   h1Italic: 'Abbotsford',
   lede: [
-    'Jass has spent 18+ years getting Fraser Valley brides camera-ready — South Asian, Western, and fusion looks that last from the first family photo through the last dance. Studio on Thurston Place, or she comes to you.',
+    'Wedding mornings should feel calm. Jass has been getting Fraser Valley brides ready for 18 years, including South Asian, Western, and the in-between days where you need both. Studio on Thurston Place, or she comes to you.',
   ],
   relatedAreaSlugs: ['abbotsford', 'surrey', 'langley', 'chilliwack', 'mission'],
   relatedServiceSlugs: ['hair-and-makeup'],
   areasHeading: 'We also serve these areas',
   seoTitle: 'Bridal Makeup Abbotsford | South Asian & Western Wedding Glam',
   seoDescription:
-    'Bridal makeup in Abbotsford by Jass — 18+ years of South Asian, Western, and fusion wedding glam. Trials, on-location travel, and full packages from $1500.',
+    'Bridal makeup in Abbotsford with Jass. South Asian, Western, and fusion looks that last. Trials, travel, and packages from $1500. Book on WhatsApp.',
   imageAlts: [
     'South Asian bridal makeup in Abbotsford with soft gold eyes and polished skin',
     'Western bride getting hair and makeup at Raindrops Beauty Salon',
@@ -24,17 +24,17 @@ export const bridalMakeup: LongformDoc = {
   blocks: [
     {
       type: 'h2',
-      text: 'What this page is for',
+      text: 'How Jass works with brides',
     },
     {
       type: 'p',
       parts: [
-        'People searching bridal makeup in Abbotsford usually want three things: a look that photographs well, someone who understands their wedding culture, and a calm morning. This page covers how Jass works, what is included, how travel works across the Fraser Valley, and how to book a trial without guesswork.',
+        'You sit down, talk through the day, and leave knowing what the morning will look like. She pays attention to your jewellery, your outfit, and how long you will be in photos. The makeup is meant to look like you, just finished, from the first family portrait through the last dance.',
       ],
     },
     {
       type: 'h2',
-      text: 'Bridal looks Jass is known for',
+      text: 'Looks she does a lot of',
     },
     {
       type: 'h3',
@@ -43,7 +43,7 @@ export const bridalMakeup: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Heavy enough for lehenga and jewellery, light enough that you still look like yourself. Skin is prepped so foundation sits through heat, dancing, and a long photo timeline. Eyes can go classic kohl, soft smoky, or colour that matches the outfit. Jass works with bindi, matha patti, and dupatta so nothing fights the makeup.',
+        'Lehenga, jewellery, heat, and a long photo timeline. Skin is prepped so foundation stays put. Eyes can be classic kohl, a soft smoke, or colour that actually matches the outfit. Bindi, matha patti, and dupatta get planned with the makeup, not squeezed in at the end.',
       ],
     },
     {
@@ -53,27 +53,27 @@ export const bridalMakeup: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Clean skin, defined eyes, and a lip that lasts through vows and dinner. Hair can be a soft updo, waves, or something your photographer already sketched. The goal is a face that looks finished in person and on a 50mm lens — not a filter.',
+        'Clean skin, defined eyes, a lip that survives vows and dinner. Hair might be a soft updo, waves, or whatever you and your photographer already talked about. It should look good in the room and in photos, not only on a phone filter.',
       ],
     },
     {
       type: 'h3',
-      text: 'Fusion bridal',
+      text: 'Fusion days',
     },
     {
       type: 'p',
       parts: [
-        'Two outfits, two ceremonies, one artist who already knows both palettes. Fusion days often need a lighter civil-ceremony look and a richer evening look. Jass plans the switch so you are not sitting in a chair for an extra hour when guests are already arriving.',
+        'Two outfits, two ceremonies, one artist. A lot of brides want something lighter for the civil ceremony and richer for the evening. Jass plans the switch so you are not still in the chair when guests start arriving.',
       ],
     },
     {
       type: 'h2',
-      text: 'Packages and what they include',
+      text: 'Packages',
     },
     {
       type: 'p',
       parts: [
-        'The price menu lists a full bridal makeup package at $1500. That is the complete studio or on-location bridal look — not a “makeup only, no hair” teaser. Party and pre-wedding events are priced separately so you can book Mehndi or Jaggo without buying a second full bridal package.',
+        'The full bridal makeup package is $1500. That is hair and makeup for the wedding look, not a stripped-down “face only” teaser. Mehndi, Jaggo, and other pre-wedding nights are priced on their own, so you are not buying a second bridal package for those.',
       ],
     },
     {
@@ -91,21 +91,21 @@ export const bridalMakeup: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Lash application is an add-on. Trials are available for bridal and event bookings — recommended if you have never sat with Jass, or if the look is very specific (cut crease, coloured liner, or a family reference photo).',
+        'Lashes are an add-on. A trial is worth it if you have never sat with Jass, or if you have a very specific look in mind, like a cut crease, coloured liner, or a family photo you want to honour.',
       ],
     },
     {
       type: 'h2',
-      text: 'The local wedding scene',
+      text: 'Weddings around here',
     },
     {
       type: 'p',
       parts: [
-        'Abbotsford and the Fraser Valley run a mix of gurdwara mornings, church ceremonies, backyard tents, and hotel ballrooms. Summer weekends book first. If your venue is in ',
+        'Abbotsford and the Fraser Valley mix gurdwara mornings, church ceremonies, backyard tents, and hotel ballrooms. Summer Saturdays go first. If you are getting ready in ',
         { href: '/areas/langley', label: 'Langley' },
         ' or ',
         { href: '/areas/surrey', label: 'Surrey' },
-        ', say so when you inquire — travel time changes the call time, not the quality of the work.',
+        ', mention it when you inquire. It changes the call time.',
       ],
     },
     {
@@ -115,75 +115,75 @@ export const bridalMakeup: LongformDoc = {
         { href: '/areas/chilliwack', label: 'Chilliwack' },
         ' and ',
         { href: '/areas/mission', label: 'Mission' },
-        ' often prefer the Thurston Place studio the day before, then on-location the morning of. That split keeps the wedding-day chair time shorter.',
+        ' sometimes do a trial or a quiet prep day at the studio, then have Jass come to them on the wedding morning. That keeps the actual day shorter.',
       ],
     },
     {
       type: 'h2',
-      text: 'How a bridal morning actually runs',
+      text: 'What the morning looks like',
     },
     {
       type: 'ul',
       items: [
-        'Book 2–3 months ahead for peak wedding season; earlier if you have a large party.',
-        'Share venue address, first-look time, and whether hair is included.',
-        'Trial (optional): lock skin, eye shape, and lip so wedding morning is execution, not experiment.',
-        'Wedding day: clean, dry hair and a fresh face. Wear a button or zip top.',
-        'Jass works through skin prep, hair, makeup, then a last check in daylight and flash.',
+        'Book 2–3 months ahead for peak season, earlier if the party is large.',
+        'Send the venue address, first-look time, and whether hair is included.',
+        'If you book a trial, wedding morning is just doing the look, not figuring it out.',
+        'Come with clean, dry hair and a fresh face. A button or zip top makes life easier.',
+        'Skin prep, hair, makeup, then a last look in daylight before you leave.',
       ],
     },
     {
       type: 'h2',
-      text: 'On-location vs the Abbotsford studio',
+      text: 'Studio or she comes to you',
     },
     {
       type: 'p',
       parts: [
         'The studio is at 3526 Thurston Place in ',
         { href: '/areas/abbotsford', label: 'Abbotsford' },
-        '. It is quiet, has proper lighting, and is the easiest option if you want to get ready away from a busy house. On-location makes sense when the photographer is already at the venue, or when elders and kids are in the same home.',
+        '. Quiet, good light, and a break from a busy house. On-location makes sense when the photographer is already at the venue, or when family is getting ready in the same home.',
       ],
     },
     {
       type: 'p',
       parts: [
-        'Travel is available across the Fraser Valley and Lower Mainland. Further trips are possible on request. There is one real studio address — we do not invent a second shop in another city.',
+        'She travels across the Fraser Valley and Lower Mainland. Further than that is possible. Just ask. There is one studio address; appointments start there or at your place, not a second shop in another city.',
       ],
     },
     {
       type: 'h2',
-      text: 'Bridal checklist',
+      text: 'Before you come',
     },
     {
       type: 'ul',
       items: [
-        'Inspiration photos that match your skin tone and jewellery, not only a celebrity filter.',
-        'Note any skincare reactions (retinoids, recent peels, or laser).',
-        'Confirm who else needs makeup and in what order.',
-        'Pack the outfit neckline so hair and earrings can be planned.',
-        'Drink water the day before. Skip new skincare the week of.',
+        'Inspiration photos that look like your skin and jewellery, not only a celebrity screenshot.',
+        'Mention any skincare that might react, like retinoids, a recent peel, or laser.',
+        'Say who else needs makeup and in what order.',
+        'Bring a sense of the neckline and earrings so hair can work with them.',
+        'Skip new products the week of. Drink water. That is most of it.',
       ],
     },
     {
       type: 'h2',
-      text: 'Related glam for the rest of the week',
+      text: 'The rest of the wedding week',
     },
     {
       type: 'p',
       parts: [
-        'Most wedding weeks are not one look. If you also need Mehndi night, Jaggo, or a birthday in the same month, see ',
+        'Most weeks are more than one look. For Mehndi, Jaggo, or a birthday in the same month, see ',
         { href: '/services/hair-and-makeup', label: 'hair and makeup for events' },
-        '. Same artist, different intensity, so the bridal day still feels special.',
+        '. Same artist, a little less intensity, so the bridal morning still feels like the main event.',
       ],
     },
     {
       type: 'h2',
-      text: 'Book the date',
+      text: 'Hold the date',
     },
     {
       type: 'p',
       parts: [
-        'Call or WhatsApp Jass with your date, venue city, and whether you want a trial. If the date is open, you will get a clear next step — not a form that disappears into a inbox.',
+        'Call or WhatsApp Jass with your date, where you are getting ready, and whether you want a trial. If the day is free, she will tell you what to do next.',
       ],
     },
   ],
@@ -191,49 +191,49 @@ export const bridalMakeup: LongformDoc = {
     {
       q: 'How far in advance should I book bridal makeup in Abbotsford?',
       a: [
-        'For peak season (late spring through early fall), 2–3 months is the comfortable window. Destination or multi-event weeks should book sooner.',
+        'For late spring through early fall, 2–3 months is comfortable. Multi-event or destination weeks, book sooner.',
       ],
     },
     {
       q: 'Do you travel to the venue?',
       a: [
-        'Yes. Studio is in Abbotsford. On-location is available across the Fraser Valley and Lower Mainland, including Surrey, Langley, Chilliwack, and Mission.',
+        'Yes. The studio is in Abbotsford. Jass also comes to you across the Fraser Valley and Lower Mainland, including Surrey, Langley, Chilliwack, Mission, and further if it works.',
       ],
     },
     {
       q: 'Is a trial required?',
       a: [
-        'Not required, but recommended if you have a specific reference or have never sat with Jass. Trials are an add-on for bridal and event bookings.',
+        'No. It is a good idea if you have a specific look in mind or have never sat with her. Trials are an add-on.',
       ],
     },
     {
       q: 'Do you do South Asian bridal makeup?',
       a: [
-        'Yes — it is a core part of the studio. Lehenga, jewellery, and long photo timelines are planned into the look, not added at the end.',
+        'Yes. It is a big part of the studio. Jewellery, lehenga, and a long photo day are built into the plan.',
       ],
     },
     {
       q: 'What is included in the $1500 bridal package?',
       a: [
-        'The listed full bridal makeup package is the complete bridal look. Hair, lashes, attendants, and extra events are confirmed when you book so the quote matches the day.',
+        'The full bridal look. Hair, lashes, attendants, and extra events get confirmed when you book so the quote matches the actual day.',
       ],
     },
     {
       q: 'Can you do hair and makeup for bridesmaids too?',
       a: [
-        'Yes. Bride + attendants and complete packages are built for that. Share headcount and timing so the morning does not run late.',
+        'Yes. Share how many people and what time you need to be ready so the morning does not run late.',
       ],
     },
     {
       q: 'What should I do the night before?',
       a: [
-        'Wash and dry hair unless Jass asked you to arrive with dirty hair for grip. Sleep on a clean pillowcase. Do not try a new facial.',
+        'Wash and dry your hair unless Jass asked you to come with second-day hair. Sleep on a clean pillowcase. Do not try a new facial.',
       ],
     },
     {
       q: 'Do you work with photographers in Abbotsford?',
       a: [
-        'Regularly. Tell Jass the first-look time and whether you want a soft or more defined look for flash photography.',
+        'Often. Tell her the first-look time and whether you want something softer or more defined for flash photos.',
       ],
     },
   ],

@@ -3,18 +3,18 @@ import type { LongformDoc } from '../types'
 export const hairAndMakeup: LongformDoc = {
   slug: 'hair-and-makeup',
   kind: 'service',
-  eyebrow: 'Core service',
+  eyebrow: 'Events',
   h1: 'Hair & Makeup',
   h1Italic: 'Abbotsford',
   lede: [
-    'Full glam for the nights that are not the wedding — Mehndi, Jaggo, birthdays, photos, and “I just want to feel done.” Hair, makeup, or both, in studio or on location.',
+    'For the nights that are not the wedding: Mehndi, Jaggo, birthdays, photos, or you just want to feel done. Hair, makeup, or both. In the studio or at your place.',
   ],
   relatedAreaSlugs: ['abbotsford', 'langley', 'surrey', 'chilliwack', 'mission'],
   relatedServiceSlugs: ['bridal-makeup'],
   areasHeading: 'We also serve these areas',
   seoTitle: 'Hair & Makeup Abbotsford | Party, Mehndi & Full Glam',
   seoDescription:
-    'Hair and makeup in Abbotsford for parties, Mehndi, Jaggo, and photos. Full glam from $175. Studio on Thurston Place or on location in the Fraser Valley.',
+    'Hair and makeup in Abbotsford for parties, Mehndi, Jaggo, and photos. Full glam from $175. Studio on Thurston Place, or Jass comes to you.',
   imageAlts: [
     'Full glam hair and makeup for a Mehndi night in Abbotsford',
     'Birthday party makeup at Raindrops Beauty Salon',
@@ -24,31 +24,31 @@ export const hairAndMakeup: LongformDoc = {
   blocks: [
     {
       type: 'h2',
-      text: 'What “full glam” means here',
+      text: 'What you walk out with',
     },
     {
       type: 'p',
       parts: [
-        'Hair styling plus makeup, finished so you can walk into a hall, a backyard, or a camera flash without a touch-up kit in every pocket. Lashes are optional. The look can be soft (skin, brow, lip) or full (cut crease, contour, prandi). You say the event; Jass sets the intensity.',
+        'Hair and makeup finished so you can go to a hall, a backyard, or a camera without a bag of touch-ups in every pocket. Lashes if you want them. The look can be soft (skin, brow, lip) or full, including prandi. Tell Jass the event and she will set how far to take it.',
       ],
     },
     {
       type: 'h2',
-      text: 'Events people actually book',
+      text: 'What people book this for',
     },
     {
       type: 'ul',
       items: [
-        'Mehndi nights and Jaggo — colour, jewellery, and heat-proof wear.',
-        'Birthdays and decades (30th, 40th, 50th) when the photos will live forever.',
-        'Graduation, engagement, and family portraits.',
-        'Date-night or girls’ night when you want a pro, not a rushed mall counter.',
+        'Mehndi nights and Jaggo. Colour, jewellery, and makeup that holds in a warm room.',
+        'Birthdays. The photos last a long time.',
+        'Graduation, engagement, family portraits.',
+        'A night out when you want it done properly.',
         'Pre-wedding events that are not the bridal morning itself.',
       ],
     },
     {
       type: 'h2',
-      text: 'Posted prices',
+      text: 'Prices',
     },
     {
       type: 'table',
@@ -66,19 +66,19 @@ export const hairAndMakeup: LongformDoc = {
     {
       type: 'p',
       parts: [
-        '“From” prices move with hair length, extensions, and how many people share the same call time. If you need a trial, say so — it is the same add-on used for ',
+        'Prices move a little with hair length, extensions, and how many people share the same time. Want a trial? Say so when you book. It is the same add-on used for ',
         { href: '/services/bridal-makeup', label: 'bridal makeup' },
         '.',
       ],
     },
     {
       type: 'h2',
-      text: 'Packages if you have more than one night',
+      text: 'If you have more than one night',
     },
     {
       type: 'p',
       parts: [
-        'The homepage lists Single Event Look (Mehndi / Jaggo), Full Series for every pre-wedding night, and party packages (makeup only, full glam, glam + trial). Those exist so a wedding week does not become five one-off texts. Ask for the series if you already know the event list.',
+        'There is a single-event look for Mehndi or Jaggo, a series if you want every pre-wedding night covered, and party options (makeup only, full glam, glam plus a trial). Ask for the series if you already know the list of events. It saves a week of back-and-forth texts.',
       ],
     },
     {
@@ -88,7 +88,7 @@ export const hairAndMakeup: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Thurston Place is the calm option: parking, light, and no cousins walking through the shot. On-location is better when the photographer is already at the house, or when three friends want to get ready together in ',
+        'Thurston Place is the quiet option: parking, proper light, nobody walking through while you are getting ready. Coming to you is better when the photographer is already at the house, or when a few of you want to get ready together in ',
         { href: '/areas/langley', label: 'Langley' },
         ' or ',
         { href: '/areas/surrey', label: 'Surrey' },
@@ -98,47 +98,47 @@ export const hairAndMakeup: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Clients in ',
+        'People in ',
         { href: '/areas/chilliwack', label: 'Chilliwack' },
         ' and ',
         { href: '/areas/mission', label: 'Mission' },
-        ' often book the studio for weekday glam and travel for weekend events. ',
+        ' often come to the studio on a weekday and book travel for weekend events. If you live in ',
         { href: '/areas/abbotsford', label: 'Abbotsford' },
-        ' locals can usually do either without turning the day into a commute.',
+        ', either works without turning it into a big drive.',
       ],
     },
     {
       type: 'h2',
-      text: 'How to brief the look',
+      text: 'A few things that help',
     },
     {
       type: 'ul',
       items: [
-        'Send 2–4 photos that match your skin and hair, not a different ethnicity’s Pinterest board.',
-        'Say the outfit colour and jewellery. Gold vs silver changes the eye and lip.',
-        'Mention glasses, hijab, or a tight neckline.',
-        'If you cry at speeches, we plan a waterproof eye from the start.',
+        'Send a couple of photos that look like your hair and skin.',
+        'Say the outfit colour and whether the jewellery is gold or silver.',
+        'Mention glasses, hijab, or a high neckline.',
+        'If you cry at speeches, say so. We will do waterproof eyes from the start.',
         'Arrive with clean, dry hair unless Jass asked for second-day hair.',
       ],
     },
     {
       type: 'h2',
-      text: 'Hair that holds in BC weather',
+      text: 'Hair in this weather',
     },
     {
       type: 'p',
       parts: [
-        'Fraser Valley summers are warm and sometimes humid; winters are wet. Updos get extra pins and a real set, not a single pass of spray. Prandi and South Asian styles are priced separately because they take more time than a simple blowout. If your event is outdoors (Mill Lake photos, Fort Langley streets, a backyard in Vedder), say so.',
+        'Summers here get warm and a bit humid. Winters are wet. Updos get extra pins and a proper set. Prandi and other South Asian styles take more time than a blowout, which is why they are priced on their own. If you will be outdoors at Mill Lake, Fort Langley, or a backyard in Vedder, mention it.',
       ],
     },
     {
       type: 'h2',
-      text: 'Makeup that lasts past dinner',
+      text: 'Makeup that lasts the night',
     },
     {
       type: 'p',
       parts: [
-        'Skin is prepped, not just covered. Jass has 18+ years of event work — the finish is built for heat, dancing, and phone cameras. You will get a simple blot-and-lip plan, not a 12-step kit you will never use in a dark hall.',
+        'Skin gets prepped, then makeup. Jass has been doing event work for 18 years, so the finish is built for heat, dancing, and a lot of phone photos. You will get a simple blot-and-lip plan you can actually use in a dark hall.',
       ],
     },
     {
@@ -148,17 +148,17 @@ export const hairAndMakeup: LongformDoc = {
     {
       type: 'p',
       parts: [
-        'Parties and birthdays: a few weeks is usually enough. Pre-wedding events in peak season: treat them like bridal and book earlier. Same-week requests happen, but weekends fill first.',
+        'Birthdays and parties: a few weeks is usually fine. Pre-wedding events in summer: treat them more like bridal and book earlier. Same-week requests happen. Weekends go first.',
       ],
     },
     {
       type: 'h2',
-      text: 'Book the chair',
+      text: 'Book a time',
     },
     {
       type: 'p',
       parts: [
-        'Call or WhatsApp with the date, city, and whether you want hair, makeup, or both. If you already know it is the wedding morning itself, go straight to the bridal page so the package matches the day.',
+        'Call or WhatsApp with the date, city, and whether you want hair, makeup, or both. If it is the wedding morning itself, use the bridal page so the package matches the day.',
       ],
     },
   ],
@@ -166,49 +166,49 @@ export const hairAndMakeup: LongformDoc = {
     {
       q: 'What is the difference between full glam and party makeup?',
       a: [
-        'Full hair & makeup starts at $175 and covers both. Party makeup is listed at $200 for a more event-ready face. Jass will tell you which fits your photos and timeline.',
+        'Full hair and makeup starts at $175 and covers both. Party makeup is $200 for a more event-ready face. If you are unsure, ask. Jass will tell you which fits.',
       ],
     },
     {
       q: 'Do you travel for Mehndi and Jaggo?',
       a: [
-        'Yes — on-location across the Fraser Valley and Lower Mainland. Studio appointments are available when you want a quieter get-ready.',
+        'Yes, across the Fraser Valley and Lower Mainland. Come to the studio if you want a quieter get-ready.',
       ],
     },
     {
       q: 'Can I book only hair or only makeup?',
       a: [
-        'Yes. Makeup starts at $135+, hair style at $45+, prandi at $50+.',
+        'Yes. Makeup from $135+, hair from $45+, prandi from $50+.',
       ],
     },
     {
       q: 'How long does a full glam appointment take?',
       a: [
-        'Plan a couple of hours for hair and makeup, more if we are doing a detailed prandi or a group. Share your door time when you book.',
+        'Plan a couple of hours for hair and makeup. Longer for a detailed prandi or a group. Share your door time when you book.',
       ],
     },
     {
       q: 'Do you offer trials for parties?',
       a: [
-        'Yes — glam + trial is on the party menu. Useful if the look is new to you or the lighting is unusual (outdoor evening, coloured venue lights).',
+        'Yes. Glam plus trial is on the party menu. Helpful if the look is new to you or the lighting is unusual, like an outdoor evening or coloured venue lights.',
       ],
     },
     {
       q: 'What should I bring?',
       a: [
-        'Inspiration photos, the jewellery you will actually wear, and a top that opens at the front. Contact lenses in, if you wear them for the event.',
+        'A couple of inspiration photos, the jewellery you will actually wear, and a top that opens at the front. Contacts in, if you wear them for the event.',
       ],
     },
     {
       q: 'Can a group book together?',
       a: [
-        'Yes. Birthday groups and pre-wedding parties do this often. We need headcount and a realistic start time so nobody is late to their own event.',
+        'Yes. Birthday groups and pre-wedding parties do this a lot. We need a headcount and a start time that is realistic.',
       ],
     },
     {
       q: 'Is this the same as bridal makeup?',
       a: [
-        'Same artist, different package. Wedding-day bridal is a longer, higher-stakes booking. Use the bridal page for the ceremony morning.',
+        'Same artist, different booking. Wedding-day bridal is longer and planned around the ceremony. Use the bridal page for that morning.',
       ],
     },
   ],

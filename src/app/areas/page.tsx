@@ -11,7 +11,7 @@ import { resolveSiteUrl } from '@/lib/site-url'
 
 const title = 'Areas We Serve | Abbotsford, Surrey, Langley, Chilliwack, Mission'
 const description =
-  'Raindrops Beauty Salon is based in Abbotsford and serves Surrey, Langley, Chilliwack, and Mission — studio visits or on-location glam. One real address.'
+  'Raindrops Beauty Salon is based in Abbotsford and serves Surrey, Langley, Chilliwack, and Mission. Studio visits or on-location glam. One real address.'
 
 export async function generateMetadata(): Promise<Metadata> {
   const url = `${resolveSiteUrl()}/areas`
@@ -57,8 +57,7 @@ export default function AreasHubPage() {
             <div className="gold-divider" />
             <p className="seo-lede" data-reveal>
               The chair is at {ADDRESS_FULL}. Hair and makeup travel. Laser and most skin
-              services stay in Abbotsford. These pages are for people searching a city name —
-              not a second invented shop.
+              services stay in Abbotsford. Pick your city below for the local details.
             </p>
           </div>
         </section>
