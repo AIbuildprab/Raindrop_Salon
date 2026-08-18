@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
 
 const HERO_BG = '/images/hero-bg.png'
@@ -33,11 +34,11 @@ export default function Hero() {
       <div className="hero-content">
         <h1 className="hero-headline">
           <span className="line-mask">
-            <span className="line-inner">Raindrops</span>
+            <span className="line-inner">Beauty Salon</span>
           </span>
           <span className="line-mask">
             <span className="line-inner">
-              <em>Beauty Salon</em>
+              <em>Abbotsford</em>
             </span>
           </span>
         </h1>
@@ -58,6 +59,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="btn-glass"
           >
+            <WhatsAppIcon size={18} />
             WhatsApp Jass
           </a>
         </div>

@@ -15,6 +15,7 @@ import {
   type GalleryVideo,
 } from '@/data/gallery-videos'
 import InstagramIcon from '@/components/ui/InstagramIcon'
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from '@/lib/contact'
 
 const FILTER_LABELS: Record<GalleryFilter, string> = {
   all: 'All Work',
@@ -340,13 +341,13 @@ export default function GalleryGrid() {
 
         <div className="ig-cta-wrap" data-reveal>
           <a
-            href="https://www.instagram.com/raindrops_beauty_salon/"
+            href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="ig-cta"
           >
             <InstagramIcon className="ig-cta-icon" size={18} gradientId="ig-grad-gallery" />
-            <span>Follow @raindrops_beauty_salon</span>
+            <span>Follow {INSTAGRAM_HANDLE}</span>
             <span className="ig-cta-arrow" aria-hidden="true">→</span>
           </a>
         </div>

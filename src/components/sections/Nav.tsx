@@ -3,18 +3,34 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
-const NAV_ITEMS = ['About', 'Services', 'Gallery', 'Reviews', 'FAQ', 'Contact']
+const NAV_ITEMS = [
+  { label: 'About', href: '/#about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Areas', href: '/areas' },
+  { label: 'Gallery', href: '/#gallery' },
+  { label: 'Reviews', href: '/#reviews' },
+  { label: 'FAQ', href: '/#faq' },
+  { label: 'Contact', href: '/#contact' },
+] as const
 
-export default function Nav() {
+type NavProps = {
+  overlayHero?: boolean
+}
+
+export default function Nav({ overlayHero = false }: NavProps) {
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(!overlayHero)
 
   useEffect(() => {
+    if (!overlayHero) {
+      setScrolled(true)
+      return
+    }
     const onScroll = () => setScrolled(window.scrollY > 60)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [overlayHero])
 
   useEffect(() => {
     if (!open) return
@@ -30,8 +46,9 @@ export default function Nav() {
 
   const handleLinkClick = () => setOpen(false)
 
+  const solid = !overlayHero || scrolled || open
   const navClass = [
-    scrolled || open ? 'scrolled' : 'nav-over-hero',
+    solid ? 'scrolled' : 'nav-over-hero',
     open ? 'is-menu-open' : '',
   ]
     .filter(Boolean)
@@ -39,7 +56,7 @@ export default function Nav() {
 
   return (
     <nav id="main-nav" className={navClass} role="navigation" aria-label="Main navigation">
-      <a href="#hero" className="nav-wordmark" aria-label="Raindrops Beauty Salon — home">
+      <a href="/" className="nav-wordmark" aria-label="Raindrops Beauty Salon — home">
         <Image
           src="/images/nav-wordmark.png"
           alt="Raindrops Beauty Salon"
@@ -52,13 +69,13 @@ export default function Nav() {
 
       <ul className="nav-links">
         {NAV_ITEMS.map(item => (
-          <li key={item}>
-            <a href={`#${item.toLowerCase()}`}>{item}</a>
+          <li key={item.href}>
+            <a href={item.href}>{item.label}</a>
           </li>
         ))}
       </ul>
 
-      <a href="#contact" className="nav-book-cta">Book Now</a>
+      <a href="/#contact" className="nav-book-cta">Book Now</a>
 
       <button
         className={`nav-burger${open ? ' is-open' : ''}`}
@@ -72,12 +89,12 @@ export default function Nav() {
       <div className={`nav-mobile-menu${open ? ' is-open' : ''}`} onClick={e => e.stopPropagation()}>
         <ul>
           {NAV_ITEMS.map(item => (
-            <li key={item}>
-              <a href={`#${item.toLowerCase()}`} onClick={handleLinkClick}>{item}</a>
+            <li key={item.href}>
+              <a href={item.href} onClick={handleLinkClick}>{item.label}</a>
             </li>
           ))}
         </ul>
-        <a href="#contact" className="btn-gold nav-mobile-cta" onClick={handleLinkClick}>
+        <a href="/#contact" className="btn-gold nav-mobile-cta" onClick={handleLinkClick}>
           Book Now
         </a>
       </div>
