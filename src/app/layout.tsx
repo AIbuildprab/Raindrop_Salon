@@ -1,29 +1,12 @@
 import type { Metadata, Viewport } from 'next'
+import { BRAND_NAME } from '@/lib/contact'
+import { resolveSiteUrl } from '@/lib/site-url'
 import './globals.css'
 
-/** Stable production origin — used for metadataBase / canonical / OG. */
-const PRODUCTION_SITE_URL = 'https://raindropsalon.vercel.app'
-
-/**
- * Absolute origin with a scheme. Never falls back to localhost or ephemeral
- * VERCEL_URL preview hosts — those break canonical/OG tags on static export.
- */
-function resolveSiteUrl(): string {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim()
-  if (raw) {
-    try {
-      const withScheme = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`
-      return new URL(withScheme).origin
-    } catch {
-      // Invalid env value — use production origin below.
-    }
-  }
-  return PRODUCTION_SITE_URL
-}
-
-const siteUrl = resolveSiteUrl()
-
-const title = 'Raindrops Beauty Salon'
+const title =
+  "BEST Beauty Salon Abbotsford - if you're looking for Hair & Makeup near me or Bridal Makeup, Laser Hair Removal & Facials near me - Raindrops Beauty Salon is the place to be"
+const socialTitle = 'BEST Beauty Salon Abbotsford | Raindrops Beauty Salon'
+const brandName = BRAND_NAME
 const description =
   'Raindrops Beauty Salon — Certified Esthetician & Hair/Makeup Artist in Abbotsford, BC. 18+ years making brides shine, with full glam for weddings, Mehndi nights, and every celebration.'
 
@@ -33,39 +16,42 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title,
-  description,
-  keywords: [
-    'makeup artist Abbotsford BC',
-    'esthetician Abbotsford',
-    'hair and makeup artist Fraser Valley',
-    'South Asian bridal makeup',
-    'Mehndi night glam',
-    'bridal makeup Abbotsford',
-    'Raindrops Beauty Salon',
-  ],
-  robots: { index: true, follow: true },
-  alternates: { canonical: siteUrl },
-  icons: {
-    icon: { url: '/images/raindrop-logo.png', type: 'image/png' },
-    apple: { url: '/images/raindrop-logo.png' },
-  },
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  const siteUrl = resolveSiteUrl()
+  return {
+    metadataBase: new URL(siteUrl),
     title,
     description,
-    url: siteUrl,
-    siteName: title,
-    type: 'website',
-    images: [{ url: '/images/raindrop-logo.png', width: 1024, height: 1024, alt: title }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title,
-    description,
-    images: ['/images/raindrop-logo.png'],
-  },
+    keywords: [
+      'makeup artist Abbotsford BC',
+      'esthetician Abbotsford',
+      'hair and makeup artist Fraser Valley',
+      'South Asian bridal makeup',
+      'Mehndi night glam',
+      'bridal makeup Abbotsford',
+      'Raindrops Beauty Salon',
+    ],
+    robots: { index: true, follow: true },
+    alternates: { canonical: siteUrl },
+    icons: {
+      icon: { url: '/images/raindrop-logo.png', type: 'image/png' },
+      apple: { url: '/images/raindrop-logo.png' },
+    },
+    openGraph: {
+      title: socialTitle,
+      description,
+      url: siteUrl,
+      siteName: brandName,
+      type: 'website',
+      images: [{ url: '/images/raindrop-logo.png', width: 1024, height: 1024, alt: brandName }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: socialTitle,
+      description,
+      images: ['/images/raindrop-logo.png'],
+    },
+  }
 }
 
 export default function RootLayout({

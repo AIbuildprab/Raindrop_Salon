@@ -1,6 +1,18 @@
 import Image from 'next/image'
-import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from '@/lib/contact'
+import { AREAS } from '@/data/areas'
+import { SERVICES } from '@/data/services'
+import {
+  ADDRESS_FULL,
+  BUSINESS_NAME,
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
+  MAPS_URL,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  WHATSAPP_URL,
+} from '@/lib/contact'
 import InstagramIcon from '@/components/ui/InstagramIcon'
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 
 export default function Footer() {
   return (
@@ -27,6 +39,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="btn-glass btn-glass-on-dark"
             >
+              <WhatsAppIcon size={18} />
               WhatsApp Jass
             </a>
           </div>
@@ -35,32 +48,66 @@ export default function Footer() {
 
       <footer>
         <div className="footer-inner">
-          <a href="#hero" className="footer-logo" aria-label="Back to top">
+          <a href="/" className="footer-logo" aria-label="Back to home">
             <Image
               src="/images/raindrop-logo.png"
-              alt="Raindrop Beauty Salon"
+              alt={BUSINESS_NAME}
               width={120}
               height={120}
               className="footer-logo-img"
             />
           </a>
 
-          <a href={PHONE_TEL} className="footer-ig">
-            {PHONE_DISPLAY}
-          </a>
+          <div className="footer-link-cols">
+            <nav className="footer-link-col" aria-label="Our main services">
+              <h3 className="footer-link-heading">Our main services</h3>
+              <ul>
+                {SERVICES.map(service => (
+                  <li key={service.slug}>
+                    <a href={service.href}>{service.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <nav className="footer-link-col" aria-label="Areas we serve">
+              <h3 className="footer-link-heading">Areas we serve</h3>
+              <ul>
+                {AREAS.map(area => (
+                  <li key={area.slug}>
+                    <a href={area.href}>{area.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          <address className="footer-nap">
+            <span className="footer-nap-name">{BUSINESS_NAME}</span>
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-ig"
+            >
+              {ADDRESS_FULL}
+            </a>
+            <a href={PHONE_TEL} className="footer-ig">
+              {PHONE_DISPLAY}
+            </a>
+          </address>
 
           <a
-            href="https://www.instagram.com/raindrops_beauty_salon/"
+            href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="footer-ig"
           >
             <InstagramIcon size={14} gradientId="ig-grad-footer" />
-            @raindrops_beauty_salon
+            {INSTAGRAM_HANDLE}
           </a>
 
           <p className="footer-copy">
-            &copy; 2026 Raindrops Beauty Salon Ltd. Abbotsford, BC.
+            &copy; 2026 {BUSINESS_NAME}
           </p>
         </div>
       </footer>

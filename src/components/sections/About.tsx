@@ -62,7 +62,7 @@ export default function About() {
                 </div>
               ))}
             </div>
-            <a href="#contact" className="about-cta" data-reveal>
+            <a href="/#contact" className="about-cta" data-reveal>
               Book with Jass
             </a>
           </div>

@@ -21,7 +21,7 @@ export default function BridalSpotlight() {
       <div className="section-inner">
         <span className="eyebrow" data-reveal>Bridal Spotlight</span>
         <h2 className="section-title" data-reveal>
-          Looks for Your <em>Special Day</em>
+          Bridal Makeup <em>Abbotsford</em>
         </h2>
         <div className="gold-divider" />
         <p className="bridal-lead" data-reveal>
