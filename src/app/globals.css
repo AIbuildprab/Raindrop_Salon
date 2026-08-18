@@ -270,6 +270,10 @@ h1, h2, h3, h4 {
   .hero-glow,
   .hero-ripples span { animation: none; }
   .wa-float::before  { animation: none; }
+  .hair-rail-track   { scroll-behavior: auto; }
+  .hair-rail-card,
+  .hair-rail-img     { transition: none; }
+  .hair-lightbox     { animation: none; }
 }
 
 /* ─── WhatsApp float ─────────────────────────────────────────────── */
@@ -1461,6 +1465,278 @@ video.ig-cell-image {
 .g-reviews-prev { left: -0.15rem; }
 .g-reviews-next { right: 0; }
 
+/* ─── Hair transformations rail ──────────────────────────────────── */
+.hair-rail-section.section-dark {
+  background:
+    radial-gradient(ellipse 55% 60% at 15% 15%, rgba(197,160,89,0.12) 0%, transparent 60%),
+    var(--espresso);
+}
+.hair-rail-section .section-title { color: #FAF6F0; }
+.hair-rail-section .section-title em { color: var(--gold-bright); }
+.hair-rail-section .eyebrow { color: var(--gold); }
+.hair-rail-section .eyebrow::before { background-color: var(--gold); }
+.hair-rail-lead {
+  max-width: 34rem;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  font-weight: 300;
+  color: rgba(250,246,240,0.62);
+}
+
+.hair-rail-carousel {
+  position: relative;
+  min-width: 0;
+  margin-top: 2.25rem;
+}
+.hair-rail-carousel::before,
+.hair-rail-carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.hair-rail-carousel::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--espresso) 15%, rgba(26,18,11,0) 100%);
+}
+.hair-rail-carousel::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--espresso) 15%, rgba(26,18,11,0) 100%);
+}
+.hair-rail-carousel.fade-left::before,
+.hair-rail-carousel.fade-right::after { opacity: 1; }
+
+.hair-rail-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0.25rem 3rem 0.75rem 0.25rem;
+  /* Snap positions must respect the gutter, or the rail rests at scrollLeft > 0. */
+  scroll-padding-left: 0.25rem;
+  -webkit-overflow-scrolling: touch;
+  /* Stop a swipe past either end turning into browser back / page bounce. */
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  cursor: grab;
+}
+.hair-rail-track::-webkit-scrollbar { display: none; }
+.hair-rail-track:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 6px;
+}
+.hair-rail-track.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+.hair-rail-track.is-dragging .hair-rail-card { pointer-events: none; }
+
+.hair-rail-card {
+  position: relative;
+  flex: 0 0 clamp(250px, 28vw, 356px);
+  scroll-snap-align: start;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: 1px solid rgba(197,160,89,0.28);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #14100c;
+  cursor: zoom-in;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+/* Hover only where a real pointer exists, or the lift sticks after a tap. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hair-rail-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(212,175,55,0.6);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.18);
+  }
+  .hair-rail-card:hover .hair-rail-img { transform: scale(1.04); }
+}
+.hair-rail-card:active { border-color: rgba(212,175,55,0.5); }
+.hair-rail-card:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+.hair-rail-img {
+  object-fit: cover;
+  object-position: center 32%;
+  transition: transform 0.6s ease;
+}
+.hair-rail-scrim {
+  position: absolute;
+  inset: 40% 0 0;
+  background: linear-gradient(180deg, rgba(26,18,11,0) 0%, rgba(26,18,11,0.82) 78%);
+}
+.hair-rail-caption {
+  position: absolute;
+  left: 1.05rem;
+  right: 1.05rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: left;
+}
+.hair-rail-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1.15;
+  color: #FAF6F0;
+}
+.hair-rail-service {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+}
+
+.hair-rail-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(197,160,89,0.35);
+  background: rgba(20,16,12,0.92);
+  color: #FAF6F0;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background 0.2s, opacity 0.2s, border-color 0.2s;
+}
+.hair-rail-nav:hover:not(:disabled) {
+  background: rgba(197,160,89,0.3);
+  border-color: rgba(212,175,55,0.65);
+}
+.hair-rail-nav:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+.hair-rail-prev { left: -0.5rem; }
+.hair-rail-next { right: -0.5rem; }
+
+/* ─── Hair transformations lightbox ──────────────────────────────── */
+.hair-lightbox {
+  position: fixed;
+  inset: 0;
+  /* Above the WhatsApp float (z-index 200) and the fixed nav. */
+  z-index: 260;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(12,9,6,0.94);
+  backdrop-filter: blur(6px);
+  animation: hair-lightbox-in 0.25s ease;
+}
+@keyframes hair-lightbox-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.hair-lightbox-figure {
+  position: relative;
+  max-width: min(92vw, 640px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 0;
+}
+.hair-lightbox-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 76vh;
+  border-radius: 12px;
+  border: 1px solid rgba(197,160,89,0.3);
+}
+.hair-lightbox-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.9rem;
+}
+.hair-lightbox-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #FAF6F0;
+}
+.hair-lightbox-service {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+}
+.hair-lightbox-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: rgba(250,246,240,0.5);
+}
+.hair-lightbox-close,
+.hair-lightbox-nav {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(197,160,89,0.35);
+  background: rgba(20,16,12,0.85);
+  color: #FAF6F0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+.hair-lightbox-close:hover,
+.hair-lightbox-nav:hover {
+  background: rgba(197,160,89,0.3);
+  border-color: rgba(212,175,55,0.65);
+}
+.hair-lightbox-close:focus-visible,
+.hair-lightbox-nav:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+.hair-lightbox-close {
+  top: clamp(0.9rem, 3vw, 1.75rem);
+  right: clamp(0.9rem, 3vw, 1.75rem);
+  width: 44px;
+  height: 44px;
+  font-size: 1.6rem;
+}
+.hair-lightbox-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  font-size: 1.7rem;
+}
+.hair-lightbox-prev { left: clamp(0.5rem, 3vw, 2rem); }
+.hair-lightbox-next { right: clamp(0.5rem, 3vw, 2rem); }
+
 /* ─── Contact ────────────────────────────────────────────────────── */
 .contact-grid {
   display: grid;
@@ -2096,6 +2372,11 @@ footer::before {
   .g-reviews-summary       { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.75rem 1.25rem; padding: 1.25rem; }
   .g-reviews-track         { padding-right: 2.25rem; }
   .g-review-card           { flex-basis: min(280px, 85vw); min-height: 200px; }
+  .hair-rail-lead          { font-size: 0.9rem; }
+  .hair-rail-carousel      { margin-top: 1.75rem; }
+  .hair-rail-track         { padding-right: 1.25rem; gap: 1rem; }
+  .hair-rail-card          { flex-basis: min(72vw, 300px); }
+  .hair-rail-nav           { display: none; }
   .bridal-cards--grid      { grid-template-columns: 1fr; }
   .bridal-spotlight.section-dark { padding-top: 64px; padding-bottom: 64px; }
   .packages-grid           { grid-template-columns: 1fr; gap: 1.15rem; }
@@ -2330,6 +2611,37 @@ footer::before {
 
   .g-review-card           { padding: 1.05rem 1.1rem; min-height: 0; }
   .g-reviews-nav           { width: 32px; height: 32px; font-size: 1.2rem; }
+
+  /* Full-bleed rail so cards run to the screen edges */
+  .hair-rail-carousel      { margin-inline: -16px; }
+  .hair-rail-track         { padding: 0.25rem 16px 0.65rem; scroll-padding-left: 16px; }
+  .hair-rail-carousel::before,
+  .hair-rail-carousel::after { width: 36px; }
+  .hair-rail-card          { flex-basis: min(78vw, 280px); border-radius: 12px; }
+  .hair-rail-title         { font-size: 1.15rem; }
+  .hair-lightbox-title     { font-size: 1.25rem; }
+  .hair-lightbox-img       { max-height: 62vh; }
+
+  /* Controls sit clear of the photo instead of half off-screen on top of it. */
+  .hair-lightbox {
+    padding-top: calc(3.75rem + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  }
+  .hair-lightbox-close {
+    top: max(0.9rem, env(safe-area-inset-top, 0px));
+    right: 0.9rem;
+  }
+  .hair-lightbox-nav {
+    top: auto;
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    left: 50%;
+    right: auto;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+  }
+  .hair-lightbox-prev { transform: translateX(-3.25rem); }
+  .hair-lightbox-next { transform: translateX(0.5rem); }
 
   .faq-q-btn {
     padding: 1.1rem 1.15rem;

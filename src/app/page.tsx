@@ -5,6 +5,7 @@ import BridalSpotlight from '@/components/sections/BridalSpotlight'
 import Contact from '@/components/sections/Contact'
 import FaqAccordion from '@/components/sections/FaqAccordion'
 import GalleryGrid from '@/components/sections/GalleryGrid'
+import HairTransformations from '@/components/sections/HairTransformations'
 import Hero from '@/components/sections/Hero'
 import Reviews from '@/components/sections/Reviews'
 import ServicesAccordion from '@/components/sections/ServicesAccordion'
@@ -21,6 +22,7 @@ export default function Home() {
         <About />
         <BridalSpotlight />
         <ServicesAccordion />
+        <HairTransformations />
         <GalleryGrid />
         <Reviews />
         <FaqAccordion />
