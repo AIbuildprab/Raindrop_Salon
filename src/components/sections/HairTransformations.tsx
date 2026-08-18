@@ -158,7 +158,6 @@ export default function HairTransformations() {
       startScroll: el.scrollLeft,
       moved: 0,
     }
-    el.setPointerCapture(e.pointerId)
   }
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -170,6 +169,8 @@ export default function HairTransformations() {
     if (!drag.current.dragging) {
       drag.current.dragging = true
       setDragging(true)
+      // Capture only after a real drag so a click still reaches the card.
+      el.setPointerCapture(e.pointerId)
     }
     el.scrollLeft = drag.current.startScroll - dx
   }
