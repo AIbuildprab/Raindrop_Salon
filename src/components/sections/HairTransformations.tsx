@@ -108,7 +108,13 @@ function Lightbox({
 export default function HairTransformations() {
   const trackRef = useRef<HTMLDivElement>(null)
   const openerRef = useRef<HTMLButtonElement | null>(null)
-  const drag = useRef({ active: false, startX: 0, startScroll: 0, moved: 0 })
+  const drag = useRef({
+    active: false,
+    dragging: false,
+    startX: 0,
+    startScroll: 0,
+    moved: 0,
+  })
   const [canPrev, setCanPrev] = useState(false)
   const [canNext, setCanNext] = useState(true)
   const [dragging, setDragging] = useState(false)
@@ -142,11 +148,17 @@ export default function HairTransformations() {
   }
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType !== 'mouse') return
+    if (e.pointerType !== 'mouse' || e.button !== 0) return
     const el = trackRef.current
     if (!el) return
-    drag.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft, moved: 0 }
-    setDragging(true)
+    drag.current = {
+      active: true,
+      dragging: false,
+      startX: e.clientX,
+      startScroll: el.scrollLeft,
+      moved: 0,
+    }
+    el.setPointerCapture(e.pointerId)
   }
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -154,13 +166,26 @@ export default function HairTransformations() {
     if (!drag.current.active || !el) return
     const dx = e.clientX - drag.current.startX
     drag.current.moved = Math.max(drag.current.moved, Math.abs(dx))
+    if (drag.current.moved <= DRAG_SLOP_PX) return
+    if (!drag.current.dragging) {
+      drag.current.dragging = true
+      setDragging(true)
+    }
     el.scrollLeft = drag.current.startScroll - dx
   }
 
-  const endDrag = () => {
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!drag.current.active) return
     drag.current.active = false
+    drag.current.dragging = false
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
     setDragging(false)
+    // Keep `moved` through the following `click`, then clear so later taps work.
+    window.setTimeout(() => {
+      drag.current.moved = 0
+    }, 0)
   }
 
   const openAt = (i: number, el: HTMLButtonElement) => {
@@ -208,7 +233,6 @@ export default function HairTransformations() {
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={endDrag}
-            onPointerLeave={endDrag}
             onPointerCancel={endDrag}
           >
             {HAIR_TRANSFORMATIONS.map((item, i) => (
