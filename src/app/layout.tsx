@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { BRAND_NAME } from '@/lib/contact'
 import { resolveSiteUrl } from '@/lib/site-url'
 import './globals.css'
@@ -71,6 +72,7 @@ export default function RootLayout({
       <body>
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
